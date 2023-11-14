@@ -56,7 +56,7 @@ public class LoginPanel extends JPanel{
         add(lblpass);
 
         //CAMBIO DE PANEL A PANEL 2
-        btnPanel2=new JButton("Continuar");
+        btnPanel2=new JButton("Ingresar");
         btnPanel2.setBounds(ancho / 2 - 75, alto / 2 + 50, 150, 40);
         add(btnPanel2);
         btnPanel2.addActionListener(new ActionListener() {
