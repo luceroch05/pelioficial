@@ -70,7 +70,7 @@ public class LoginPanel extends JPanel{
         });
         //IMAGEN LOG IN
         lbl = new JLabel();
-        ImageIcon icon = new ImageIcon("imagen\\pngusuario.png");
+        ImageIcon icon = new ImageIcon("src\\imagen\\pngusuario.png");
         int labelWidth = 100;
         int labelHeight = 100;
    

@@ -1,7 +1,6 @@
 com\proyecto\alquilerpelas\AlquilerPelas.class
 com\proyecto\alquilerpelas\paneles\LoginPanel.class
-com\proyecto\alquilerpelas\AlquilerPelas$1.class
-com\proyecto\alquilerpelas\paneles\LoginPanel$1.class
-com\proyecto\alquilerpelas\paneles\LoginPanel1.class
 com\proyecto\alquilerpelas\paneles\CarteleraPanel.class
 com\proyecto\alquilerpelas\paneles\CarteleraPanel$1.class
+com\proyecto\alquilerpelas\paneles\LoginPanel$1.class
+com\proyecto\alquilerpelas\paneles\LoginPanel1.class

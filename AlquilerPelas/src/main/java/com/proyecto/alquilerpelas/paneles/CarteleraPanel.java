@@ -15,7 +15,7 @@ import javax.swing.*;
 
 public class CarteleraPanel extends JPanel {
     JLabel lblPeliculas, lblSeries;
-    JButton btn1, btn2, btn3, btn4, btn5, btn6, btn7;
+    JButton btn1, btn2, btn3, btn4, btn5, btn6, btn7,btn8;
     LoginPanel lp;
 ActionEvent e;
     public CarteleraPanel(LoginPanel lp) {
@@ -37,10 +37,10 @@ ActionEvent e;
 
         add(lblSeries);
 
-        btn1 = createButton("imgPelis\\df.jpg", 0,0,100, 120);
+        btn1 = createButton("src\\main\\java\\img\\df.jpg", 0,0,100, 120);
         add(btn1);
 
-        btn2 = createButton("imgPelis\\interstellar.jpg",110,0,100, 120);
+        btn2 = createButton("src\\main\\java\\img\\fnaf.jpg",110,0,100, 120);
         add(btn2);
         btn2.addActionListener(new ActionListener() {
           @Override
@@ -49,10 +49,10 @@ ActionEvent e;
           }
       });
 
-        btn3 = createButton("imgPelis\\susi.jpg", 110*2,0,100, 120);
+        btn3 = createButton("src\\main\\java\\img\\interstellar.jpg", 110*2,0,100, 120);
         add(btn3);
 
-        btn4 = createButton("imgPelis\\fnaf.jpg",110*3,0, 100*2, 120*2);
+        btn4 = createButton("src\\main\\java\\img\\susi.jpg",110*3,0, 100*2, 120*2);
         add(btn4);
 
         // Puedes seguir agregando más botones si es necesario

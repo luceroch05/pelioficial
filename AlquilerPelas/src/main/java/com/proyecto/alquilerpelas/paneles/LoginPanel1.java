@@ -4,10 +4,7 @@
  */
 package com.proyecto.alquilerpelas.paneles;
 
-/**
- *
- * @author q-ql
- */
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
