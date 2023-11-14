@@ -8,6 +8,7 @@ package com.proyecto.alquilerpelas.paneles;
  *
  * @author q-ql
  */
+import com.proyecto.alquilerpelas.panelBuscaSocio;
 import javax.swing.*;
 
 import java.awt.*;
@@ -60,14 +61,22 @@ public class LoginPanel extends JPanel{
         btnPanel2.setBounds(ancho / 2 - 75, alto / 2 + 50, 150, 40);
         add(btnPanel2);
         btnPanel2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(LoginPanel.this);
-                frame.getContentPane().removeAll();
-                frame.getContentPane().add(new CarteleraPanel(LoginPanel.this));
-                frame.revalidate();
-                frame.repaint();
-            }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        
+        panelBuscaSocio panelBuscarSocio = new panelBuscaSocio();       
+        
+        
+        // Asegúrate de que el JFrame esté visible
+       
+        panelBuscarSocio.setVisible(true);
+        
+        System.out.print("Presione");
+        
+        }
+ 
         });
+
         //IMAGEN LOG IN
         lbl = new JLabel();
         ImageIcon icon = new ImageIcon("src\\imagen\\pngusuario.png");
