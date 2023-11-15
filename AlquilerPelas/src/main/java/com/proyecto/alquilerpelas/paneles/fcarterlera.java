@@ -36,8 +36,8 @@ public class fcarterlera extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jButton8 = new javax.swing.JButton();
@@ -60,7 +60,7 @@ public class fcarterlera extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnsusi.setIcon(new javax.swing.ImageIcon("C:\\Users\\santo\\Desktop\\fullpeli\\AlquilerPelas\\AlquilerPelas\\src\\main\\java\\img\\susi.jpg")); // NOI18N
+        btnsusi.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\netbeans\\AlquilerPelas\\AlquilerPelas\\src\\main\\java\\com\\proyecto\\alquilerpelas\\paneles\\susi.jpg")); // NOI18N
         btnsusi.setText("jButton1");
         btnsusi.setPreferredSize(new java.awt.Dimension(500, 600));
         btnsusi.addActionListener(new java.awt.event.ActionListener() {
@@ -109,7 +109,7 @@ public class fcarterlera extends javax.swing.JFrame {
                 .addGap(26, 26, 26))
         );
 
-        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\santo\\Desktop\\fullpeli\\AlquilerPelas\\AlquilerPelas\\src\\main\\java\\img\\fnaf.jpg")); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fnaf.jpg"))); // NOI18N
         jButton2.setText("jButton1");
         jButton2.setPreferredSize(new java.awt.Dimension(120, 169));
         jPanel5.add(jButton2);
@@ -124,25 +124,29 @@ public class fcarterlera extends javax.swing.JFrame {
         jButton6.setPreferredSize(new java.awt.Dimension(120, 169));
         jPanel5.add(jButton6);
 
+        jButton3.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\netbeans\\AlquilerPelas\\AlquilerPelas\\src\\main\\java\\img\\unnamed.jpg")); // NOI18N
+        jButton3.setText("jButton1");
+        jButton3.setPreferredSize(new java.awt.Dimension(120, 169));
+        jPanel5.add(jButton3);
+
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/proyecto/alquilerpelas/paneles/avengers.jpg"))); // NOI18N
         jButton7.setText("jButton1");
         jButton7.setPreferredSize(new java.awt.Dimension(120, 169));
         jPanel5.add(jButton7);
 
-        jButton3.setText("jButton1");
-        jButton3.setPreferredSize(new java.awt.Dimension(120, 169));
-        jPanel5.add(jButton3);
-
+        jButton4.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\netbeans\\AlquilerPelas\\AlquilerPelas\\src\\main\\java\\img\\ironman.jpg")); // NOI18N
         jButton4.setText("jButton1");
         jButton4.setPreferredSize(new java.awt.Dimension(120, 169));
         jPanel5.add(jButton4);
 
         jPanel6.setPreferredSize(new java.awt.Dimension(120, 169));
 
+        jButton8.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\netbeans\\AlquilerPelas\\AlquilerPelas\\src\\main\\java\\img\\monster.jpg")); // NOI18N
         jButton8.setText("jButton1");
         jButton8.setPreferredSize(new java.awt.Dimension(120, 169));
         jPanel6.add(jButton8);
 
+        jButton9.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\netbeans\\AlquilerPelas\\AlquilerPelas\\src\\main\\java\\img\\ted.jpg")); // NOI18N
         jButton9.setText("jButton1");
         jButton9.setPreferredSize(new java.awt.Dimension(120, 169));
         jButton9.addActionListener(new java.awt.event.ActionListener() {
@@ -152,42 +156,52 @@ public class fcarterlera extends javax.swing.JFrame {
         });
         jPanel6.add(jButton9);
 
+        jButton10.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\netbeans\\AlquilerPelas\\AlquilerPelas\\src\\main\\java\\img\\pedito.jpg")); // NOI18N
         jButton10.setText("jButton1");
         jButton10.setPreferredSize(new java.awt.Dimension(120, 169));
         jPanel6.add(jButton10);
 
+        jButton11.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\netbeans\\AlquilerPelas\\AlquilerPelas\\src\\main\\java\\img\\lorax.jpg")); // NOI18N
         jButton11.setText("jButton1");
         jButton11.setPreferredSize(new java.awt.Dimension(120, 169));
         jPanel6.add(jButton11);
 
+        jButton12.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\netbeans\\AlquilerPelas\\AlquilerPelas\\src\\main\\java\\img\\tengoFE.jpg")); // NOI18N
         jButton12.setText("jButton1");
         jButton12.setPreferredSize(new java.awt.Dimension(120, 169));
         jPanel6.add(jButton12);
 
+        jButton13.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\netbeans\\AlquilerPelas\\AlquilerPelas\\src\\main\\java\\img\\deadpool.jpg")); // NOI18N
         jButton13.setText("jButton1");
         jButton13.setPreferredSize(new java.awt.Dimension(120, 169));
         jPanel6.add(jButton13);
 
+        jButton14.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\netbeans\\AlquilerPelas\\AlquilerPelas\\src\\main\\java\\img\\spirit.jpg")); // NOI18N
         jButton14.setText("jButton1");
         jButton14.setPreferredSize(new java.awt.Dimension(120, 169));
         jPanel7.add(jButton14);
 
+        jButton15.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\netbeans\\AlquilerPelas\\AlquilerPelas\\src\\main\\java\\img\\proyectoX.jpg")); // NOI18N
         jButton15.setText("jButton1");
         jButton15.setPreferredSize(new java.awt.Dimension(120, 169));
         jPanel7.add(jButton15);
 
+        jButton16.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\netbeans\\AlquilerPelas\\AlquilerPelas\\src\\main\\java\\img\\enigma.jpg")); // NOI18N
         jButton16.setText("jButton1");
         jButton16.setPreferredSize(new java.awt.Dimension(120, 169));
         jPanel7.add(jButton16);
 
+        jButton17.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\netbeans\\AlquilerPelas\\AlquilerPelas\\src\\main\\java\\img\\batman.jpg")); // NOI18N
         jButton17.setText("jButton1");
         jButton17.setPreferredSize(new java.awt.Dimension(120, 169));
         jPanel7.add(jButton17);
 
+        jButton18.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\netbeans\\AlquilerPelas\\AlquilerPelas\\src\\main\\java\\img\\midiosLOKI.jpg")); // NOI18N
         jButton18.setText("jButton1");
         jButton18.setPreferredSize(new java.awt.Dimension(120, 169));
         jPanel7.add(jButton18);
 
+        jButton19.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\netbeans\\AlquilerPelas\\AlquilerPelas\\src\\main\\java\\img\\ultimosoldado.jpg")); // NOI18N
         jButton19.setText("jButton1");
         jButton19.setPreferredSize(new java.awt.Dimension(120, 169));
         jPanel7.add(jButton19);
@@ -201,17 +215,16 @@ public class fcarterlera extends javax.swing.JFrame {
         panelContenedorLayout.setHorizontalGroup(
             panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelContenedorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, 18)
+                .addGroup(panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelContenedorLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 844, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 763, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(472, Short.MAX_VALUE))
         );
         panelContenedorLayout.setVerticalGroup(
             panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,12 +255,11 @@ public class fcarterlera extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 868, Short.MAX_VALUE)
+            .addGap(0, 1428, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panelContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(panelContenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,7 +268,7 @@ public class fcarterlera extends javax.swing.JFrame {
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(panelContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(20, Short.MAX_VALUE)))
         );
 
         pack();

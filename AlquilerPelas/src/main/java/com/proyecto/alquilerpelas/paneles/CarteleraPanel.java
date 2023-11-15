@@ -15,13 +15,12 @@ import javax.swing.*;
 
 public class CarteleraPanel extends JPanel {
     JLabel lblPeliculas, lblSeries;
-    JButton btn1, btn2, btn3, btn4, btn5, btn6, btn7,btn8;
+    JButton btn1, btn2, btn3, btn4,btncontinuar;
     LoginPanel lp;
 ActionEvent e;
     public CarteleraPanel(LoginPanel lp) {
         this.lp = lp;
         setLayout(null); // Utilizar un LayoutManager apropiado
-
         this.setBackground(lp.getColor());
 
         lblPeliculas = new JLabel("Películas");
@@ -33,13 +32,28 @@ ActionEvent e;
         lblSeries = new JLabel("Series");
         lblSeries.setForeground(Color.white);
         lblSeries.setFont(lp.getFont());
-     lblSeries.setBounds(150,10,100,20);
-
+        lblSeries.setBounds(150,10,100,20);
         add(lblSeries);
-
+        
+        btncontinuar=new JButton("Continuar");
+        btncontinuar.setBounds(900,600,130,30);
+        btncontinuar.setFont(lp.getFont());
+        btncontinuar.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e){
+               JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(CarteleraPanel.this);
+                frame.getContentPane().removeAll();
+                frame.getContentPane().add(new datoscartelera(CarteleraPanel.this));
+                frame.revalidate();
+                frame.repaint();
+            }
+        }
+        );
+        add(btncontinuar);
+        
+       //BOTONES CARTELERA
         btn1 = createButton("src\\main\\java\\img\\df.jpg", 0,0,100, 120);
         add(btn1);
-
         btn2 = createButton("src\\main\\java\\img\\fnaf.jpg",110,0,100, 120);
         add(btn2);
         btn2.addActionListener(new ActionListener() {
@@ -48,7 +62,6 @@ ActionEvent e;
               // Aquí colocas la lógica que quieres que se ejecute cuando se presiona el botón
           }
       });
-
         btn3 = createButton("src\\main\\java\\img\\interstellar.jpg", 110*2,0,100, 120);
         add(btn3);
 
