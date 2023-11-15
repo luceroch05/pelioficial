@@ -5,6 +5,7 @@
 package peaches.pelioficial;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
 import javax.swing.UIManager;
 
 /**
@@ -26,12 +27,12 @@ public class framePrincipal extends javax.swing.JFrame {
         Fondo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtuser = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtpassword = new javax.swing.JPasswordField();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -49,16 +50,24 @@ public class framePrincipal extends javax.swing.JFrame {
         jLabel2.setText("¡Bienvenido!");
         Fondo.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 250, 40));
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField1.setText("usuario");
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        txtuser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtuser.setForeground(new java.awt.Color(204, 204, 204));
+        txtuser.setText("usuario");
+        txtuser.setBorder(null);
+        txtuser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtuserMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtuserMousePressed(evt);
             }
         });
-        Fondo.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, 250, 30));
+        txtuser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtuserActionPerformed(evt);
+            }
+        });
+        Fondo.add(txtuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, 250, 30));
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         Fondo.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 250, 20));
@@ -78,10 +87,18 @@ public class framePrincipal extends javax.swing.JFrame {
         jButton1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         Fondo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, 250, 30));
 
-        jPasswordField1.setForeground(new java.awt.Color(204, 204, 204));
-        jPasswordField1.setText("jPasswordField1");
-        jPasswordField1.setBorder(null);
-        Fondo.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 240, -1));
+        txtpassword.setForeground(new java.awt.Color(204, 204, 204));
+        txtpassword.setText("jPasswordField1");
+        txtpassword.setBorder(null);
+        txtpassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtpasswordMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtpasswordMousePressed(evt);
+            }
+        });
+        Fondo.add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 240, -1));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setPreferredSize(new java.awt.Dimension(920, 18));
@@ -124,7 +141,7 @@ public class framePrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, 920, Short.MAX_VALUE)
+            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,9 +152,10 @@ public class framePrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void txtuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtuserActionPerformed
+
+
+    }//GEN-LAST:event_txtuserActionPerformed
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
 xMouse = evt.getX();
@@ -154,6 +172,30 @@ yMouse = evt.getY();
         System.exit(0);
     }//GEN-LAST:event_jLabel4MouseClicked
 
+    private void txtuserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtuserMouseClicked
+  
+        
+    }//GEN-LAST:event_txtuserMouseClicked
+
+    private void txtpasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtpasswordMouseClicked
+       
+
+    }//GEN-LAST:event_txtpasswordMouseClicked
+
+    private void txtuserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtuserMousePressed
+       txtuser.setText("");
+        txtuser.setForeground(Color.black);
+     
+
+    }//GEN-LAST:event_txtuserMousePressed
+
+    private void txtpasswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtpasswordMousePressed
+        txtpassword.setText("");
+        txtpassword.setForeground(Color.black);
+         
+        
+    }//GEN-LAST:event_txtpasswordMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -167,9 +209,9 @@ yMouse = evt.getY();
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField txtpassword;
+    private javax.swing.JTextField txtuser;
     // End of variables declaration//GEN-END:variables
 }
