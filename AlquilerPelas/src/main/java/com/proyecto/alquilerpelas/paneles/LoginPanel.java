@@ -68,7 +68,7 @@ public class LoginPanel extends JPanel{
         
               JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(LoginPanel.this);
                 frame.getContentPane().removeAll();
-                frame.getContentPane().add(new PanelBuscarSocio());
+                frame.getContentPane().add(new panelBuscaSocio());
                 
               frame.revalidate();
                 frame.repaint();
@@ -83,7 +83,7 @@ public class LoginPanel extends JPanel{
 
         //IMAGEN LOG IN
         lbl = new JLabel();
-        ImageIcon icon = new ImageIcon("src\\imagen\\pngusuario.png");
+        ImageIcon icon = new ImageIcon("img\\pngusuario.png");
         int labelWidth = 100;
         int labelHeight = 100;
    
