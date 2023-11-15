@@ -16,9 +16,10 @@ import javax.swing.SwingUtilities;
 import java.awt.*;
 
 public class AlquilerPelas{ 
+    public static JFrame ventana;
    public static void main(String[] args) {
 
-   /* SwingUtilities.invokeLater(new Runnable() {
+   /*SwingUtilities.invokeLater(new Runnable() {
         public void run(){
             LoginPanel1 login = new LoginPanel1();
             login.setVisible(true);
@@ -48,15 +49,16 @@ public class AlquilerPelas{
         //</editor-fold>
 
         /* Create and display the form */
-        SwingUtilities.invokeLater(new Runnable() {
+      /*  SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new pane().setVisible(true);
+            
+              new pane().setVisible(true);
             }
-        });
+        });*/
         
-    /*
-    JFrame ventana;
+    
+   
     ventana = new JFrame("Alquiler de pela");
     ventana.add(new LoginPanel());
     ventana.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -65,7 +67,7 @@ public class AlquilerPelas{
 
     ventana.setVisible(true);
     
-     */
+     
     }
 
 }

@@ -64,16 +64,20 @@ public class LoginPanel extends JPanel{
         @Override
         public void actionPerformed(ActionEvent e) {
         
-        panelBuscaSocio panelBuscarSocio = new panelBuscaSocio();       
+        //panelBuscaSocio pbs = new panelBuscaSocio();       
         
-        
-        // Asegúrate de que el JFrame esté visible
-       
-        panelBuscarSocio.setVisible(true);
-        
+              JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(LoginPanel.this);
+                frame.getContentPane().removeAll();
+                frame.getContentPane().add(new PanelBuscarSocio());
+                
+              frame.revalidate();
+                frame.repaint();
+                
         System.out.print("Presione");
         
         }
+
+       
  
         });
 
