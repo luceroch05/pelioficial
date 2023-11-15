@@ -7,6 +7,7 @@ package peaches.pelioficial;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatCarbonIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
+import static database.DatabaseConnector.conectar;
 import javax.swing.UIManager;
 
 /**
@@ -16,6 +17,8 @@ import javax.swing.UIManager;
 public class Pelioficial {
 
     public static void main(String[] args) {
+        
+        conectar();
 
 
 
