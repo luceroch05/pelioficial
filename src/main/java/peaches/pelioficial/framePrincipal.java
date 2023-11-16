@@ -206,7 +206,7 @@ yMouse = evt.getY();
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
            
-            panelMenu menu = new panelMenu();
+            panelCartelera pc = new panelCartelera();
 
             // Cambia el layout del contenedor principal a BorderLayout
             this.setLayout(new BorderLayout());
@@ -215,7 +215,7 @@ yMouse = evt.getY();
             this.getContentPane().removeAll();
 
             // Agrega el panelMenu al centro del contenedor principal
-            this.add(menu, BorderLayout.CENTER);
+            this.add(pc, BorderLayout.CENTER);
 
             // Revalida y repinta el contenedor principal
             this.revalidate();
