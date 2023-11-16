@@ -6,6 +6,10 @@ package peaches.pelioficial;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 /**
@@ -14,9 +18,13 @@ import javax.swing.UIManager;
  */
 public class framePrincipal extends javax.swing.JFrame {
 
+    
 
     public framePrincipal() {
         initComponents();
+        
+      
+    
     }
 
  int xMouse, yMouse;
@@ -31,19 +39,20 @@ public class framePrincipal extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btningresar = new javax.swing.JButton();
         txtpassword = new javax.swing.JPasswordField();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("frame"); // NOI18N
         setUndecorated(true);
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setForeground(new java.awt.Color(255, 153, 153));
         Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\q-ql\\Desktop\\Proyecto0\\pelioficial\\src\\main\\java\\com\\imgs\\73044c5fca37ec52b1ecebdd9aad6b42.jpg")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\santo\\Desktop\\pelaas\\pelioficial\\src\\main\\java\\com\\imgs\\73044c5fca37ec52b1ecebdd9aad6b42.jpg")); // NOI18N
         Fondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, 440, 520));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
@@ -79,13 +88,13 @@ public class framePrincipal extends javax.swing.JFrame {
         jLabel3.setText("Iniciar Sesión");
         Fondo.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 170, 30));
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Ingresar");
-        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jButton1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        Fondo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, 250, 30));
+        btningresar.setBackground(new java.awt.Color(0, 0, 0));
+        btningresar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        btningresar.setForeground(new java.awt.Color(255, 255, 255));
+        btningresar.setText("Ingresar");
+        btningresar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btningresar.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        Fondo.add(btningresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, 250, 30));
 
         txtpassword.setForeground(new java.awt.Color(204, 204, 204));
         txtpassword.setText("jPasswordField1");
@@ -114,7 +123,6 @@ public class framePrincipal extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\q-ql\\Desktop\\Proyecto0\\pelioficial\\src\\main\\java\\com\\imgs\\close.png")); // NOI18N
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -203,7 +211,7 @@ yMouse = evt.getY();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Fondo;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btningresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -214,4 +222,7 @@ yMouse = evt.getY();
     private javax.swing.JPasswordField txtpassword;
     private javax.swing.JTextField txtuser;
     // End of variables declaration//GEN-END:variables
+
+    
+   
 }
