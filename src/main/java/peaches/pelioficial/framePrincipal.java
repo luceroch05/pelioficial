@@ -5,7 +5,10 @@
 package peaches.pelioficial;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 /**
@@ -42,8 +45,6 @@ public class framePrincipal extends javax.swing.JFrame {
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setForeground(new java.awt.Color(255, 153, 153));
         Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\q-ql\\Desktop\\Proyecto0\\pelioficial\\src\\main\\java\\com\\imgs\\73044c5fca37ec52b1ecebdd9aad6b42.jpg")); // NOI18N
         Fondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, 440, 520));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
@@ -85,6 +86,11 @@ public class framePrincipal extends javax.swing.JFrame {
         jButton1.setText("Ingresar");
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jButton1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         Fondo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, 250, 30));
 
         txtpassword.setForeground(new java.awt.Color(204, 204, 204));
@@ -114,7 +120,6 @@ public class framePrincipal extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\q-ql\\Desktop\\Proyecto0\\pelioficial\\src\\main\\java\\com\\imgs\\close.png")); // NOI18N
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -195,6 +200,25 @@ yMouse = evt.getY();
          
         
     }//GEN-LAST:event_txtpasswordMousePressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+           
+            panelMenu menu = new panelMenu();
+
+            // Cambia el layout del contenedor principal a BorderLayout
+            this.setLayout(new BorderLayout());
+
+            // Remueve todos los componentes del contenedor principal
+            this.getContentPane().removeAll();
+
+            // Agrega el panelMenu al centro del contenedor principal
+            this.add(menu, BorderLayout.CENTER);
+
+            // Revalida y repinta el contenedor principal
+            this.revalidate();
+            this.repaint();
+                    // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

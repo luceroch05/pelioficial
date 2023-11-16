@@ -1,11 +1,13 @@
 peaches\pelioficial\Pelioficial.class
-database\DatabaseConnector.class
-peaches\pelioficial\framePrincipal$4.class
+peaches\pelioficial\framePrincipal$7.class
 peaches\pelioficial\framePrincipal.class
-peaches\pelioficial\framePrincipal$5.class
 peaches\pelioficial\panelMenu.class
 peaches\pelioficial\Pelioficial$1.class
 peaches\pelioficial\framePrincipal$2.class
-peaches\pelioficial\framePrincipal$6.class
+modelo\ListaDeEspera.class
 peaches\pelioficial\framePrincipal$3.class
+database\DatabaseConnector.class
+peaches\pelioficial\framePrincipal$4.class
+peaches\pelioficial\framePrincipal$5.class
+peaches\pelioficial\framePrincipal$6.class
 peaches\pelioficial\framePrincipal$1.class
