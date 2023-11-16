@@ -140,7 +140,8 @@ public class panelMenu extends javax.swing.JPanel {
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Lucero\\Desktop\\pelioficial\\pelioficial\\src\\main\\java\\com\\imgs\\close.png")); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\santo\\Desktop\\pelaas\\pelioficial\\src\\main\\java\\com\\imgs\\close.png")); // NOI18N
+        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel7.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jLabel7MouseDragged(evt);
@@ -154,7 +155,7 @@ public class panelMenu extends javax.swing.JPanel {
                 jLabel7MousePressed(evt);
             }
         });
-        jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
+        jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 10, 20));
 
         jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 0, 60, 30));
 

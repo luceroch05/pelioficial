@@ -317,7 +317,10 @@
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Lucero\Desktop\pelioficial\pelioficial\src\main\java\com\imgs\close.png"/>
+                  <Image iconType="2" name="C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\com\imgs\close.png"/>
+                </Property>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
                 </Property>
               </Properties>
               <Events>
@@ -327,7 +330,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="30" y="10" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="30" y="10" width="10" height="20"/>
                 </Constraint>
               </Constraints>
             </Component>

@@ -2,6 +2,7 @@ modelo\Pelicula.class
 peaches\pelioficial\Pelioficial.class
 peaches\pelioficial\framePrincipal.class
 peaches\pelioficial\Pelioficial$1.class
+peaches\pelioficial\panelMenu$1.class
 modelo\ListaDeEspera.class
 peaches\pelioficial\framePrincipal$3.class
 DAO\Dao.class
@@ -13,6 +14,7 @@ DAO\SocioDAO.class
 peaches\pelioficial\panelMenu.class
 peaches\pelioficial\framePrincipal$2.class
 modelo\Prestamo.class
+peaches\pelioficial\panelMenu$2.class
 modelo\Socio.class
 peaches\pelioficial\framePrincipal$4.class
 modelo\Director.class
