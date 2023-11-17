@@ -1,9 +1,12 @@
 C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\modelo\Pelicula.java
+C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\DAO\ActorDAO.java
 C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\modelo\Actor.java
 C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\peaches\pelioficial\panelMenu.java
+C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\DAO\DirectorDAO.java
 C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\modelo\Cinta.java
 C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\modelo\ListaDeEspera.java
 C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\database\DatabaseConnector.java
+C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\DAO\CintaDAO.java
 C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\DAO\SocioDAO.java
 C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\modelo\Prestamo.java
 C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\modelo\Director.java
@@ -12,5 +15,6 @@ C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\peaches\pelioficial\fram
 C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\DAO\PeliculaDAO.java
 C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\modelo\Socio.java
 C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\DAO\PrestamoDAO.java
+C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\DAO\ListaEsperaDAO.java
 C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\peaches\pelioficial\panelCartelera.java
 C:\Users\santo\Desktop\pelaas\pelioficial\src\main\java\peaches\pelioficial\Pelioficial.java
