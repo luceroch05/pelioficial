@@ -61,14 +61,23 @@ public class DirectorDAO implements Dao<Director> {
     }
 
     @Override
-    public void save(Director director) {
+    public int save(Director director) {
         String sql = "INSERT INTO Directores (nombre) VALUES (?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        int generatedId = 0;
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, director.getNombre());
-            statement.executeUpdate();
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        generatedId = generatedKeys.getInt(1);
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return generatedId;
     }
 
     @Override

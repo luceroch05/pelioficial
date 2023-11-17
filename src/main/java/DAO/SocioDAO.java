@@ -70,20 +70,30 @@ public class SocioDAO implements Dao<Socio>{
     }
     
     @Override
-    public void save(Socio socio){
-        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO Socios (nombre, direccion, telefono, directores_favoritos, actores_favoritos, generos_preferidos) VALUES (?, ?, ?, ?, ?, ?)")){
+    public int save(Socio socio) {
+        String sql = "INSERT INTO Socios (nombre, direccion, telefono, directores_favoritos, actores_favoritos, generos_preferidos) VALUES (?, ?, ?, ?, ?, ?)";
+        int generatedId = 0;
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, socio.getNombre());
             statement.setString(2, socio.getDireccion());
             statement.setString(3, socio.getTelefono());
             statement.setString(4, socio.getDirectoresFavoritos());
             statement.setString(5, socio.getActoresFavoritos());
             statement.setString(6, socio.getGenerosPreferidos());
-            statement.executeUpdate();
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        generatedId = generatedKeys.getInt(1);
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return generatedId;
     }
-    
+
     @Override
     public void update(Socio socio, String[] params){
         String sql = "UPDATE Socios SET nombre = ?, direccion = ?, telefono = ?, directores_favoritos = ?, actores_favoritos = ?, generos_preferidos = ? WHERE socio_id = ?";

@@ -72,21 +72,30 @@ public class PrestamoDAO implements Dao<Prestamo>{
     }
     
     @Override
-    public void save(Prestamo prestamo){
+    public int save(Prestamo prestamo) {
         String sql = "INSERT INTO Prestamos (socio_id, cinta_id, fecha_prestamo, fecha_devolucion) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)){
-           statement.setInt(1, prestamo.getSocioId()); 
-           statement.setInt(2, prestamo.getCintaId()); 
-           statement.setDate(3, Date.valueOf(prestamo.getFechaPrestamo())); 
-           if(prestamo.getFechaDevolucion() != null){
-               statement.setDate(4, Date.valueOf(prestamo.getFechaDevolucion()));
-           }else{
-               statement.setNull(4, Types.DATE);
-           }
-           statement.executeUpdate();
+        int generatedId = 0;
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setInt(1, prestamo.getSocioId()); 
+            statement.setInt(2, prestamo.getCintaId()); 
+            statement.setDate(3, Date.valueOf(prestamo.getFechaPrestamo())); 
+            if (prestamo.getFechaDevolucion() != null) {
+                statement.setDate(4, Date.valueOf(prestamo.getFechaDevolucion()));
+            } else {
+                statement.setNull(4, Types.DATE);
+            }
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        generatedId = generatedKeys.getInt(1);
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return generatedId;
     }
     
     @Override
@@ -101,11 +110,13 @@ public class PrestamoDAO implements Dao<Prestamo>{
             }else{
                 statement.setNull(4, Types.DATE);
             }
-            
+            statement.setInt(5, prestamo.getPrestamoId());
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
     
     @Override
     public void delete(Prestamo prestamo){

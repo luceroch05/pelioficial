@@ -62,15 +62,24 @@ public class CintaDAO implements Dao<Cinta>{
     }
     
     @Override
-    public void save(Cinta cinta){
+    public int save(Cinta cinta) {
         String sql = "INSERT INTO Cintas (pelicula_id, estado) VALUES (?, ?)";
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        int generatedId = 0;
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, cinta.getPeliculaId());
             statement.setString(2, cinta.getEstado());
-            statement.executeUpdate();
-        } catch (SQLException e){
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        generatedId = generatedKeys.getInt(1);
+                    }
+                }
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+        return generatedId;
     }
     
     @Override

@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -65,19 +66,31 @@ public class PeliculaDAO implements Dao<Pelicula>{
     }
     
     @Override
-    public void save(Pelicula pelicula){
+    public int save(Pelicula pelicula) {
         String sql = "INSERT INTO Peliculas (titulo, genero, director_id) VALUES (?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)){
+        int generatedId = 0;
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, pelicula.getTitulo());
             statement.setString(2, pelicula.getGenero());
-            statement.setInt(3, pelicula.getDirectorId());
-            //
-            statement.executeUpdate();
+            if (pelicula.getDirectorId() > 0) { // Asumiendo que 0 indica un director no especificado
+                statement.setInt(3, pelicula.getDirectorId());
+            } else {
+                statement.setNull(3, Types.INTEGER); // Si el director_id es 0, seteamos a null
+            }
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        generatedId = generatedKeys.getInt(1);
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return generatedId;
     }
-    
+
     @Override
     public void update(Pelicula pelicula, String[] params){
         String sql = "UPDATE Peliculas SET titulo = ?, genero = ?, director_id = ? WHERE pelicula_id = ?";

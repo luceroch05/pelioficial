@@ -65,16 +65,25 @@ public class ListaEsperaDAO implements Dao<ListaDeEspera>{
     }
     
     @Override
-    public void save(ListaDeEspera listaDeEspera){
+    public int save(ListaDeEspera listaDeEspera) {
         String sql = "INSERT INTO ListaEspera (pelicula_id, socio_id, fecha_solicitud) VALUES (?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)){
+        int generatedId = 0;
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, listaDeEspera.getPeliculaId());
             statement.setInt(2, listaDeEspera.getSocioId());
             statement.setDate(3, Date.valueOf(listaDeEspera.getFechaSolicitud()));
-            statement.executeUpdate();
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        generatedId = generatedKeys.getInt(1);
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return generatedId;
     }
     
     @Override
