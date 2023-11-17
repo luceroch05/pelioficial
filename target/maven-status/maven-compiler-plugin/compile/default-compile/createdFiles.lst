@@ -14,6 +14,7 @@ DAO\DirectorDAO.class
 peaches\pelioficial\panelMenu$9.class
 peaches\pelioficial\panelCartelera$10.class
 peaches\pelioficial\panelCartelera$20.class
+peaches\pelioficial\panelMenu$18.class
 peaches\pelioficial\panelCartelera$2.class
 DAO\SocioDAO.class
 peaches\pelioficial\panelMenu.class
@@ -25,6 +26,7 @@ peaches\pelioficial\panelMenu$11.class
 modelo\Prestamo.class
 peaches\pelioficial\panelCartelera$17.class
 modelo\Director.class
+peaches\pelioficial\panelMenu$22.class
 peaches\pelioficial\panelCartelera$11.class
 peaches\pelioficial\panelMenu$3.class
 peaches\pelioficial\framePrincipal$6.class
@@ -36,11 +38,14 @@ peaches\pelioficial\panelMenu$10.class
 peaches\pelioficial\panelCartelera$8.class
 peaches\pelioficial\Pelioficial$1.class
 peaches\pelioficial\panelMenu$1.class
+peaches\pelioficial\panelMenu$20.class
+peaches\pelioficial\panelMenu$17.class
 DAO\Dao.class
 peaches\pelioficial\panelCartelera$1.class
 peaches\pelioficial\panelCartelera$16.class
 peaches\pelioficial\panelCartelera$12.class
 peaches\pelioficial\panelMenu$13.class
+peaches\pelioficial\panelMenu$23.class
 DAO\ActorDAO.class
 peaches\pelioficial\framePrincipal$5.class
 peaches\pelioficial\panelCartelera$5.class
@@ -51,10 +56,12 @@ peaches\pelioficial\panelCartelera$15.class
 DAO\PeliculaDAO.class
 peaches\pelioficial\panelMenu$5.class
 peaches\pelioficial\panelCartelera$13.class
+peaches\pelioficial\panelMenu$21.class
 peaches\pelioficial\panelCartelera$7.class
 DAO\CintaDAO.class
 peaches\pelioficial\panelMenu$2.class
 modelo\Socio.class
+peaches\pelioficial\panelMenu$19.class
 peaches\pelioficial\framePrincipal$4.class
 modelo\Actor.class
 peaches\pelioficial\panelCartelera$19.class

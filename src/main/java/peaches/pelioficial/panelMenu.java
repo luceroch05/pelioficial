@@ -4,6 +4,8 @@
  */
 package peaches.pelioficial;
 
+import java.awt.BorderLayout;
+
 /**
  *
  * @author Lucero
@@ -67,7 +69,16 @@ public class panelMenu extends javax.swing.JPanel {
         jSeparator3 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
         pDevoluciones = new javax.swing.JPanel();
-        pPeliPrestadas = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jTextField12 = new javax.swing.JTextField();
+        jSeparator8 = new javax.swing.JSeparator();
+        jTextField13 = new javax.swing.JTextField();
+        jSeparator9 = new javax.swing.JSeparator();
+        jButton2 = new javax.swing.JButton();
+        pSocio = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -77,7 +88,7 @@ public class panelMenu extends javax.swing.JPanel {
         btnpeliprestadas.setBackground(new java.awt.Color(0, 0, 0));
         btnpeliprestadas.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         btnpeliprestadas.setForeground(new java.awt.Color(255, 255, 255));
-        btnpeliprestadas.setText("PELICULAS PRESTADAS");
+        btnpeliprestadas.setText("SOCIOS");
         btnpeliprestadas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         btnpeliprestadas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -113,6 +124,11 @@ public class panelMenu extends javax.swing.JPanel {
                 btnprestacionesMouseClicked(evt);
             }
         });
+        btnprestaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnprestacionesActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnprestaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 250, 40));
 
         btndevoluciones.setBackground(new java.awt.Color(0, 0, 0));
@@ -123,6 +139,11 @@ public class panelMenu extends javax.swing.JPanel {
         btndevoluciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btndevolucionesMouseClicked(evt);
+            }
+        });
+        btndevoluciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndevolucionesActionPerformed(evt);
             }
         });
         jPanel1.add(btndevoluciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 250, 40));
@@ -173,11 +194,15 @@ public class panelMenu extends javax.swing.JPanel {
         jButton5.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("Registrar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         pRegistrarSocio.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 410, 250, 40));
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\santo\\Desktop\\pelaas\\pelioficial\\src\\main\\java\\com\\imgs\\close.png")); // NOI18N
         jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel7.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -348,39 +373,101 @@ public class panelMenu extends javax.swing.JPanel {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("SOLICITAR");
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         pPrestaciones.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, 220, 30));
 
         tabbedPane.addTab("tab2", pPrestaciones);
 
-        pDevoluciones.setBackground(new java.awt.Color(204, 255, 153));
+        pDevoluciones.setBackground(new java.awt.Color(255, 255, 255));
+        pDevoluciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout pDevolucionesLayout = new javax.swing.GroupLayout(pDevoluciones);
-        pDevoluciones.setLayout(pDevolucionesLayout);
-        pDevolucionesLayout.setHorizontalGroup(
-            pDevolucionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 890, Short.MAX_VALUE)
-        );
-        pDevolucionesLayout.setVerticalGroup(
-            pDevolucionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 485, Short.MAX_VALUE)
-        );
+        jLabel13.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel13.setText("ID Prestamo");
+        pDevoluciones.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 110, 20));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel14.setText("Fecha de Entrega:");
+        pDevoluciones.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 150, 20));
+
+        jTextField12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextField12.setForeground(new java.awt.Color(204, 204, 204));
+        jTextField12.setText("codigo");
+        jTextField12.setBorder(null);
+        jTextField12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField12ActionPerformed(evt);
+            }
+        });
+        pDevoluciones.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, 160, 30));
+
+        jSeparator8.setForeground(new java.awt.Color(0, 0, 0));
+        pDevoluciones.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 210, 20));
+
+        jTextField13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextField13.setForeground(new java.awt.Color(204, 204, 204));
+        jTextField13.setText("dd/mm/yy");
+        jTextField13.setBorder(null);
+        jTextField13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField13ActionPerformed(evt);
+            }
+        });
+        pDevoluciones.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 160, 30));
+
+        jSeparator9.setForeground(new java.awt.Color(0, 0, 0));
+        pDevoluciones.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, 210, 20));
+
+        jButton2.setBackground(new java.awt.Color(0, 0, 0));
+        jButton2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("SOLICITAR");
+        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        pDevoluciones.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, 220, 30));
 
         tabbedPane.addTab("tab3", pDevoluciones);
 
-        pPeliPrestadas.setBackground(new java.awt.Color(0, 204, 204));
+        pSocio.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout pPeliPrestadasLayout = new javax.swing.GroupLayout(pPeliPrestadas);
-        pPeliPrestadas.setLayout(pPeliPrestadasLayout);
-        pPeliPrestadasLayout.setHorizontalGroup(
-            pPeliPrestadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 890, Short.MAX_VALUE)
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "IDSocio", "Dirección", "Teléfono", "Directores favoritos", "Actores favoritos", "Géneros favoritos"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        javax.swing.GroupLayout pSocioLayout = new javax.swing.GroupLayout(pSocio);
+        pSocio.setLayout(pSocioLayout);
+        pSocioLayout.setHorizontalGroup(
+            pSocioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pSocioLayout.createSequentialGroup()
+                .addGap(73, 73, 73)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(189, Short.MAX_VALUE))
         );
-        pPeliPrestadasLayout.setVerticalGroup(
-            pPeliPrestadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 485, Short.MAX_VALUE)
+        pSocioLayout.setVerticalGroup(
+            pSocioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pSocioLayout.createSequentialGroup()
+                .addGap(136, 136, 136)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(170, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab("tab4", pPeliPrestadas);
+        tabbedPane.addTab("tab4", pSocio);
 
         add(tabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, -10, 890, 520));
     }// </editor-fold>//GEN-END:initComponents
@@ -464,6 +551,59 @@ tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField18ActionPerformed
 
+    private void btndevolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndevolucionesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btndevolucionesActionPerformed
+
+    private void btnprestacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnprestacionesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnprestacionesActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+             panelCartelera pc= new panelCartelera();
+       
+            // Cambia el layout del contenedor principal a BorderLayout
+            this.setLayout(new BorderLayout());
+
+            // Remueve todos los componentes del contenedor principal
+            this.removeAll();
+
+            // Agrega el panelMenu al centro del contenedor principal
+            this.add(pc, BorderLayout.CENTER);
+
+            // Revalida y repinta el contenedor principal
+            this.revalidate();
+            this.repaint();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+                panelCartelera pc= new panelCartelera();       
+            // Cambia el layout del contenedor principal a BorderLayout
+            this.setLayout(new BorderLayout());
+
+            // Remueve todos los componentes del contenedor principal
+            this.removeAll();
+
+            // Agrega el panelMenu al centro del contenedor principal
+            this.add(pc, BorderLayout.CENTER);
+
+            // Revalida y repinta el contenedor principal
+            this.revalidate();
+            this.repaint();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField12ActionPerformed
+
+    private void jTextField13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField13ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btndevoluciones;
@@ -471,11 +611,14 @@ tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
     private javax.swing.JButton btnprestaciones;
     private javax.swing.JButton btnregistrarsocio;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -485,6 +628,7 @@ tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
@@ -494,9 +638,14 @@ tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
+    private javax.swing.JTextField jTextField12;
+    private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField18;
@@ -504,9 +653,9 @@ tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     private javax.swing.JPanel pDevoluciones;
-    private javax.swing.JPanel pPeliPrestadas;
     private javax.swing.JPanel pPrestaciones;
     private javax.swing.JPanel pRegistrarSocio;
+    private javax.swing.JPanel pSocio;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 }

@@ -34,9 +34,6 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\busqueda.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
           <Events>
@@ -50,9 +47,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton2">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\destino.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
           <Events>
@@ -66,9 +60,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton3">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\shushy.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
           <Events>
@@ -83,7 +74,7 @@
         <Component class="javax.swing.JButton" name="jButton4">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\batman.jpg"/>
+              <Image iconType="2" name="C:\Users\Lucero\Desktop\pelioficial\pelioficial\src\main\java\imagePeli\five.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
@@ -99,7 +90,7 @@
         <Component class="javax.swing.JButton" name="jButton5">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\JU-ON.jpg"/>
+              <Image iconType="2" name="C:\Users\Lucero\Desktop\pelioficial\pelioficial\src\main\java\imagePeli\JU-ON.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
@@ -115,7 +106,7 @@
         <Component class="javax.swing.JButton" name="jButton6">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\vengadores.jpg"/>
+              <Image iconType="2" name="C:\Users\Lucero\Desktop\pelioficial\pelioficial\src\main\java\imagePeli\destino.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
@@ -131,7 +122,7 @@
         <Component class="javax.swing.JButton" name="jButton7">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\tengoFe.jpg"/>
+              <Image iconType="2" name="C:\Users\Lucero\Desktop\pelioficial\pelioficial\src\main\java\imagePeli\intensamente.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
@@ -146,9 +137,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton8">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\TED.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
           <Events>
@@ -162,9 +150,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton9">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\jurassic.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
           <Events>
@@ -178,9 +163,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton10">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\pixeles.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
           <Events>
@@ -194,9 +176,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton11">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\mario.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
           <Events>
@@ -210,9 +189,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton12">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\five.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
           <Events>
@@ -226,9 +202,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton13">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\scary.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
           <Events>
@@ -242,9 +215,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton15">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\elHobbit.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
           <Events>
@@ -258,9 +228,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton16">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\Matrix.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
           <Events>
@@ -274,9 +241,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton17">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\atMAN.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
           <Events>
@@ -290,9 +254,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton18">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\intensamente.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
           <Events>
@@ -306,9 +267,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton19">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\jack.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
           <Events>
@@ -322,9 +280,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton20">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\soul.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
           <Events>
@@ -338,9 +293,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton21">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ALEX PUA\Desktop\estoescine\pelioficial\src\main\java\imagePeli\dragonball.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
           </Properties>
           <Events>
