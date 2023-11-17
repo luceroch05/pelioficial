@@ -95,20 +95,26 @@ public class SocioDAO implements Dao<Socio>{
     }
 
     @Override
-    public void update(Socio socio, String[] params){
+    public void update(Socio socio, String[] params) {
         String sql = "UPDATE Socios SET nombre = ?, direccion = ?, telefono = ?, directores_favoritos = ?, actores_favoritos = ?, generos_preferidos = ? WHERE socio_id = ?";
-        try (PreparedStatement statement =  connection.prepareStatement(sql)){
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, socio.getNombre());
             statement.setString(2, socio.getDireccion());
             statement.setString(3, socio.getTelefono());
             statement.setString(4, socio.getDirectoresFavoritos());
             statement.setString(5, socio.getActoresFavoritos());
             statement.setString(6, socio.getGenerosPreferidos());
-            statement.setInt(7, socio.getSocioId());            
-        } catch (Exception e) {
+            statement.setInt(7, socio.getSocioId());
+
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Updating socio failed, no rows affected.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
-    
+
     @Override
     public void delete(Socio socio){
         try (PreparedStatement statement = connection.prepareStatement("DELETE FROM Socios WHERE socio_id = ?")){
