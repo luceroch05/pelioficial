@@ -11,6 +11,36 @@
         <maven.compiler.target>17</maven.compiler.target>
         <exec.mainClass>peaches.pelioficial.Pelioficial</exec.mainClass>
     </properties>
+    
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>peaches.pelioficial.Pelioficial</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <!-- Otros plugins, en caso sea necesario -->
+        </plugins>
+    </build>
+    
     <dependencies>
         <dependency>
             <groupId>com.formdev</groupId>

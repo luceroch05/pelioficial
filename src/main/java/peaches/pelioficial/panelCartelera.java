@@ -5,6 +5,13 @@
 package peaches.pelioficial;
 
 import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.Insets;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -30,6 +37,44 @@ public class panelCartelera extends javax.swing.JPanel {
             // Revalida y repinta el contenedor principal
             this.revalidate();
             this.repaint();
+    }
+    
+    private void setButtonIcon(JButton button, String imagePath) {
+        ImageIcon originalIcon = new ImageIcon(getClass().getResource(imagePath));
+        Image img = originalIcon.getImage();
+
+        // Obten las dimensiones para mantener la proporcion de la imagen
+        int newWidth = button.getWidth();
+        int newHeight = (int) (originalIcon.getIconHeight() * ((double)newWidth / originalIcon.getIconWidth()));
+
+        // Si la nueva altura es menor que la altura del boton, ajusta la altura y calcula la nueva anchura
+        if (newHeight < button.getHeight()) {
+            newHeight = button.getHeight();
+            newWidth = (int) (originalIcon.getIconWidth() * ((double)newHeight / originalIcon.getIconHeight()));
+        }
+
+        // Escala la imagen al nuevo tamanio
+        Image resizedImage = img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+
+        // Crea un nuevo ImageIcon con la imagen redimensionada
+        ImageIcon newIcon = new ImageIcon(resizedImage);
+
+        // Establece la imagen redimensionada como icono del boton
+        button.setIcon(newIcon);
+
+        // Actualiza los bordes y márgenes del boton
+        button.setMargin(new Insets(0, 0, 0, 0));
+//        button.setBorder(BorderFactory.createEmptyBorder());
+        button.setContentAreaFilled(false);
+//        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+//        button.setRolloverEnabled(false);
+
+        // Centrar imagen en el boton si es más grande
+        if (newWidth > button.getWidth() || newHeight > button.getHeight()) {
+            button.setHorizontalAlignment(SwingConstants.CENTER);
+            button.setVerticalAlignment(SwingConstants.CENTER);
+        }
     }
 
     /**
@@ -66,7 +111,14 @@ public class panelCartelera extends javax.swing.JPanel {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/FNAF.jpg"))); // NOI18N
         jButton1.setText("jButton1");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton1ComponentResized(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -74,7 +126,14 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 60, 90, 130));
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/ExtranioMundoDeJack.jpg"))); // NOI18N
         jButton2.setText("jButton1");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton2ComponentResized(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -82,7 +141,14 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, 90, 130));
 
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/ElHobbit.jpg"))); // NOI18N
         jButton3.setText("jButton1");
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton3.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton3ComponentResized(evt);
+            }
+        });
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -90,8 +156,14 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 90, 130));
 
-        jButton4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Lucero\\Desktop\\pelioficial\\pelioficial\\src\\main\\java\\imagePeli\\five.jpg")); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/DragonBall.jpg"))); // NOI18N
         jButton4.setText("jButton1");
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton4ComponentResized(evt);
+            }
+        });
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -99,8 +171,13 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, 90, 130));
 
-        jButton5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Lucero\\Desktop\\pelioficial\\pelioficial\\src\\main\\java\\imagePeli\\JU-ON.jpg")); // NOI18N
-        jButton5.setText("jButton1");
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/Batman.jpg"))); // NOI18N
+        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton5.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton5ComponentResized(evt);
+            }
+        });
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -108,8 +185,14 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 180, 260));
 
-        jButton6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Lucero\\Desktop\\pelioficial\\pelioficial\\src\\main\\java\\imagePeli\\destino.jpg")); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/DestinoFinal.jpg"))); // NOI18N
         jButton6.setText("jButton1");
+        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton6.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton6ComponentResized(evt);
+            }
+        });
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -117,8 +200,14 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, 90, 130));
 
-        jButton7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Lucero\\Desktop\\pelioficial\\pelioficial\\src\\main\\java\\imagePeli\\intensamente.jpg")); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/BusquedaImplacable.jpg"))); // NOI18N
         jButton7.setText("jButton1");
+        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton7.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton7ComponentResized(evt);
+            }
+        });
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
@@ -126,7 +215,14 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 90, 130));
 
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/Pixeles.jpg"))); // NOI18N
         jButton8.setText("jButton1");
+        jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton8.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton8ComponentResized(evt);
+            }
+        });
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -134,7 +230,14 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 200, 90, 120));
 
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/Matrix.jpg"))); // NOI18N
         jButton9.setText("jButton1");
+        jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton9.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton9ComponentResized(evt);
+            }
+        });
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -142,7 +245,14 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 200, 90, 120));
 
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/MarioBros.jpg"))); // NOI18N
         jButton10.setText("jButton1");
+        jButton10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton10.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton10ComponentResized(evt);
+            }
+        });
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
@@ -150,7 +260,14 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 200, 90, 120));
 
+        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/JurassicWorld.jpg"))); // NOI18N
         jButton11.setText("jButton1");
+        jButton11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton11.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton11ComponentResized(evt);
+            }
+        });
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton11ActionPerformed(evt);
@@ -158,7 +275,14 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 200, 90, 120));
 
+        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/Ju-On.jpg"))); // NOI18N
         jButton12.setText("jButton1");
+        jButton12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton12.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton12ComponentResized(evt);
+            }
+        });
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton12ActionPerformed(evt);
@@ -166,7 +290,14 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 90, 120));
 
+        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/Intensamente.jpg"))); // NOI18N
         jButton13.setText("jButton1");
+        jButton13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton13.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton13ComponentResized(evt);
+            }
+        });
         jButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton13ActionPerformed(evt);
@@ -174,7 +305,14 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 90, 120));
 
+        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/Susy.jpg"))); // NOI18N
         jButton15.setText("jButton1");
+        jButton15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton15.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton15ComponentResized(evt);
+            }
+        });
         jButton15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton15ActionPerformed(evt);
@@ -182,7 +320,14 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, 90, 120));
 
+        jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/Soul.jpg"))); // NOI18N
         jButton16.setText("jButton1");
+        jButton16.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton16.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton16ComponentResized(evt);
+            }
+        });
         jButton16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton16ActionPerformed(evt);
@@ -190,7 +335,14 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, 90, 120));
 
+        jButton17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/ScaryMovie.jpg"))); // NOI18N
         jButton17.setText("jButton1");
+        jButton17.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton17.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton17ComponentResized(evt);
+            }
+        });
         jButton17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton17ActionPerformed(evt);
@@ -198,7 +350,14 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, 90, 120));
 
+        jButton18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/RapidosFuriososX.jpg"))); // NOI18N
         jButton18.setText("jButton1");
+        jButton18.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton18.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton18ComponentResized(evt);
+            }
+        });
         jButton18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton18ActionPerformed(evt);
@@ -206,7 +365,14 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 90, 120));
 
+        jButton19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/Quantumania.jpg"))); // NOI18N
         jButton19.setText("jButton1");
+        jButton19.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton19.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton19ComponentResized(evt);
+            }
+        });
         jButton19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton19ActionPerformed(evt);
@@ -214,7 +380,14 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 90, 120));
 
+        jButton20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/Vengadores.jpg"))); // NOI18N
         jButton20.setText("jButton1");
+        jButton20.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton20.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton20ComponentResized(evt);
+            }
+        });
         jButton20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton20ActionPerformed(evt);
@@ -222,7 +395,14 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 330, 90, 120));
 
+        jButton21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs Cartelera/Ted.jpg"))); // NOI18N
         jButton21.setText("jButton1");
+        jButton21.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton21.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton21ComponentResized(evt);
+            }
+        });
         jButton21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton21ActionPerformed(evt);
@@ -338,6 +518,86 @@ verCaracteristica();        // TODO add your handling code here:
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         verCaracteristica();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton5ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton5ComponentResized
+        setButtonIcon(jButton5, "/Imgs Cartelera/Batman.jpg");
+    }//GEN-LAST:event_jButton5ComponentResized
+
+    private void jButton7ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton7ComponentResized
+        setButtonIcon(jButton7, "/Imgs Cartelera/BusquedaImplacable.jpg");
+    }//GEN-LAST:event_jButton7ComponentResized
+
+    private void jButton6ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton6ComponentResized
+        setButtonIcon(jButton6, "/Imgs Cartelera/DestinoFinal.jpg");
+    }//GEN-LAST:event_jButton6ComponentResized
+
+    private void jButton4ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton4ComponentResized
+        setButtonIcon(jButton4, "/Imgs Cartelera/DragonBall.jpg");
+    }//GEN-LAST:event_jButton4ComponentResized
+
+    private void jButton3ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton3ComponentResized
+        setButtonIcon(jButton3, "/Imgs Cartelera/ElHobbit.jpg");
+    }//GEN-LAST:event_jButton3ComponentResized
+
+    private void jButton2ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton2ComponentResized
+        setButtonIcon(jButton2, "/Imgs Cartelera/ExtranioMundoDeJack.jpg");
+    }//GEN-LAST:event_jButton2ComponentResized
+
+    private void jButton1ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton1ComponentResized
+        setButtonIcon(jButton1, "/Imgs Cartelera/FNAF.jpg");
+    }//GEN-LAST:event_jButton1ComponentResized
+
+    private void jButton13ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton13ComponentResized
+        setButtonIcon(jButton13, "/Imgs Cartelera/Intensamente.jpg");
+    }//GEN-LAST:event_jButton13ComponentResized
+
+    private void jButton12ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton12ComponentResized
+        setButtonIcon(jButton12, "/Imgs Cartelera/Ju-On.jpg");
+    }//GEN-LAST:event_jButton12ComponentResized
+
+    private void jButton11ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton11ComponentResized
+        setButtonIcon(jButton11, "/Imgs Cartelera/JurassicWorld.jpg");
+    }//GEN-LAST:event_jButton11ComponentResized
+
+    private void jButton10ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton10ComponentResized
+        setButtonIcon(jButton10, "/Imgs Cartelera/MarioBros.jpg");
+    }//GEN-LAST:event_jButton10ComponentResized
+
+    private void jButton9ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton9ComponentResized
+        setButtonIcon(jButton9, "/Imgs Cartelera/Matrix.jpg");
+    }//GEN-LAST:event_jButton9ComponentResized
+
+    private void jButton8ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton8ComponentResized
+        setButtonIcon(jButton8, "/Imgs Cartelera/Pixeles.jpg");
+    }//GEN-LAST:event_jButton8ComponentResized
+
+    private void jButton19ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton19ComponentResized
+        setButtonIcon(jButton19, "/Imgs Cartelera/Quantumania.jpg");
+    }//GEN-LAST:event_jButton19ComponentResized
+
+    private void jButton18ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton18ComponentResized
+        setButtonIcon(jButton18, "/Imgs Cartelera/RapidosFuriososX.jpg");
+    }//GEN-LAST:event_jButton18ComponentResized
+
+    private void jButton17ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton17ComponentResized
+        setButtonIcon(jButton17, "/Imgs Cartelera/ScaryMovie.jpg");
+    }//GEN-LAST:event_jButton17ComponentResized
+
+    private void jButton16ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton16ComponentResized
+        setButtonIcon(jButton16, "/Imgs Cartelera/Soul.jpg");
+    }//GEN-LAST:event_jButton16ComponentResized
+
+    private void jButton15ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton15ComponentResized
+        setButtonIcon(jButton15, "/Imgs Cartelera/Susy.jpg");
+    }//GEN-LAST:event_jButton15ComponentResized
+
+    private void jButton21ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton21ComponentResized
+        setButtonIcon(jButton21, "/Imgs Cartelera/Ted.jpg");
+    }//GEN-LAST:event_jButton21ComponentResized
+
+    private void jButton20ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton20ComponentResized
+        setButtonIcon(jButton20, "/Imgs Cartelera/Vengadores.jpg");
+    }//GEN-LAST:event_jButton20ComponentResized
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
