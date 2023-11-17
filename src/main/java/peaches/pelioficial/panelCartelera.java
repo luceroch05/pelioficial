@@ -66,38 +66,43 @@ public class panelCartelera extends javax.swing.JPanel {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\busqueda.jpg")); // NOI18N
         jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 60, 90, 120));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 60, 90, 130));
 
+        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\destino.jpg")); // NOI18N
         jButton2.setText("jButton1");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, 90, 120));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, 90, 130));
 
+        jButton3.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\shushy.jpg")); // NOI18N
         jButton3.setText("jButton1");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 90, 120));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 90, 130));
 
+        jButton4.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\batman.jpg")); // NOI18N
         jButton4.setText("jButton1");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, 90, 120));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, 90, 130));
 
+        jButton5.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\JU-ON.jpg")); // NOI18N
         jButton5.setText("jButton1");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,22 +111,25 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 180, 260));
 
+        jButton6.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\vengadores.jpg")); // NOI18N
         jButton6.setText("jButton1");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, 90, 120));
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, 90, 130));
 
+        jButton7.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\tengoFe.jpg")); // NOI18N
         jButton7.setText("jButton1");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 90, 120));
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 90, 130));
 
+        jButton8.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\TED.jpg")); // NOI18N
         jButton8.setText("jButton1");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,6 +138,7 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 200, 90, 120));
 
+        jButton9.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\jurassic.jpg")); // NOI18N
         jButton9.setText("jButton1");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,6 +147,7 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 200, 90, 120));
 
+        jButton10.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\pixeles.jpg")); // NOI18N
         jButton10.setText("jButton1");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,6 +156,7 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 200, 90, 120));
 
+        jButton11.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\mario.jpg")); // NOI18N
         jButton11.setText("jButton1");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,6 +165,7 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 200, 90, 120));
 
+        jButton12.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\five.jpg")); // NOI18N
         jButton12.setText("jButton1");
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,6 +174,7 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 90, 120));
 
+        jButton13.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\scary.jpg")); // NOI18N
         jButton13.setText("jButton1");
         jButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,6 +183,7 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 90, 120));
 
+        jButton15.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\elHobbit.jpg")); // NOI18N
         jButton15.setText("jButton1");
         jButton15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,6 +192,7 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, 90, 120));
 
+        jButton16.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\Matrix.jpg")); // NOI18N
         jButton16.setText("jButton1");
         jButton16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,6 +201,7 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, 90, 120));
 
+        jButton17.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\atMAN.jpg")); // NOI18N
         jButton17.setText("jButton1");
         jButton17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,6 +210,7 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, 90, 120));
 
+        jButton18.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\intensamente.jpg")); // NOI18N
         jButton18.setText("jButton1");
         jButton18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,6 +219,7 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 90, 120));
 
+        jButton19.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\jack.jpg")); // NOI18N
         jButton19.setText("jButton1");
         jButton19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,6 +228,7 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 90, 120));
 
+        jButton20.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\soul.jpg")); // NOI18N
         jButton20.setText("jButton1");
         jButton20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,6 +237,7 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 330, 90, 120));
 
+        jButton21.setIcon(new javax.swing.ImageIcon("C:\\Users\\ALEX PUA\\Desktop\\estoescine\\pelioficial\\src\\main\\java\\imagePeli\\dragonball.jpg")); // NOI18N
         jButton21.setText("jButton1");
         jButton21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,10 +307,6 @@ verCaracteristica();    }//GEN-LAST:event_jButton3ActionPerformed
 verCaracteristica();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-verCaracteristica();        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
 verCaracteristica();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton12ActionPerformed
@@ -334,6 +350,10 @@ verCaracteristica();        // TODO add your handling code here:
     private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
 verCaracteristica();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton20ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        verCaracteristica();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
