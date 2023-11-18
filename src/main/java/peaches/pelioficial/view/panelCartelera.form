@@ -35,7 +35,7 @@
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/FNAF.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/FNAF.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -55,7 +55,7 @@
         <Component class="javax.swing.JButton" name="jButton2">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/ExtranioMundoDeJack.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/ExtranioMundoDeJack.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -75,7 +75,7 @@
         <Component class="javax.swing.JButton" name="jButton3">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/ElHobbit.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/ElHobbit.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -95,7 +95,7 @@
         <Component class="javax.swing.JButton" name="jButton4">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/DragonBall.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/DragonBall.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -115,7 +115,7 @@
         <Component class="javax.swing.JButton" name="jButton5">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/Batman.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/Batman.jpg"/>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Hand Cursor"/>
@@ -134,7 +134,7 @@
         <Component class="javax.swing.JButton" name="jButton6">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/DestinoFinal.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/DestinoFinal.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -154,7 +154,7 @@
         <Component class="javax.swing.JButton" name="jButton7">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/BusquedaImplacable.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/BusquedaImplacable.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -174,7 +174,7 @@
         <Component class="javax.swing.JButton" name="jButton8">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/Pixeles.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/Pixeles.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -194,7 +194,7 @@
         <Component class="javax.swing.JButton" name="jButton9">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/Matrix.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/Matrix.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -214,7 +214,7 @@
         <Component class="javax.swing.JButton" name="jButton10">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/MarioBros.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/MarioBros.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -234,7 +234,7 @@
         <Component class="javax.swing.JButton" name="jButton11">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/JurassicWorld.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/JurassicWorld.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -254,7 +254,7 @@
         <Component class="javax.swing.JButton" name="jButton12">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/Ju-On.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/Ju-On.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -274,7 +274,7 @@
         <Component class="javax.swing.JButton" name="jButton13">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/Intensamente.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/Intensamente.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -294,7 +294,7 @@
         <Component class="javax.swing.JButton" name="jButton15">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/Susy.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/Susy.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -314,7 +314,7 @@
         <Component class="javax.swing.JButton" name="jButton16">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/Soul.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/Soul.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -334,7 +334,7 @@
         <Component class="javax.swing.JButton" name="jButton17">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/ScaryMovie.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/ScaryMovie.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -354,7 +354,7 @@
         <Component class="javax.swing.JButton" name="jButton18">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/RapidosFuriososX.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/RapidosFuriososX.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -374,7 +374,7 @@
         <Component class="javax.swing.JButton" name="jButton19">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/Quantumania.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/Quantumania.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -394,7 +394,7 @@
         <Component class="javax.swing.JButton" name="jButton20">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/Vengadores.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/Vengadores.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -414,7 +414,7 @@
         <Component class="javax.swing.JButton" name="jButton21">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imgs Cartelera/Ted.jpg"/>
+              <Image iconType="3" name="/Imgs/Imgs Cartelera/Ted.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jButton1"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">

@@ -4,13 +4,15 @@
  */
 package peaches.pelioficial.view;
 
-import peaches.pelioficial.dao.DirectorDAO;
-import static peaches.pelioficial.util.DatabaseConnector.conectar;
 import java.awt.BorderLayout;
-import java.sql.Connection;
+import java.awt.Color;
 import java.util.List;
-import javax.swing.JComboBox;
+import peaches.pelioficial.model.Actor;
 import peaches.pelioficial.model.Director;
+import peaches.pelioficial.service.ActorService;
+import peaches.pelioficial.service.DirectorService;
+import peaches.pelioficial.util.DatabaseConnector;
+import peaches.pelioficial.util.Placeholders;
 
 /**
  *
@@ -24,16 +26,25 @@ public class panelMenu extends javax.swing.JPanel {
     public panelMenu() {
         initComponents();
         cargarDirectores();
+        cargarActores();
     }
     
     public void cargarDirectores(){
-        Connection conexion = conectar();
-        DirectorDAO directorDAO = new DirectorDAO(conexion);
-        List<Director> directores = directorDAO.getAll();
+        DirectorService directorService = new DirectorService(DatabaseConnector.conectar());
+        List<Director> directores = directorService.obtenerTodosLosDirectores();
         for(Director director : directores){
             comboBoxDirectores.addItem(director.getNombre());
         }
     }
+    
+    public void cargarActores(){
+        ActorService actorService = new ActorService(DatabaseConnector.conectar());
+        List<Actor> actores = actorService.obtenerTodosLosActores();
+        for(Actor actor : actores){
+            comboBoxActores.addItem(actor.getNombre());
+        }
+    }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,6 +55,8 @@ public class panelMenu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jTextField1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         btnpeliprestadas = new javax.swing.JButton();
         btnregistrarsocio = new javax.swing.JButton();
@@ -59,42 +72,46 @@ public class panelMenu extends javax.swing.JPanel {
         jButton5 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
-        jTextField11 = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         jSeparator6 = new javax.swing.JSeparator();
-        jTextField1 = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtGenero = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jSeparator11 = new javax.swing.JSeparator();
-        jTextField17 = new javax.swing.JTextField();
         jSeparator12 = new javax.swing.JSeparator();
-        jTextField18 = new javax.swing.JTextField();
         jSeparator13 = new javax.swing.JSeparator();
         comboBoxDirectores = new javax.swing.JComboBox<>();
+        comboBoxActores = new javax.swing.JComboBox<>();
         pPrestaciones = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtCodSocio = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        jTextField8 = new javax.swing.JTextField();
+        txtFechaPrestamo = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
-        jTextField9 = new javax.swing.JTextField();
+        txtFechaDevolucion = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
         pDevoluciones = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        txtIdPrestamo = new javax.swing.JTextField();
         jSeparator8 = new javax.swing.JSeparator();
-        jTextField13 = new javax.swing.JTextField();
+        txtFechaEntrega = new javax.swing.JTextField();
         jSeparator9 = new javax.swing.JSeparator();
         jButton2 = new javax.swing.JButton();
         pSocio = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jTextField1.setText("jTextField1");
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -238,41 +255,83 @@ public class panelMenu extends javax.swing.JPanel {
 
         pRegistrarSocio.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 0, 60, 30));
 
-        jTextField10.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField10.setText("name@email.com");
-        jTextField10.setBorder(null);
-        jTextField10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField10ActionPerformed(evt);
+        txtDireccion.setForeground(new java.awt.Color(204, 204, 204));
+        txtDireccion.setText("sucorreo@dominio.com");
+        txtDireccion.setBorder(null);
+        txtDireccion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDireccionFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDireccionFocusLost(evt);
             }
         });
-        pRegistrarSocio.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 410, 30));
+        txtDireccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDireccionActionPerformed(evt);
+            }
+        });
+        pRegistrarSocio.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 410, 30));
+        txtDireccion.setForeground(new Color(204, 204, 204));
+        txtDireccion.addFocusListener(new Placeholders("sucorreo@dominio.com", new Color(204, 204, 204), Color.BLACK));
 
         jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
         pRegistrarSocio.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 550, 10));
 
-        jTextField11.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField11.setText("+51-XXX-XXX-XXX");
-        jTextField11.setBorder(null);
-        jTextField11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField11ActionPerformed(evt);
+        txtTelefono.setForeground(new java.awt.Color(204, 204, 204));
+        txtTelefono.setText("+51 XXX-XXX-XXX");
+        txtTelefono.setBorder(null);
+        txtTelefono.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtTelefonoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTelefonoFocusLost(evt);
             }
         });
-        pRegistrarSocio.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 470, 30));
+        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefonoActionPerformed(evt);
+            }
+        });
+        pRegistrarSocio.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 460, 30));
+        txtTelefono.setForeground(new Color(204, 204, 204));
+        txtTelefono.addFocusListener(new Placeholders("+51 XXX-XXX-XXX", new Color(204, 204, 204), Color.BLACK));
 
         jSeparator6.setForeground(new java.awt.Color(0, 0, 0));
         pRegistrarSocio.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 550, 10));
 
-        jTextField1.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField1.setText("name");
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        txtNombre.setForeground(new java.awt.Color(204, 204, 204));
+        txtNombre.setText("Introduzca su nombre");
+        txtNombre.setBorder(null);
+        txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNombreFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNombreFocusLost(evt);
             }
         });
-        pRegistrarSocio.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 310, 30));
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+        pRegistrarSocio.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 310, 30));
+        txtNombre.setForeground(new Color(204, 204, 204));
+        txtNombre.addFocusListener(new Placeholders("Introduzca su nombre", new Color(204, 204, 204), Color.BLACK));
+
+        txtGenero.setForeground(new java.awt.Color(204, 204, 204));
+        txtGenero.setText("Introduzca su genero favorito");
+        txtGenero.setBorder(null);
+        txtGenero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtGeneroActionPerformed(evt);
+            }
+        });
+        pRegistrarSocio.add(txtGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 350, 410, -1));
+        txtGenero.setForeground(new Color(204, 204, 204));
+        txtGenero.addFocusListener(new Placeholders("Introduzca su genero favorito", new Color(204, 204, 204), Color.BLACK));
 
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
         pRegistrarSocio.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 540, 10));
@@ -290,28 +349,8 @@ public class panelMenu extends javax.swing.JPanel {
         jSeparator11.setForeground(new java.awt.Color(0, 0, 0));
         pRegistrarSocio.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 550, 10));
 
-        jTextField17.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField17.setText("jTextField1");
-        jTextField17.setBorder(null);
-        jTextField17.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField17ActionPerformed(evt);
-            }
-        });
-        pRegistrarSocio.add(jTextField17, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 470, 30));
-
         jSeparator12.setForeground(new java.awt.Color(0, 0, 0));
         pRegistrarSocio.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 550, 10));
-
-        jTextField18.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField18.setText("jTextField1");
-        jTextField18.setBorder(null);
-        jTextField18.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField18ActionPerformed(evt);
-            }
-        });
-        pRegistrarSocio.add(jTextField18, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, 360, 30));
 
         jSeparator13.setForeground(new java.awt.Color(0, 0, 0));
         pRegistrarSocio.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 550, 10));
@@ -322,6 +361,8 @@ public class panelMenu extends javax.swing.JPanel {
             }
         });
         pRegistrarSocio.add(comboBoxDirectores, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 240, 230, -1));
+
+        pRegistrarSocio.add(comboBoxActores, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 230, -1));
 
         tabbedPane.addTab("tab1", pRegistrarSocio);
 
@@ -340,44 +381,50 @@ public class panelMenu extends javax.swing.JPanel {
         jLabel10.setText("Fecha de Devolución");
         pPrestaciones.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 160, 20));
 
-        jTextField7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField7.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField7.setText("codigo");
-        jTextField7.setBorder(null);
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        txtCodSocio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtCodSocio.setForeground(new java.awt.Color(204, 204, 204));
+        txtCodSocio.setText("Codigo");
+        txtCodSocio.setBorder(null);
+        txtCodSocio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                txtCodSocioActionPerformed(evt);
             }
         });
-        pPrestaciones.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, 160, 30));
+        pPrestaciones.add(txtCodSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, 160, 30));
+        txtCodSocio.setForeground(Color.GRAY);
+        txtCodSocio.addFocusListener(new Placeholders("Codigo", new Color(204, 204, 204), Color.BLACK));
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         pPrestaciones.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 210, 20));
 
-        jTextField8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField8.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField8.setText("dd/mm/yy");
-        jTextField8.setBorder(null);
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+        txtFechaPrestamo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtFechaPrestamo.setForeground(new java.awt.Color(204, 204, 204));
+        txtFechaPrestamo.setText("dd/mm/yy");
+        txtFechaPrestamo.setBorder(null);
+        txtFechaPrestamo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
+                txtFechaPrestamoActionPerformed(evt);
             }
         });
-        pPrestaciones.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 160, 30));
+        pPrestaciones.add(txtFechaPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 160, 30));
+        txtFechaPrestamo.setForeground(Color.GRAY);
+        txtFechaPrestamo.addFocusListener(new Placeholders("dd/mm/yy", new Color(204, 204, 204), Color.BLACK));
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
         pPrestaciones.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, 210, 20));
 
-        jTextField9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField9.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField9.setText("dd/mm/yy");
-        jTextField9.setBorder(null);
-        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+        txtFechaDevolucion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtFechaDevolucion.setForeground(new java.awt.Color(204, 204, 204));
+        txtFechaDevolucion.setText("dd/mm/yy");
+        txtFechaDevolucion.setBorder(null);
+        txtFechaDevolucion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField9ActionPerformed(evt);
+                txtFechaDevolucionActionPerformed(evt);
             }
         });
-        pPrestaciones.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 230, 160, 30));
+        pPrestaciones.add(txtFechaDevolucion, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 230, 160, 30));
+        txtFechaDevolucion.setForeground(Color.GRAY);
+        txtFechaDevolucion.addFocusListener(new Placeholders("dd/mm/yy", new Color(204, 204, 204), Color.BLACK));
 
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
         pPrestaciones.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, 210, 20));
@@ -407,30 +454,34 @@ public class panelMenu extends javax.swing.JPanel {
         jLabel14.setText("Fecha de Entrega:");
         pDevoluciones.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 150, 20));
 
-        jTextField12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField12.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField12.setText("codigo");
-        jTextField12.setBorder(null);
-        jTextField12.addActionListener(new java.awt.event.ActionListener() {
+        txtIdPrestamo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtIdPrestamo.setForeground(new java.awt.Color(204, 204, 204));
+        txtIdPrestamo.setText("Codigo");
+        txtIdPrestamo.setBorder(null);
+        txtIdPrestamo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField12ActionPerformed(evt);
+                txtIdPrestamoActionPerformed(evt);
             }
         });
-        pDevoluciones.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, 160, 30));
+        pDevoluciones.add(txtIdPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, 160, 30));
+        txtIdPrestamo.setForeground(Color.GRAY);
+        txtIdPrestamo.addFocusListener(new Placeholders("Codigo", new Color(204, 204, 204), Color.BLACK));
 
         jSeparator8.setForeground(new java.awt.Color(0, 0, 0));
         pDevoluciones.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 210, 20));
 
-        jTextField13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField13.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField13.setText("dd/mm/yy");
-        jTextField13.setBorder(null);
-        jTextField13.addActionListener(new java.awt.event.ActionListener() {
+        txtFechaEntrega.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtFechaEntrega.setForeground(new java.awt.Color(204, 204, 204));
+        txtFechaEntrega.setText("dd/mm/yy");
+        txtFechaEntrega.setBorder(null);
+        txtFechaEntrega.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField13ActionPerformed(evt);
+                txtFechaEntregaActionPerformed(evt);
             }
         });
-        pDevoluciones.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 160, 30));
+        pDevoluciones.add(txtFechaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 160, 30));
+        txtFechaEntrega.setForeground(Color.GRAY);
+        txtFechaEntrega.addFocusListener(new Placeholders("dd/mm/yy", new Color(204, 204, 204), Color.BLACK));
 
         jSeparator9.setForeground(new java.awt.Color(0, 0, 0));
         pDevoluciones.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, 210, 20));
@@ -525,41 +576,33 @@ tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
         // TODO add your handling code here:
     }//GEN-LAST:event_btnpeliprestadasMouseClicked
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void txtCodSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodSocioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_txtCodSocioActionPerformed
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+    private void txtFechaPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaPrestamoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
+    }//GEN-LAST:event_txtFechaPrestamoActionPerformed
 
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+    private void txtFechaDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaDevolucionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField9ActionPerformed
+    }//GEN-LAST:event_txtFechaDevolucionActionPerformed
 
     private void btnregistrarsocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarsocioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnregistrarsocioActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
+    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField10ActionPerformed
+    }//GEN-LAST:event_txtDireccionActionPerformed
 
-    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
+    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField11ActionPerformed
-
-    private void jTextField17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField17ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField17ActionPerformed
-
-    private void jTextField18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField18ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField18ActionPerformed
+    }//GEN-LAST:event_txtTelefonoActionPerformed
 
     private void btndevolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndevolucionesActionPerformed
         // TODO add your handling code here:
@@ -602,13 +645,13 @@ tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
             this.repaint();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField12ActionPerformed
+    private void txtIdPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdPrestamoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField12ActionPerformed
+    }//GEN-LAST:event_txtIdPrestamoActionPerformed
 
-    private void jTextField13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField13ActionPerformed
+    private void txtFechaEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaEntregaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField13ActionPerformed
+    }//GEN-LAST:event_txtFechaEntregaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -618,16 +661,46 @@ tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxDirectoresActionPerformed
 
+    private void txtNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusGained
+        
+    }//GEN-LAST:event_txtNombreFocusGained
+
+    private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
+        
+    }//GEN-LAST:event_txtNombreFocusLost
+
+    private void txtDireccionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionFocusGained
+        
+    }//GEN-LAST:event_txtDireccionFocusGained
+
+    private void txtDireccionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionFocusLost
+        
+    }//GEN-LAST:event_txtDireccionFocusLost
+
+    private void txtTelefonoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefonoFocusGained
+       
+    }//GEN-LAST:event_txtTelefonoFocusGained
+
+    private void txtTelefonoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefonoFocusLost
+       
+    }//GEN-LAST:event_txtTelefonoFocusLost
+
+    private void txtGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGeneroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtGeneroActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btndevoluciones;
     private javax.swing.JButton btnpeliprestadas;
     private javax.swing.JButton btnprestaciones;
     private javax.swing.JButton btnregistrarsocio;
+    private javax.swing.JComboBox<String> comboBoxActores;
     private javax.swing.JComboBox<String> comboBoxDirectores;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -657,19 +730,19 @@ tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField17;
-    private javax.swing.JTextField jTextField18;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JPanel pDevoluciones;
     private javax.swing.JPanel pPrestaciones;
     private javax.swing.JPanel pRegistrarSocio;
     private javax.swing.JPanel pSocio;
     private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JTextField txtCodSocio;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtFechaDevolucion;
+    private javax.swing.JTextField txtFechaEntrega;
+    private javax.swing.JTextField txtFechaPrestamo;
+    private javax.swing.JTextField txtGenero;
+    private javax.swing.JTextField txtIdPrestamo;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
