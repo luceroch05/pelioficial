@@ -3,12 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
  */
 
-import DAO.DirectorDAO;
-import database.DatabaseConnector;
+import peaches.pelioficial.dao.DirectorDAO;
+import peaches.pelioficial.util.DatabaseConnector;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Optional;
-import modelo.Director;
+import peaches.pelioficial.model.Director;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;

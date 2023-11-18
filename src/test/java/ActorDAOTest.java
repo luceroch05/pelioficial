@@ -1,10 +1,10 @@
-import DAO.ActorDAO;
-import database.DatabaseConnector;
+import peaches.pelioficial.dao.ActorDAO;
+import peaches.pelioficial.util.DatabaseConnector;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-import modelo.Actor;
+import peaches.pelioficial.model.Actor;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertFalse;

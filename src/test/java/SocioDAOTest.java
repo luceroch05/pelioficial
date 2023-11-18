@@ -3,11 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
  */
 
-import DAO.SocioDAO;
-import database.DatabaseConnector;
+import peaches.pelioficial.dao.SocioDAO;
+import peaches.pelioficial.util.DatabaseConnector;
 import java.sql.Connection;
 import java.sql.SQLException;
-import modelo.Socio;
+import peaches.pelioficial.model.Socio;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;

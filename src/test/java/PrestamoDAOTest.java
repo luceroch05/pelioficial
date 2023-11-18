@@ -3,13 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
  */
 
-import DAO.PrestamoDAO;
-import database.DatabaseConnector;
+import peaches.pelioficial.dao.PrestamoDAO;
+import peaches.pelioficial.util.DatabaseConnector;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Optional;
-import modelo.Prestamo;
+import peaches.pelioficial.model.Prestamo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;

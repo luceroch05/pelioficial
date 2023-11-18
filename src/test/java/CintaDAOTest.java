@@ -3,12 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
  */
 
-import DAO.CintaDAO;
-import database.DatabaseConnector;
+import peaches.pelioficial.dao.CintaDAO;
+import peaches.pelioficial.util.DatabaseConnector;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Optional;
-import modelo.Cinta;
+import peaches.pelioficial.model.Cinta;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -4,10 +4,11 @@
 
 package peaches.pelioficial;
 
+import peaches.pelioficial.view.framePrincipal;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatCarbonIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
-import static database.DatabaseConnector.conectar;
+import static peaches.pelioficial.util.DatabaseConnector.conectar;
 import javax.swing.UIManager;
 
 /**

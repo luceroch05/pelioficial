@@ -2,9 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package peaches.pelioficial;
+package peaches.pelioficial.view;
 
+import peaches.pelioficial.dao.DirectorDAO;
+import static peaches.pelioficial.util.DatabaseConnector.conectar;
 import java.awt.BorderLayout;
+import java.sql.Connection;
+import java.util.List;
+import javax.swing.JComboBox;
+import peaches.pelioficial.model.Director;
 
 /**
  *
@@ -17,8 +23,18 @@ public class panelMenu extends javax.swing.JPanel {
      */
     public panelMenu() {
         initComponents();
+        cargarDirectores();
     }
-
+    
+    public void cargarDirectores(){
+        Connection conexion = conectar();
+        DirectorDAO directorDAO = new DirectorDAO(conexion);
+        List<Director> directores = directorDAO.getAll();
+        for(Director director : directores){
+            comboBoxDirectores.addItem(director.getNombre());
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,12 +67,12 @@ public class panelMenu extends javax.swing.JPanel {
         jSeparator4 = new javax.swing.JSeparator();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField16 = new javax.swing.JTextField();
         jSeparator11 = new javax.swing.JSeparator();
         jTextField17 = new javax.swing.JTextField();
         jSeparator12 = new javax.swing.JSeparator();
         jTextField18 = new javax.swing.JTextField();
         jSeparator13 = new javax.swing.JSeparator();
+        comboBoxDirectores = new javax.swing.JComboBox<>();
         pPrestaciones = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -271,16 +287,6 @@ public class panelMenu extends javax.swing.JPanel {
         jLabel12.setText("Géneros preferidos:");
         pRegistrarSocio.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, -1, -1));
 
-        jTextField16.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField16.setText("jTextField1");
-        jTextField16.setBorder(null);
-        jTextField16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField16ActionPerformed(evt);
-            }
-        });
-        pRegistrarSocio.add(jTextField16, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, 380, 30));
-
         jSeparator11.setForeground(new java.awt.Color(0, 0, 0));
         pRegistrarSocio.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 550, 10));
 
@@ -309,6 +315,13 @@ public class panelMenu extends javax.swing.JPanel {
 
         jSeparator13.setForeground(new java.awt.Color(0, 0, 0));
         pRegistrarSocio.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 550, 10));
+
+        comboBoxDirectores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxDirectoresActionPerformed(evt);
+            }
+        });
+        pRegistrarSocio.add(comboBoxDirectores, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 240, 230, -1));
 
         tabbedPane.addTab("tab1", pRegistrarSocio);
 
@@ -540,10 +553,6 @@ tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField11ActionPerformed
 
-    private void jTextField16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField16ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField16ActionPerformed
-
     private void jTextField17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField17ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField17ActionPerformed
@@ -605,12 +614,17 @@ tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void comboBoxDirectoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDirectoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxDirectoresActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btndevoluciones;
     private javax.swing.JButton btnpeliprestadas;
     private javax.swing.JButton btnprestaciones;
     private javax.swing.JButton btnregistrarsocio;
+    private javax.swing.JComboBox<String> comboBoxDirectores;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
@@ -647,7 +661,6 @@ tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField7;
