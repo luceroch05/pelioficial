@@ -298,7 +298,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton5">
+            <Component class="javax.swing.JButton" name="btnRegistrarSocio">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
@@ -315,7 +315,8 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnRegistrarSocioMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarSocioActionPerformed"/>
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -358,7 +359,8 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="cc" green="cc" red="cc" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="sucorreo@dominio.com"/>
+                <Property name="text" type="java.lang.String" value="Av. Del Coso 123"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
@@ -369,7 +371,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDireccionActionPerformed"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="txtDireccion.setForeground(new Color(204, 204, 204));&#xa;txtDireccion.addFocusListener(new Placeholders(&quot;sucorreo@dominio.com&quot;, new Color(204, 204, 204), Color.BLACK));"/>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="txtDireccion.setForeground(new Color(204, 204, 204));&#xa;txtDireccion.addFocusListener(new Placeholders(&quot;Av. Del Coso 123&quot;, new Color(204, 204, 204), Color.BLACK));"/>
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -394,7 +396,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="cc" green="cc" red="cc" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="+51 XXX-XXX-XXX"/>
+                <Property name="text" type="java.lang.String" value="987654321"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
@@ -405,7 +407,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTelefonoActionPerformed"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="txtTelefono.setForeground(new Color(204, 204, 204));&#xa;txtTelefono.addFocusListener(new Placeholders(&quot;+51 XXX-XXX-XXX&quot;, new Color(204, 204, 204), Color.BLACK));"/>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="txtTelefono.setForeground(new Color(204, 204, 204));&#xa;txtTelefono.addFocusListener(new Placeholders(&quot;987654321&quot;, new Color(204, 204, 204), Color.BLACK));"/>
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -446,28 +448,6 @@
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="160" y="50" width="310" height="30"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtGenero">
-              <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="cc" green="cc" red="cc" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Introduzca su genero favorito"/>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="null"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtGeneroActionPerformed"/>
-              </Events>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="txtGenero.setForeground(new Color(204, 204, 204));&#xa;txtGenero.addFocusListener(new Placeholders(&quot;Introduzca su genero favorito&quot;, new Color(204, 204, 204), Color.BLACK));"/>
-              </AuxValues>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="210" y="350" width="410" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -581,6 +561,45 @@
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="390" y="290" width="230" height="-1"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="comboBoxGeneros">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="23">
+                    <StringItem index="0" value="Acci&#xf3;n"/>
+                    <StringItem index="1" value="Animaci&#xf3;n"/>
+                    <StringItem index="2" value="Aventura"/>
+                    <StringItem index="3" value="Biogr&#xe1;fico"/>
+                    <StringItem index="4" value="Ciencia ficci&#xf3;n"/>
+                    <StringItem index="5" value="Cine experimental"/>
+                    <StringItem index="6" value="Comedia"/>
+                    <StringItem index="7" value="Comedia negra"/>
+                    <StringItem index="8" value="Comedia rom&#xe1;ntica"/>
+                    <StringItem index="9" value="Crimen"/>
+                    <StringItem index="10" value="Cine de superh&#xe9;roes"/>
+                    <StringItem index="11" value="Cine de guerra"/>
+                    <StringItem index="12" value="Ciencia ficci&#xf3;n dist&#xf3;pica"/>
+                    <StringItem index="13" value="Documental"/>
+                    <StringItem index="14" value="Drama"/>
+                    <StringItem index="15" value="Deportes"/>
+                    <StringItem index="16" value="Fantas&#xed;a"/>
+                    <StringItem index="17" value="Hist&#xf3;rico"/>
+                    <StringItem index="18" value="Musical"/>
+                    <StringItem index="19" value="Rom&#xe1;ntico"/>
+                    <StringItem index="20" value="Suspense"/>
+                    <StringItem index="21" value="Terror"/>
+                    <StringItem index="22" value="Western"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="390" y="350" width="230" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -959,7 +978,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="183" max="-2" attributes="0"/>
-                      <EmptySpace pref="170" max="32767" attributes="0"/>
+                      <EmptySpace pref="166" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

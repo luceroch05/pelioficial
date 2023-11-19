@@ -7,12 +7,19 @@ package peaches.pelioficial.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.List;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import peaches.pelioficial.model.Actor;
 import peaches.pelioficial.model.Director;
+import peaches.pelioficial.model.Socio;
 import peaches.pelioficial.service.ActorService;
 import peaches.pelioficial.service.DirectorService;
+import peaches.pelioficial.service.SocioService;
 import peaches.pelioficial.util.DatabaseConnector;
 import peaches.pelioficial.util.Placeholders;
+import peaches.pelioficial.util.UIUtils;
+import peaches.pelioficial.util.ValidadorFormulario;
 
 /**
  *
@@ -45,7 +52,6 @@ public class panelMenu extends javax.swing.JPanel {
         }
     }
     
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,7 +75,7 @@ public class panelMenu extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
+        btnRegistrarSocio = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
@@ -77,7 +83,6 @@ public class panelMenu extends javax.swing.JPanel {
         txtTelefono = new javax.swing.JTextField();
         jSeparator6 = new javax.swing.JSeparator();
         txtNombre = new javax.swing.JTextField();
-        txtGenero = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -86,6 +91,7 @@ public class panelMenu extends javax.swing.JPanel {
         jSeparator13 = new javax.swing.JSeparator();
         comboBoxDirectores = new javax.swing.JComboBox<>();
         comboBoxActores = new javax.swing.JComboBox<>();
+        comboBoxGeneros = new javax.swing.JComboBox<>();
         pPrestaciones = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -223,17 +229,22 @@ public class panelMenu extends javax.swing.JPanel {
         jLabel4.setText("Directores favoritos:");
         pRegistrarSocio.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, -1, -1));
 
-        jButton5.setBackground(new java.awt.Color(0, 0, 0));
-        jButton5.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Registrar");
-        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+        btnRegistrarSocio.setBackground(new java.awt.Color(0, 0, 0));
+        btnRegistrarSocio.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        btnRegistrarSocio.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarSocio.setText("Registrar");
+        btnRegistrarSocio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrarSocio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegistrarSocioMouseClicked(evt);
             }
         });
-        pRegistrarSocio.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 410, 250, 40));
+        btnRegistrarSocio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarSocioActionPerformed(evt);
+            }
+        });
+        pRegistrarSocio.add(btnRegistrarSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 410, 250, 40));
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -256,7 +267,8 @@ public class panelMenu extends javax.swing.JPanel {
         pRegistrarSocio.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 0, 60, 30));
 
         txtDireccion.setForeground(new java.awt.Color(204, 204, 204));
-        txtDireccion.setText("sucorreo@dominio.com");
+        txtDireccion.setText("Av. Del Coso 123");
+        txtDireccion.setToolTipText("");
         txtDireccion.setBorder(null);
         txtDireccion.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -273,13 +285,13 @@ public class panelMenu extends javax.swing.JPanel {
         });
         pRegistrarSocio.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 410, 30));
         txtDireccion.setForeground(new Color(204, 204, 204));
-        txtDireccion.addFocusListener(new Placeholders("sucorreo@dominio.com", new Color(204, 204, 204), Color.BLACK));
+        txtDireccion.addFocusListener(new Placeholders("Av. Del Coso 123", new Color(204, 204, 204), Color.BLACK));
 
         jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
         pRegistrarSocio.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 550, 10));
 
         txtTelefono.setForeground(new java.awt.Color(204, 204, 204));
-        txtTelefono.setText("+51 XXX-XXX-XXX");
+        txtTelefono.setText("987654321");
         txtTelefono.setBorder(null);
         txtTelefono.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -296,7 +308,7 @@ public class panelMenu extends javax.swing.JPanel {
         });
         pRegistrarSocio.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 460, 30));
         txtTelefono.setForeground(new Color(204, 204, 204));
-        txtTelefono.addFocusListener(new Placeholders("+51 XXX-XXX-XXX", new Color(204, 204, 204), Color.BLACK));
+        txtTelefono.addFocusListener(new Placeholders("987654321", new Color(204, 204, 204), Color.BLACK));
 
         jSeparator6.setForeground(new java.awt.Color(0, 0, 0));
         pRegistrarSocio.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 550, 10));
@@ -320,18 +332,6 @@ public class panelMenu extends javax.swing.JPanel {
         pRegistrarSocio.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 310, 30));
         txtNombre.setForeground(new Color(204, 204, 204));
         txtNombre.addFocusListener(new Placeholders("Introduzca su nombre", new Color(204, 204, 204), Color.BLACK));
-
-        txtGenero.setForeground(new java.awt.Color(204, 204, 204));
-        txtGenero.setText("Introduzca su genero favorito");
-        txtGenero.setBorder(null);
-        txtGenero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtGeneroActionPerformed(evt);
-            }
-        });
-        pRegistrarSocio.add(txtGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 350, 410, -1));
-        txtGenero.setForeground(new Color(204, 204, 204));
-        txtGenero.addFocusListener(new Placeholders("Introduzca su genero favorito", new Color(204, 204, 204), Color.BLACK));
 
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
         pRegistrarSocio.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 540, 10));
@@ -363,6 +363,9 @@ public class panelMenu extends javax.swing.JPanel {
         pRegistrarSocio.add(comboBoxDirectores, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 240, 230, -1));
 
         pRegistrarSocio.add(comboBoxActores, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 230, -1));
+
+        comboBoxGeneros.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Acción", "Animación", "Aventura", "Biográfico", "Ciencia ficción", "Cine experimental", "Comedia", "Comedia negra", "Comedia romántica", "Crimen", "Cine de superhéroes", "Cine de guerra", "Ciencia ficción distópica", "Documental", "Drama", "Deportes", "Fantasía", "Histórico", "Musical", "Romántico", "Suspense", "Terror", "Western" }));
+        pRegistrarSocio.add(comboBoxGeneros, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 350, 230, -1));
 
         tabbedPane.addTab("tab1", pRegistrarSocio);
 
@@ -529,7 +532,7 @@ public class panelMenu extends javax.swing.JPanel {
             .addGroup(pSocioLayout.createSequentialGroup()
                 .addGap(136, 136, 136)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("tab4", pSocio);
@@ -612,22 +615,51 @@ tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
         // TODO add your handling code here:
     }//GEN-LAST:event_btnprestacionesActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-             panelCartelera pc= new panelCartelera();
-       
-            // Cambia el layout del contenedor principal a BorderLayout
-            this.setLayout(new BorderLayout());
+    private void btnRegistrarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarSocioActionPerformed
+//             panelCartelera pc= new panelCartelera();
+//       
+//            // Cambia el layout del contenedor principal a BorderLayout
+//            this.setLayout(new BorderLayout());
+//
+//            // Remueve todos los componentes del contenedor principal
+//            this.removeAll();
+//
+//            // Agrega el panelMenu al centro del contenedor principal
+//            this.add(pc, BorderLayout.CENTER);
+//
+//            // Revalida y repinta el contenedor principal
+//            this.revalidate();
+//            this.repaint();
+        String nombre = txtNombre.getText().trim();
+        String direccion = txtDireccion.getText().trim();
+        String telefono = txtTelefono.getText().trim();
+        String placeholderNombre = "Introduzca su nombre";
+        String placeholderDireccion = "Av. Del Coso 123";
+        String placeholderTelefono = "987654321";
+        
+        boolean esValido = ValidadorFormulario.validarRegistroSocio(nombre, direccion, telefono, placeholderNombre, placeholderDireccion, placeholderTelefono);
 
-            // Remueve todos los componentes del contenedor principal
-            this.removeAll();
-
-            // Agrega el panelMenu al centro del contenedor principal
-            this.add(pc, BorderLayout.CENTER);
-
-            // Revalida y repinta el contenedor principal
-            this.revalidate();
-            this.repaint();
-    }//GEN-LAST:event_jButton5ActionPerformed
+        
+        if(esValido){
+            Socio socio = new Socio();
+            socio.setNombre(txtNombre.getText());
+            socio.setDireccion(txtDireccion.getText());
+            socio.setTelefono(txtTelefono.getText());
+            socio.setDirectoresFavoritos((String)comboBoxDirectores.getSelectedItem());
+            socio.setActoresFavoritos((String)comboBoxActores.getSelectedItem());
+            socio.setGenerosPreferidos((String)comboBoxGeneros.getSelectedItem());
+            
+            SocioService socioService = new SocioService();
+            try {
+                socioService.registrarSocio(socio);
+                JTextField[] camposParaLimpiar = {txtNombre, txtDireccion, txtTelefono};
+                JComboBox[] camposComboParaLimpiar = {comboBoxActores, comboBoxDirectores, comboBoxGeneros};
+                UIUtils.mostrarMensajeExitoYLimpiarCampos(camposParaLimpiar, camposComboParaLimpiar, "El socio ha sido registrado con exito.", "Registro Exitoso");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al resgistrar el socio: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnRegistrarSocioActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
                 panelCartelera pc= new panelCartelera();       
@@ -685,21 +717,21 @@ tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
        
     }//GEN-LAST:event_txtTelefonoFocusLost
 
-    private void txtGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGeneroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtGeneroActionPerformed
+    private void btnRegistrarSocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarSocioMouseClicked
+    }//GEN-LAST:event_btnRegistrarSocioMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegistrarSocio;
     private javax.swing.JButton btndevoluciones;
     private javax.swing.JButton btnpeliprestadas;
     private javax.swing.JButton btnprestaciones;
     private javax.swing.JButton btnregistrarsocio;
     private javax.swing.JComboBox<String> comboBoxActores;
     private javax.swing.JComboBox<String> comboBoxDirectores;
+    private javax.swing.JComboBox<String> comboBoxGeneros;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -740,7 +772,6 @@ tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
     private javax.swing.JTextField txtFechaDevolucion;
     private javax.swing.JTextField txtFechaEntrega;
     private javax.swing.JTextField txtFechaPrestamo;
-    private javax.swing.JTextField txtGenero;
     private javax.swing.JTextField txtIdPrestamo;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
