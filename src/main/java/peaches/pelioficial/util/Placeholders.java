@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.JTextField;
+import javax.swing.text.AbstractDocument;
 
 /**
  *
@@ -25,18 +26,18 @@ public class Placeholders extends FocusAdapter{
     }
     
     @Override
-    public void focusGained(FocusEvent e){
+    public void focusGained(FocusEvent e) {
         JTextField source = (JTextField) e.getComponent();
-        if(source.getText().equals(placeholderText)){
+        if (source.getText().equals(placeholderText)) {
             source.setText("");
             source.setForeground(txtColor);
         }
     }
     
     @Override
-    public void focusLost(FocusEvent e){
+    public void focusLost(FocusEvent e) {
         JTextField source = (JTextField) e.getComponent();
-        if(source.getText().isEmpty()){
+        if (source.getText().isEmpty()) {
             source.setText(placeholderText);
             source.setForeground(placeholderColor);
         }
