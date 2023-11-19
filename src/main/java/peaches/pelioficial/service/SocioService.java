@@ -4,6 +4,7 @@
  */
 package peaches.pelioficial.service;
 
+import java.util.List;
 import peaches.pelioficial.dao.SocioDAO;
 import peaches.pelioficial.model.Socio;
 import peaches.pelioficial.util.DatabaseConnector;
@@ -19,9 +20,11 @@ public class SocioService {
         this.socioDAO = new SocioDAO(DatabaseConnector.conectar());
     }
     
-    public void registrarSocio(Socio socio){
-        //Logica para validar datos del socio
-        
+    public void registrarSocio(Socio socio){        
         socioDAO.save(socio);
+    }
+    
+    public List<Socio> obtenerTodosLosSocios(){
+        return socioDAO.getAll();
     }
 }

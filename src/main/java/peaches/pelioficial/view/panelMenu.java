@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import peaches.pelioficial.model.Actor;
 import peaches.pelioficial.model.Director;
 import peaches.pelioficial.model.Socio;
+import peaches.pelioficial.model.SocioTableModel;
 import peaches.pelioficial.service.ActorService;
 import peaches.pelioficial.service.DirectorService;
 import peaches.pelioficial.service.SocioService;
@@ -27,11 +28,14 @@ import peaches.pelioficial.util.ValidadorFormulario;
  */
 public class panelMenu extends javax.swing.JPanel {
         int xMouse,yMouse;
+        private SocioTableModel tableModel;
+        SocioService socioService = new SocioService();
     /**
      * Creates new form panelMenu
      */
     public panelMenu() {
         initComponents();
+        initTable();
         cargarDirectores();
         cargarActores();
     }
@@ -50,6 +54,17 @@ public class panelMenu extends javax.swing.JPanel {
         for(Actor actor : actores){
             comboBoxActores.addItem(actor.getNombre());
         }
+    }
+    
+    private void initTable(){
+        List<Socio> socios = socioService.obtenerTodosLosSocios();
+        tableModel = new SocioTableModel(socios);
+        tableSocios.setModel(tableModel);
+    }
+    
+    public void actualizarVista(){
+        List<Socio> sociosActualizados = socioService.obtenerTodosLosSocios();
+        tableModel.setSocios(sociosActualizados);
     }
     
     /**
@@ -113,7 +128,7 @@ public class panelMenu extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         pSocio = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableSocios = new javax.swing.JTable();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -505,34 +520,34 @@ public class panelMenu extends javax.swing.JPanel {
 
         pSocio.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableSocios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "IDSocio", "Dirección", "Teléfono", "Directores favoritos", "Actores favoritos", "Géneros favoritos"
+                "IDSocio", "Nombre", "Dirección", "Teléfono", "Director favorito", "Actor favorito", "Género favorito"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tableSocios);
 
         javax.swing.GroupLayout pSocioLayout = new javax.swing.GroupLayout(pSocio);
         pSocio.setLayout(pSocioLayout);
         pSocioLayout.setHorizontalGroup(
             pSocioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pSocioLayout.createSequentialGroup()
-                .addGap(73, 73, 73)
+                .addGap(21, 21, 21)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(189, Short.MAX_VALUE))
+                .addContainerGap(241, Short.MAX_VALUE))
         );
         pSocioLayout.setVerticalGroup(
             pSocioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pSocioLayout.createSequentialGroup()
-                .addGap(136, 136, 136)
+                .addGap(137, 137, 137)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("tab4", pSocio);
@@ -554,29 +569,24 @@ public class panelMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel7MouseDragged
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void btnregistrarsocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrarsocioMouseClicked
-tabbedPane.setSelectedIndex(0);
-
-
-        // TODO add your handling code here:
+        tabbedPane.setSelectedIndex(0);
     }//GEN-LAST:event_btnregistrarsocioMouseClicked
 
     private void btnprestacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnprestacionesMouseClicked
-tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
+        tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
     }//GEN-LAST:event_btnprestacionesMouseClicked
 
     private void btndevolucionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btndevolucionesMouseClicked
-   tabbedPane.setSelectedIndex(2);
-        
+        tabbedPane.setSelectedIndex(2);
     }//GEN-LAST:event_btndevolucionesMouseClicked
 
     private void btnpeliprestadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnpeliprestadasMouseClicked
         tabbedPane.setSelectedIndex(3);
-        // TODO add your handling code here:
+        actualizarVista();
     }//GEN-LAST:event_btnpeliprestadasMouseClicked
 
     private void txtCodSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodSocioActionPerformed
@@ -649,7 +659,7 @@ tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
             socio.setActoresFavoritos((String)comboBoxActores.getSelectedItem());
             socio.setGenerosPreferidos((String)comboBoxGeneros.getSelectedItem());
             
-            SocioService socioService = new SocioService();
+            
             try {
                 socioService.registrarSocio(socio);
                 JTextField[] camposParaLimpiar = {txtNombre, txtDireccion, txtTelefono};
@@ -760,13 +770,13 @@ tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel pDevoluciones;
     private javax.swing.JPanel pPrestaciones;
     private javax.swing.JPanel pRegistrarSocio;
     private javax.swing.JPanel pSocio;
     private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JTable tableSocios;
     private javax.swing.JTextField txtCodSocio;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtFechaDevolucion;
