@@ -83,7 +83,7 @@ public class panelMenu extends javax.swing.JPanel {
         btnregistrarsocio = new javax.swing.JButton();
         btnprestaciones = new javax.swing.JButton();
         btndevoluciones = new javax.swing.JButton();
-        jPanel8 = new javax.swing.JPanel();
+        panelBarra = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         tabbedPane = new javax.swing.JTabbedPane();
         pRegistrarSocio = new javax.swing.JPanel();
@@ -108,14 +108,6 @@ public class panelMenu extends javax.swing.JPanel {
         comboBoxDirectores = new javax.swing.JComboBox<>();
         comboBoxActores = new javax.swing.JComboBox<>();
         comboBoxGeneros = new javax.swing.JComboBox<>();
-        pDevoluciones = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        txtIdPrestamo = new javax.swing.JTextField();
-        jSeparator8 = new javax.swing.JSeparator();
-        txtFechaEntrega = new javax.swing.JTextField();
-        jSeparator9 = new javax.swing.JSeparator();
-        jButton2 = new javax.swing.JButton();
         pPrestaciones = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -130,6 +122,14 @@ public class panelMenu extends javax.swing.JPanel {
         pSocio = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableSocios = new javax.swing.JTable();
+        pDevoluciones = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        txtIdPrestamo = new javax.swing.JTextField();
+        jSeparator8 = new javax.swing.JSeparator();
+        txtFechaEntrega = new javax.swing.JTextField();
+        jSeparator9 = new javax.swing.JSeparator();
+        jButton2 = new javax.swing.JButton();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -210,22 +210,21 @@ public class panelMenu extends javax.swing.JPanel {
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 16, 250, 500));
 
-        jPanel8.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel8.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        panelBarra.setBackground(new java.awt.Color(0, 0, 0));
+        panelBarra.setPreferredSize(new java.awt.Dimension(920, 18));
+        panelBarra.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
-                jPanel8MouseDragged(evt);
-            }
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jPanel8MouseMoved(evt);
+                panelBarraMouseDragged(evt);
             }
         });
-        jPanel8.addMouseListener(new java.awt.event.MouseAdapter() {
+        panelBarra.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jPanel8MousePressed(evt);
+                panelBarraMousePressed(evt);
             }
         });
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu/cerrar (1).png"))); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Login/closeButton.png"))); // NOI18N
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -233,21 +232,20 @@ public class panelMenu extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(901, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(223, 223, 223))
+        javax.swing.GroupLayout panelBarraLayout = new javax.swing.GroupLayout(panelBarra);
+        panelBarra.setLayout(panelBarraLayout);
+        panelBarraLayout.setHorizontalGroup(
+            panelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBarraLayout.createSequentialGroup()
+                .addGap(0, 900, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+        panelBarraLayout.setVerticalGroup(
+            panelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
         );
 
-        add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 20));
+        add(panelBarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 20));
 
         tabbedPane.setBackground(new java.awt.Color(255, 204, 204));
 
@@ -414,63 +412,6 @@ public class panelMenu extends javax.swing.JPanel {
 
         tabbedPane.addTab("tab1", pRegistrarSocio);
 
-        pDevoluciones.setBackground(new java.awt.Color(255, 255, 255));
-        pDevoluciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel13.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jLabel13.setText("ID Prestamo");
-        pDevoluciones.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 110, 20));
-
-        jLabel14.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jLabel14.setText("Fecha de Entrega:");
-        pDevoluciones.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 150, 20));
-
-        txtIdPrestamo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtIdPrestamo.setForeground(new java.awt.Color(204, 204, 204));
-        txtIdPrestamo.setText("Codigo");
-        txtIdPrestamo.setBorder(null);
-        txtIdPrestamo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdPrestamoActionPerformed(evt);
-            }
-        });
-        pDevoluciones.add(txtIdPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, 160, 30));
-        txtIdPrestamo.setForeground(Color.GRAY);
-        txtIdPrestamo.addFocusListener(new Placeholders("Codigo", new Color(204, 204, 204), Color.BLACK));
-
-        jSeparator8.setForeground(new java.awt.Color(0, 0, 0));
-        pDevoluciones.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 210, 20));
-
-        txtFechaEntrega.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtFechaEntrega.setForeground(new java.awt.Color(204, 204, 204));
-        txtFechaEntrega.setText("dd/mm/yy");
-        txtFechaEntrega.setBorder(null);
-        txtFechaEntrega.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaEntregaActionPerformed(evt);
-            }
-        });
-        pDevoluciones.add(txtFechaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 160, 30));
-        txtFechaEntrega.setForeground(Color.GRAY);
-        txtFechaEntrega.addFocusListener(new Placeholders("dd/mm/yy", new Color(204, 204, 204), Color.BLACK));
-
-        jSeparator9.setForeground(new java.awt.Color(0, 0, 0));
-        pDevoluciones.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, 210, 20));
-
-        jButton2.setBackground(new java.awt.Color(0, 0, 0));
-        jButton2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("SOLICITAR");
-        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        pDevoluciones.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, 220, 30));
-
-        tabbedPane.addTab("tab3", pDevoluciones);
-
         pPrestaciones.setBackground(new java.awt.Color(255, 255, 255));
         pPrestaciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -577,12 +518,69 @@ public class panelMenu extends javax.swing.JPanel {
             .addGroup(pSocioLayout.createSequentialGroup()
                 .addGap(137, 137, 137)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("tab4", pSocio);
 
-        add(tabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, -20, 890, 530));
+        pDevoluciones.setBackground(new java.awt.Color(255, 255, 255));
+        pDevoluciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel13.setText("ID Prestamo");
+        pDevoluciones.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 110, 20));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel14.setText("Fecha de Entrega:");
+        pDevoluciones.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 150, 20));
+
+        txtIdPrestamo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtIdPrestamo.setForeground(new java.awt.Color(204, 204, 204));
+        txtIdPrestamo.setText("Codigo");
+        txtIdPrestamo.setBorder(null);
+        txtIdPrestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdPrestamoActionPerformed(evt);
+            }
+        });
+        pDevoluciones.add(txtIdPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, 160, 30));
+        txtIdPrestamo.setForeground(Color.GRAY);
+        txtIdPrestamo.addFocusListener(new Placeholders("Codigo", new Color(204, 204, 204), Color.BLACK));
+
+        jSeparator8.setForeground(new java.awt.Color(0, 0, 0));
+        pDevoluciones.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 210, 20));
+
+        txtFechaEntrega.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtFechaEntrega.setForeground(new java.awt.Color(204, 204, 204));
+        txtFechaEntrega.setText("dd/mm/yy");
+        txtFechaEntrega.setBorder(null);
+        txtFechaEntrega.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFechaEntregaActionPerformed(evt);
+            }
+        });
+        pDevoluciones.add(txtFechaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 160, 30));
+        txtFechaEntrega.setForeground(Color.GRAY);
+        txtFechaEntrega.addFocusListener(new Placeholders("dd/mm/yy", new Color(204, 204, 204), Color.BLACK));
+
+        jSeparator9.setForeground(new java.awt.Color(0, 0, 0));
+        pDevoluciones.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, 210, 20));
+
+        jButton2.setBackground(new java.awt.Color(0, 0, 0));
+        jButton2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("SOLICITAR");
+        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        pDevoluciones.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, 220, 30));
+
+        tabbedPane.addTab("tab3", pDevoluciones);
+
+        add(tabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, -20, 890, 550));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MousePressed
@@ -757,28 +755,24 @@ public class panelMenu extends javax.swing.JPanel {
     private void btnRegistrarSocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarSocioMouseClicked
     }//GEN-LAST:event_btnRegistrarSocioMouseClicked
 
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-System.exit(0);        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel5MouseClicked
-
-    private void jPanel8MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseDragged
-          int x=evt.getXOnScreen();
-        int y=evt.getYOnScreen();
-        this.setLocation(x-xMouse,y-yMouse);    // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel8MouseDragged
-
-    private void jPanel8MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel8MouseMoved
-
-    private void jPanel8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MousePressed
-xMouse = evt.getX();
-yMouse = evt.getY();        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel8MousePressed
-
     private void btnpeliprestadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpeliprestadasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnpeliprestadasActionPerformed
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void panelBarraMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBarraMouseDragged
+        int x = evt.getXOnScreen();
+        int y  = evt.getYOnScreen();
+        this.setLocation(x -xMouse, y- yMouse);
+    }//GEN-LAST:event_panelBarraMouseDragged
+
+    private void panelBarraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBarraMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_panelBarraMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -808,7 +802,6 @@ yMouse = evt.getY();        // TODO add your handling code here:
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator11;
@@ -826,6 +819,7 @@ yMouse = evt.getY();        // TODO add your handling code here:
     private javax.swing.JPanel pPrestaciones;
     private javax.swing.JPanel pRegistrarSocio;
     private javax.swing.JPanel pSocio;
+    private javax.swing.JPanel panelBarra;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTable tableSocios;
     private javax.swing.JTextField txtCodSocio;

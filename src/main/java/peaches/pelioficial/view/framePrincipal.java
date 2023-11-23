@@ -28,6 +28,8 @@ public class framePrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelBarra = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
         Fondo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -37,18 +39,54 @@ public class framePrincipal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         txtPassword = new javax.swing.JPasswordField();
-        panelBarra = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelBarra.setBackground(new java.awt.Color(0, 0, 0));
+        panelBarra.setPreferredSize(new java.awt.Dimension(920, 18));
+        panelBarra.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                panelBarraMouseDragged(evt);
+            }
+        });
+        panelBarra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                panelBarraMousePressed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Login/closeButton.png"))); // NOI18N
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelBarraLayout = new javax.swing.GroupLayout(panelBarra);
+        panelBarra.setLayout(panelBarraLayout);
+        panelBarraLayout.setHorizontalGroup(
+            panelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBarraLayout.createSequentialGroup()
+                .addGap(0, 900, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panelBarraLayout.setVerticalGroup(
+            panelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(panelBarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 20));
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setForeground(new java.awt.Color(255, 153, 153));
         Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Login/Banner1.jpg"))); // NOI18N
-        Fondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, 440, 520));
+        Fondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 0, 440, 550));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
         jLabel2.setText("¡Bienvenido!");
@@ -115,53 +153,7 @@ public class framePrincipal extends javax.swing.JFrame {
         txtPassword.setForeground(Color.GRAY);
         txtPassword.addFocusListener(new Placeholders("jPasswordField1", new Color(204, 204, 204), Color.BLACK));
 
-        panelBarra.setBackground(new java.awt.Color(0, 0, 0));
-        panelBarra.setPreferredSize(new java.awt.Dimension(920, 18));
-        panelBarra.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                panelBarraMouseDragged(evt);
-            }
-        });
-        panelBarra.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                panelBarraMousePressed(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Login/closeButton.png"))); // NOI18N
-        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelBarraLayout = new javax.swing.GroupLayout(panelBarra);
-        panelBarra.setLayout(panelBarraLayout);
-        panelBarraLayout.setHorizontalGroup(
-            panelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBarraLayout.createSequentialGroup()
-                .addGap(0, 900, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        panelBarraLayout.setVerticalGroup(
-            panelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
-        );
-
-        Fondo.add(panelBarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, 20));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 524, Short.MAX_VALUE)
-        );
+        getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, 520));
 
         pack();
         setLocationRelativeTo(null);
@@ -216,7 +208,7 @@ yMouse = evt.getY();
             this.setLayout(new BorderLayout());
 
             // Remueve todos los componentes del contenedor principal
-            this.getContentPane().removeAll();
+            this.getContentPane().remove(Fondo);
 
             // Agrega el panelMenu al centro del contenedor principal
             this.add(pm, BorderLayout.CENTER);
