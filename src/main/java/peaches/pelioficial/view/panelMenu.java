@@ -151,7 +151,7 @@ public class panelMenu extends javax.swing.JPanel {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnpeliprestadas.setBackground(new java.awt.Color(0, 0, 0));
-        btnpeliprestadas.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        btnpeliprestadas.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         btnpeliprestadas.setForeground(new java.awt.Color(255, 255, 255));
         btnpeliprestadas.setText("SOCIOS");
         btnpeliprestadas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -165,10 +165,10 @@ public class panelMenu extends javax.swing.JPanel {
                 btnpeliprestadasActionPerformed(evt);
             }
         });
-        jPanel1.add(btnpeliprestadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 250, 40));
+        jPanel1.add(btnpeliprestadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 250, 40));
 
         btnregistrarsocio.setBackground(new java.awt.Color(0, 0, 0));
-        btnregistrarsocio.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        btnregistrarsocio.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         btnregistrarsocio.setForeground(new java.awt.Color(255, 255, 255));
         btnregistrarsocio.setText("REGISTRAR SOCIO");
         btnregistrarsocio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -185,7 +185,7 @@ public class panelMenu extends javax.swing.JPanel {
         jPanel1.add(btnregistrarsocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 250, 40));
 
         btnprestaciones.setBackground(new java.awt.Color(0, 0, 0));
-        btnprestaciones.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        btnprestaciones.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         btnprestaciones.setForeground(new java.awt.Color(255, 255, 255));
         btnprestaciones.setText("PRESTACIONES");
         btnprestaciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -199,10 +199,10 @@ public class panelMenu extends javax.swing.JPanel {
                 btnprestacionesActionPerformed(evt);
             }
         });
-        jPanel1.add(btnprestaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 250, 40));
+        jPanel1.add(btnprestaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 250, 40));
 
         btndevoluciones.setBackground(new java.awt.Color(0, 0, 0));
-        btndevoluciones.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        btndevoluciones.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         btndevoluciones.setForeground(new java.awt.Color(255, 255, 255));
         btndevoluciones.setText("DEVOLUCIONES");
         btndevoluciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -216,9 +216,9 @@ public class panelMenu extends javax.swing.JPanel {
                 btndevolucionesActionPerformed(evt);
             }
         });
-        jPanel1.add(btndevoluciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 250, 40));
+        jPanel1.add(btndevoluciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 250, 40));
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 16, 250, 500));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 16, 250, 510));
 
         panelBarra.setBackground(new java.awt.Color(0, 0, 0));
         panelBarra.setPreferredSize(new java.awt.Dimension(920, 18));
@@ -570,6 +570,8 @@ public class panelMenu extends javax.swing.JPanel {
 
         pSocio.setBackground(new java.awt.Color(255, 255, 255));
 
+        tableSocios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tableSocios.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         tableSocios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -607,11 +609,11 @@ public class panelMenu extends javax.swing.JPanel {
         pSocioLayout.setVerticalGroup(
             pSocioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pSocioLayout.createSequentialGroup()
-                .addGap(137, 137, 137)
+                .addGap(132, 132, 132)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(73, 73, 73)
                 .addComponent(btnEliminarSocio)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("tab4", pSocio);
