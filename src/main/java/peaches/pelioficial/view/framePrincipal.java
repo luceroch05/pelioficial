@@ -17,10 +17,29 @@ import peaches.pelioficial.util.Placeholders;
  * @author Lucero
  */
 public class framePrincipal extends javax.swing.JFrame {
-
-
+    private panelMenu panelMenu;
+    private panelCartelera panelCartelera;
+    
     public framePrincipal() {
         initComponents();
+        panelMenu = new panelMenu(this);
+        panelCartelera = new panelCartelera(this);
+        
+        
+        add(panelMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        add(panelCartelera, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        panelCartelera.setVisible(false);
+        panelMenu.setVisible(false);
+    }
+    
+    public void mostrarPanelCartelera(){
+        panelMenu.setVisible(false);
+        panelCartelera.setVisible(true);
+    }
+    
+    public void mostrarPanelMenu(){
+        panelCartelera.setVisible(false);
+        panelMenu.setVisible(true);
     }
 
  int xMouse, yMouse;
@@ -160,8 +179,6 @@ public class framePrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
-
-
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void panelBarraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBarraMousePressed
@@ -180,43 +197,23 @@ yMouse = evt.getY();
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void txtUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMouseClicked
-  
-        
     }//GEN-LAST:event_txtUsuarioMouseClicked
 
     private void txtPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPasswordMouseClicked
-       
-
     }//GEN-LAST:event_txtPasswordMouseClicked
 
     private void txtUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMousePressed
-//        txtUsuario.setText("");
-//        txtUsuario.setForeground(Color.black);
     }//GEN-LAST:event_txtUsuarioMousePressed
 
     private void txtPasswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPasswordMousePressed
-//        txtPassword.setText("");
-//        txtPassword.setForeground(Color.black);
     }//GEN-LAST:event_txtPasswordMousePressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-           
-//            panelMenu pm = new panelMenu();
-            panelMenu pm = new panelMenu();
-
-            // Cambia el layout del contenedor principal a BorderLayout
             this.setLayout(new BorderLayout());
-
-            // Remueve todos los componentes del contenedor principal
             this.getContentPane().remove(Fondo);
-
-            // Agrega el panelMenu al centro del contenedor principal
-            this.add(pm, BorderLayout.CENTER);
-
-            // Revalida y repinta el contenedor principal
+            panelMenu.setVisible(true);
             this.revalidate();
             this.repaint();
-                    // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

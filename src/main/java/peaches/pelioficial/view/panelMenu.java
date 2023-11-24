@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import peaches.pelioficial.model.Actor;
 import peaches.pelioficial.model.Director;
@@ -30,14 +31,17 @@ public class panelMenu extends javax.swing.JPanel {
         int xMouse,yMouse;
         private SocioTableModel tableModel;
         SocioService socioService = new SocioService();
+        private framePrincipal framePrincipal;
+        
     /**
      * Creates new form panelMenu
      */
-    public panelMenu() {
+    public panelMenu(framePrincipal framePrincipal) {
         initComponents();
         initTable();
         cargarDirectores();
         cargarActores();
+        this.framePrincipal = framePrincipal;
     }
     
     public void cargarDirectores(){
@@ -65,6 +69,10 @@ public class panelMenu extends javax.swing.JPanel {
     public void actualizarVista(){
         List<Socio> sociosActualizados = socioService.obtenerTodosLosSocios();
         tableModel.setSocios(sociosActualizados);
+    }
+    
+    public JTabbedPane getTabbedPane(){
+        return tabbedPane;
     }
     
     /**
@@ -710,21 +718,10 @@ public class panelMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRegistrarSocioActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-                panelCartelera pc= new panelCartelera();       
-            // Cambia el layout del contenedor principal a BorderLayout
            this.setLayout(new BorderLayout());
-
-            // Remueve todos los componentes del contenedor principal
-           this.removeAll();
-           this.add(pc, BorderLayout.CENTER);
-
-            pc.setVisible(true);
-
-            // Agrega el panelMenu al centro del contenedor principal
-            // Revalida y repinta el contenedor principal
+           framePrincipal.mostrarPanelCartelera();
             this.revalidate();
             this.repaint(); 
-            // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtIdPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdPrestamoActionPerformed
