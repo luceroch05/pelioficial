@@ -119,6 +119,7 @@ public class panelMenu extends javax.swing.JPanel {
         txtFechaDevolucion = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         pSocio = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableSocios = new javax.swing.JTable();
@@ -478,14 +479,26 @@ public class panelMenu extends javax.swing.JPanel {
         jButton1.setBackground(new java.awt.Color(0, 0, 0));
         jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("SOLICITAR");
+        jButton1.setText("VER CARTELERA");
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        pPrestaciones.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, 220, 30));
+        pPrestaciones.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 220, 30));
+
+        jButton3.setBackground(new java.awt.Color(0, 0, 0));
+        jButton3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("SOLICITAR");
+        jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        pPrestaciones.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 320, 220, 30));
 
         tabbedPane.addTab("tab2", pPrestaciones);
 
@@ -699,17 +712,19 @@ public class panelMenu extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
                 panelCartelera pc= new panelCartelera();       
             // Cambia el layout del contenedor principal a BorderLayout
-            this.setLayout(new BorderLayout());
+           this.setLayout(new BorderLayout());
 
             // Remueve todos los componentes del contenedor principal
-            this.removeAll();
+           this.removeAll();
+           this.add(pc, BorderLayout.CENTER);
+
+            pc.setVisible(true);
 
             // Agrega el panelMenu al centro del contenedor principal
-            this.add(pc, BorderLayout.CENTER);
-
             // Revalida y repinta el contenedor principal
             this.revalidate();
-            this.repaint();        // TODO add your handling code here:
+            this.repaint(); 
+            // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtIdPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdPrestamoActionPerformed
@@ -774,6 +789,10 @@ public class panelMenu extends javax.swing.JPanel {
         yMouse = evt.getY();
     }//GEN-LAST:event_panelBarraMousePressed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrarSocio;
@@ -786,6 +805,7 @@ public class panelMenu extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> comboBoxGeneros;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -820,7 +840,7 @@ public class panelMenu extends javax.swing.JPanel {
     private javax.swing.JPanel pRegistrarSocio;
     private javax.swing.JPanel pSocio;
     private javax.swing.JPanel panelBarra;
-    private javax.swing.JTabbedPane tabbedPane;
+    public javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTable tableSocios;
     private javax.swing.JTextField txtCodSocio;
     private javax.swing.JTextField txtDireccion;

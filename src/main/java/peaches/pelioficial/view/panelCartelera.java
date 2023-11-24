@@ -72,6 +72,7 @@ public class panelCartelera extends javax.swing.JPanel {
         jButton21 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/FNAF.jpg"))); // NOI18N
@@ -373,9 +374,11 @@ public class panelCartelera extends javax.swing.JPanel {
         });
         jPanel1.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 330, 90, 120));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel1.setBackground(new java.awt.Color(153, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Script MT Bold", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(204, 0, 0));
         jLabel1.setText("Cartelera");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 60, 30));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 170, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -408,9 +411,11 @@ public class panelCartelera extends javax.swing.JPanel {
        
         this.setLayout(new BorderLayout());
             
-        this.removeAll();
+       this.removeAll();
+       
+      pm.setVisible(true);
+        //this.add(pm, BorderLayout.CENTER);
       
-        this.add(pm, BorderLayout.CENTER);
         // Revalida y repinta el contenedor principal
         this.revalidate();
         this.repaint();
