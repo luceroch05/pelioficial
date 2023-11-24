@@ -20,26 +20,23 @@ import peaches.pelioficial.util.ImageUtils;
  */
 public class panelCartelera extends javax.swing.JPanel {
     
+    private framePrincipal framePrincipal;
+    
     /**
      * Creates new form panelCartelera
      */
-    public panelCartelera() {
+    public panelCartelera(framePrincipal framePrincipal) {
         initComponents();
+        this.framePrincipal = framePrincipal;
     }
     
     public void verCaracteristica(){
-            panelMenu pm = new panelMenu();
-       
-            this.setLayout(new BorderLayout());
-            
-            this.removeAll();
-      
-            this.add(pm, BorderLayout.CENTER);
-            // Revalida y repinta el contenedor principal
-            this.revalidate();
-            this.repaint();
+        this.setLayout(new BorderLayout());
+        framePrincipal.mostrarPanelMenu();
+        this.revalidate();
+        this.repaint(); 
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -406,19 +403,7 @@ public class panelCartelera extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton19ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       
-        panelMenu pm = new panelMenu();
-       
-        this.setLayout(new BorderLayout());
-            
-       this.removeAll();
-       
-      pm.setVisible(true);
-        //this.add(pm, BorderLayout.CENTER);
-      
-        // Revalida y repinta el contenedor principal
-        this.revalidate();
-        this.repaint();
+        verCaracteristica();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
