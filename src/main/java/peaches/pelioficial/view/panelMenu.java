@@ -19,6 +19,7 @@ import peaches.pelioficial.service.ActorService;
 import peaches.pelioficial.service.DirectorService;
 import peaches.pelioficial.service.SocioService;
 import peaches.pelioficial.util.DatabaseConnector;
+import peaches.pelioficial.util.ImageUtils;
 import peaches.pelioficial.util.Placeholders;
 import peaches.pelioficial.util.UIUtils;
 import peaches.pelioficial.util.ValidadorFormulario;
@@ -91,6 +92,7 @@ public class panelMenu extends javax.swing.JPanel {
         btnregistrarsocio = new javax.swing.JButton();
         btnprestaciones = new javax.swing.JButton();
         btndevoluciones = new javax.swing.JButton();
+        btnPeli = new javax.swing.JButton();
         panelBarra = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         tabbedPane = new javax.swing.JTabbedPane();
@@ -140,6 +142,60 @@ public class panelMenu extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableSocios = new javax.swing.JTable();
         btnEliminarSocio = new javax.swing.JButton();
+        pPelicula = new javax.swing.JPanel();
+        jButton8 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
+        jButton16 = new javax.swing.JButton();
+        jButton17 = new javax.swing.JButton();
+        jButton18 = new javax.swing.JButton();
+        jButton19 = new javax.swing.JButton();
+        jButton20 = new javax.swing.JButton();
+        jButton21 = new javax.swing.JButton();
+        jButton22 = new javax.swing.JButton();
+        pc1 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        pc2 = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        pc3 = new javax.swing.JPanel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -217,6 +273,23 @@ public class panelMenu extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btndevoluciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 250, 40));
+
+        btnPeli.setBackground(new java.awt.Color(0, 0, 0));
+        btnPeli.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        btnPeli.setForeground(new java.awt.Color(255, 255, 255));
+        btnPeli.setText("PELICULAS");
+        btnPeli.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnPeli.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPeliMouseClicked(evt);
+            }
+        });
+        btnPeli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPeliActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnPeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 250, 40));
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 16, 250, 510));
 
@@ -613,27 +686,467 @@ public class panelMenu extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(73, 73, 73)
                 .addComponent(btnEliminarSocio)
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("tab4", pSocio);
 
+        pPelicula.setBackground(new java.awt.Color(255, 255, 255));
+        pPelicula.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/Pixeles.jpg"))); // NOI18N
+        jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton8MouseClicked(evt);
+            }
+        });
+        jButton8.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton8ComponentResized(evt);
+            }
+        });
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        pPelicula.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 110, 160));
+
+        jLabel6.setBackground(new java.awt.Color(153, 0, 0));
+        jLabel6.setFont(new java.awt.Font("Script MT Bold", 0, 36)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel6.setText("Cartelera");
+        pPelicula.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 170, 30));
+
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/BusquedaImplacable.jpg"))); // NOI18N
+        jButton7.setText("jButton1");
+        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton7MouseClicked(evt);
+            }
+        });
+        jButton7.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton7ComponentResized(evt);
+            }
+        });
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        pPelicula.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 70, 110));
+
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/DestinoFinal.jpg"))); // NOI18N
+        jButton6.setText("jButton1");
+        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+        });
+        jButton6.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton6ComponentResized(evt);
+            }
+        });
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        pPelicula.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, 70, 110));
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/FNAF.jpg"))); // NOI18N
+        jButton4.setText("jButton1");
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton4ComponentResized(evt);
+            }
+        });
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        pPelicula.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 50, 70, 110));
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/ExtranioMundoDeJack.jpg"))); // NOI18N
+        jButton5.setText("jButton1");
+        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton5.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton5ComponentResized(evt);
+            }
+        });
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        pPelicula.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, 70, 110));
+
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/ElHobbit.jpg"))); // NOI18N
+        jButton9.setText("jButton1");
+        jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton9.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton9ComponentResized(evt);
+            }
+        });
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        pPelicula.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, 70, 110));
+
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/DragonBall.jpg"))); // NOI18N
+        jButton10.setText("jButton1");
+        jButton10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton10.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton10ComponentResized(evt);
+            }
+        });
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        pPelicula.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, 70, 110));
+
+        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/Pixeles.jpg"))); // NOI18N
+        jButton11.setText("jButton1");
+        jButton11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton11.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton11ComponentResized(evt);
+            }
+        });
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        pPelicula.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 190, 70, 110));
+
+        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/Matrix.jpg"))); // NOI18N
+        jButton12.setText("jButton1");
+        jButton12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton12.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton12ComponentResized(evt);
+            }
+        });
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+        pPelicula.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 70, 110));
+
+        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/MarioBros.jpg"))); // NOI18N
+        jButton13.setText("jButton1");
+        jButton13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton13.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton13ComponentResized(evt);
+            }
+        });
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+        pPelicula.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 190, 70, 110));
+
+        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/JurassicWorld.jpg"))); // NOI18N
+        jButton14.setText("jButton1");
+        jButton14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton14.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton14ComponentResized(evt);
+            }
+        });
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+        pPelicula.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, 70, 110));
+
+        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/Ju-On.jpg"))); // NOI18N
+        jButton15.setText("jButton1");
+        jButton15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton15.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton15ComponentResized(evt);
+            }
+        });
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
+        pPelicula.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, 70, 110));
+
+        jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/Intensamente.jpg"))); // NOI18N
+        jButton16.setText("jButton1");
+        jButton16.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton16.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton16ComponentResized(evt);
+            }
+        });
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
+        pPelicula.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 70, 110));
+
+        jButton17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/Susy.jpg"))); // NOI18N
+        jButton17.setText("jButton1");
+        jButton17.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton17.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton17ComponentResized(evt);
+            }
+        });
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
+        pPelicula.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, 70, 110));
+
+        jButton18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/Soul.jpg"))); // NOI18N
+        jButton18.setText("jButton1");
+        jButton18.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton18.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton18ComponentResized(evt);
+            }
+        });
+        jButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton18ActionPerformed(evt);
+            }
+        });
+        pPelicula.add(jButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 330, 70, 110));
+
+        jButton19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/ScaryMovie.jpg"))); // NOI18N
+        jButton19.setText("jButton1");
+        jButton19.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton19.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton19ComponentResized(evt);
+            }
+        });
+        jButton19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton19ActionPerformed(evt);
+            }
+        });
+        pPelicula.add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 70, 110));
+
+        jButton20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/RapidosFuriososX.jpg"))); // NOI18N
+        jButton20.setText("jButton1");
+        jButton20.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton20.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton20ComponentResized(evt);
+            }
+        });
+        jButton20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton20ActionPerformed(evt);
+            }
+        });
+        pPelicula.add(jButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, 70, 110));
+
+        jButton21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/Vengadores.jpg"))); // NOI18N
+        jButton21.setText("jButton1");
+        jButton21.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton21.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton21ComponentResized(evt);
+            }
+        });
+        jButton21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton21ActionPerformed(evt);
+            }
+        });
+        pPelicula.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, 70, 110));
+
+        jButton22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/Ted.jpg"))); // NOI18N
+        jButton22.setText("jButton1");
+        jButton22.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton22.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jButton22ComponentResized(evt);
+            }
+        });
+        jButton22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton22ActionPerformed(evt);
+            }
+        });
+        pPelicula.add(jButton22, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 330, 70, 110));
+
+        tabbedPane.addTab("tab5", pPelicula);
+
+        pc1.setBackground(new java.awt.Color(255, 255, 255));
+        pc1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/Pixeles.jpg"))); // NOI18N
+        pc1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 100, 140));
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel16.setText("PIXELES");
+        pc1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, -1, -1));
+
+        jLabel17.setText("<html>\nSINOPSIS: <br>\nEn 1982, la NASA envió una sonda el espacio con la esperanza de contactar<br>\n con otras  formas de vida extraterrestre. <br>\nElla incluía muestras de nuestra cultura, como videojuegos  recreativos de los años <br>\nochenta.<br>\n</html>");
+        pc1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 460, 90));
+
+        jLabel18.setText("ESTADO:");
+        pc1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, -1, -1));
+
+        jLabel19.setText("disponible");
+        pc1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 400, -1, -1));
+
+        jLabel20.setText("DIRECTOR:");
+        pc1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, -1, 10));
+
+        jLabel21.setText("Chris Columbus");
+        pc1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 340, -1, -1));
+
+        jLabel22.setText("´GÉNERO:");
+        pc1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, -1, -1));
+
+        jLabel23.setText("Animación y fantasía");
+        pc1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, -1, -1));
+
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 490, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        pc1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 440, 490, 10));
+
+        tabbedPane.addTab("tab6", pc1);
+
+        pc2.setBackground(new java.awt.Color(255, 255, 255));
+        pc2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/BusquedaImplacable.jpg"))); // NOI18N
+        pc2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 100, 140));
+
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel25.setText("BÚSQUEDA IMPLACABLE");
+        pc2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, -1, -1));
+
+        jLabel26.setText("<html>\nSINOPSIS: <br>\nCuando su distanciada hija es secuestrada en París, un exespía se propone<br>\nencontrarla a cualquier precio. Apoyándose en sus habilidades especiales, <br>\nlocaliza a la despiadada banda que la secuestró y lanza una guerra de un solo hombre <br>\npara llevarlos ante la justicia y rescatar a su hija.<br>\n</html>");
+        pc2.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 460, 90));
+
+        jLabel27.setText("ESTADO:");
+        pc2.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, -1, -1));
+
+        jLabel28.setText("disponible");
+        pc2.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 400, -1, -1));
+
+        jLabel29.setText("DIRECTOR:");
+        pc2.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, -1, 10));
+
+        jLabel30.setText("Olivier Megaton, Pierre Morel");
+        pc2.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, -1, -1));
+
+        jLabel31.setText("´GÉNERO:");
+        pc2.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, -1, -1));
+
+        jLabel32.setText("Accion, Drama,Policial,Ficcion");
+        pc2.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, -1, -1));
+
+        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 490, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        pc2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 440, 490, 10));
+
+        tabbedPane.addTab("tab7", pc2);
+
+        pc3.setBackground(new java.awt.Color(255, 255, 255));
+        pc3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/DestinoFinal.jpg"))); // NOI18N
+        pc3.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 100, 140));
+
+        jLabel34.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel34.setText("DESTINO FINAL");
+        pc3.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, -1, -1));
+
+        jLabel35.setText("<html>\nSINOPSIS: <br>\nSawa interpreta a un adolescente que engaña a la muerte después de tener<br>\n la premonición de la explosión de un avión catastrófico. Él y varios de sus compañeros abandonan el <br>\navión antes de que ocurra la explosión, pero la Muerte luego se lleva la vida de aquellos que <br>\nestaban destinados a morir en el avión.<br>\n</html>");
+        pc3.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 550, 120));
+
+        jLabel36.setText("ESTADO:");
+        pc3.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, -1, -1));
+
+        jLabel37.setText("disponible");
+        pc3.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 400, -1, -1));
+
+        jLabel38.setText("DIRECTOR:");
+        pc3.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, -1, 10));
+
+        jLabel39.setText("James Wong, Steven Quale");
+        pc3.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, -1, -1));
+
+        jLabel40.setText("´GÉNERO:");
+        pc3.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, -1, -1));
+
+        jLabel41.setText("Terror");
+        pc3.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, -1, -1));
+
+        jPanel4.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 490, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        pc3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 440, 490, 10));
+
+        tabbedPane.addTab("tab8", pc3);
+
         add(tabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, -20, 890, 550));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MousePressed
-       
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel7MousePressed
-
-    private void jLabel7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseDragged
-        // TODO add your handling code here:
-  
-    }//GEN-LAST:event_jLabel7MouseDragged
-
-    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_jLabel7MouseClicked
 
     private void btnregistrarsocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrarsocioMouseClicked
         tabbedPane.setSelectedIndex(0);
@@ -652,33 +1165,9 @@ public class panelMenu extends javax.swing.JPanel {
         actualizarVista();
     }//GEN-LAST:event_btnpeliprestadasMouseClicked
 
-    private void txtCodSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodSocioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodSocioActionPerformed
-
-    private void txtFechaPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaPrestamoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaPrestamoActionPerformed
-
-    private void txtFechaDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaDevolucionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaDevolucionActionPerformed
-
     private void btnregistrarsocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarsocioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnregistrarsocioActionPerformed
-
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
-
-    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDireccionActionPerformed
-
-    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefonoActionPerformed
 
     private void btndevolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndevolucionesActionPerformed
         // TODO add your handling code here:
@@ -688,104 +1177,11 @@ public class panelMenu extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnprestacionesActionPerformed
 
-    private void btnRegistrarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarSocioActionPerformed
-//             panelCartelera pc= new panelCartelera();
-//       
-//            // Cambia el layout del contenedor principal a BorderLayout
-//            this.setLayout(new BorderLayout());
-//
-//            // Remueve todos los componentes del contenedor principal
-//            this.removeAll();
-//
-//            // Agrega el panelMenu al centro del contenedor principal
-//            this.add(pc, BorderLayout.CENTER);
-//
-//            // Revalida y repinta el contenedor principal
-//            this.revalidate();
-//            this.repaint();
-        String nombre = txtNombre.getText().trim();
-        String direccion = txtDireccion.getText().trim();
-        String telefono = txtTelefono.getText().trim();
-        String placeholderNombre = "Introduzca su nombre";
-        String placeholderDireccion = "Av. Del Coso 123";
-        String placeholderTelefono = "987654321";
-        
-        boolean esValido = ValidadorFormulario.validarRegistroSocio(nombre, direccion, telefono, placeholderNombre, placeholderDireccion, placeholderTelefono);
-
-        
-        if(esValido){
-            Socio socio = new Socio();
-            socio.setNombre(txtNombre.getText());
-            socio.setDireccion(txtDireccion.getText());
-            socio.setTelefono(txtTelefono.getText());
-            socio.setDirectoresFavoritos((String)comboBoxDirectores.getSelectedItem());
-            socio.setActoresFavoritos((String)comboBoxActores.getSelectedItem());
-            socio.setGenerosPreferidos((String)comboBoxGeneros.getSelectedItem());
-            
-            
-            try {
-                socioService.registrarSocio(socio);
-                JTextField[] camposParaLimpiar = {txtNombre, txtDireccion, txtTelefono};
-                JComboBox[] camposComboParaLimpiar = {comboBoxActores, comboBoxDirectores, comboBoxGeneros};
-                UIUtils.mostrarMensajeExitoYLimpiarCampos(camposParaLimpiar, camposComboParaLimpiar, "El socio ha sido registrado con exito.", "Registro Exitoso");
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Error al resgistrar el socio: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_btnRegistrarSocioActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-           this.setLayout(new BorderLayout());
-           framePrincipal.mostrarPanelCartelera();
-            this.revalidate();
-            this.repaint(); 
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void txtIdPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdPrestamoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdPrestamoActionPerformed
-
-    private void txtFechaEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaEntregaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaEntregaActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void comboBoxDirectoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDirectoresActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxDirectoresActionPerformed
-
-    private void txtNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusGained
-        
-    }//GEN-LAST:event_txtNombreFocusGained
-
-    private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
-        
-    }//GEN-LAST:event_txtNombreFocusLost
-
-    private void txtDireccionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionFocusGained
-        
-    }//GEN-LAST:event_txtDireccionFocusGained
-
-    private void txtDireccionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionFocusLost
-        
-    }//GEN-LAST:event_txtDireccionFocusLost
-
-    private void txtTelefonoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefonoFocusGained
-       
-    }//GEN-LAST:event_txtTelefonoFocusGained
-
-    private void txtTelefonoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefonoFocusLost
-       
-    }//GEN-LAST:event_txtTelefonoFocusLost
-
-    private void btnRegistrarSocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarSocioMouseClicked
-    }//GEN-LAST:event_btnRegistrarSocioMouseClicked
-
     private void btnpeliprestadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpeliprestadasActionPerformed
-        // TODO add your handling code here:
+            this.setLayout(new BorderLayout());
+           tabbedPane.setSelectedIndex(3); 
+            
+                  // TODO add your handling code here:
     }//GEN-LAST:event_btnpeliprestadasActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -803,8 +1199,13 @@ public class panelMenu extends javax.swing.JPanel {
         yMouse = evt.getY();
     }//GEN-LAST:event_panelBarraMousePressed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btnPeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPeliMouseClicked
+    tabbedPane.setSelectedIndex(4);        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPeliMouseClicked
+
+    private void btnPeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeliActionPerformed
+       // TODO add your handling code here:
+    }//GEN-LAST:event_btnPeliActionPerformed
 
     private void btnEliminarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarSocioActionPerformed
         int selectedRow = tableSocios.getSelectedRow();
@@ -815,11 +1216,316 @@ public class panelMenu extends javax.swing.JPanel {
         }else{
             JOptionPane.showMessageDialog(this, "Por favor, seleccione un socio para eliminar.");
         }
+
     }//GEN-LAST:event_btnEliminarSocioActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtFechaEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaEntregaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaEntregaActionPerformed
+
+    private void txtIdPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdPrestamoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdPrestamoActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.setLayout(new BorderLayout());
+        framePrincipal.mostrarPanelCartelera();
+        this.revalidate();
+        this.repaint();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtFechaDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaDevolucionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaDevolucionActionPerformed
+
+    private void txtFechaPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaPrestamoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaPrestamoActionPerformed
+
+    private void txtCodSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodSocioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodSocioActionPerformed
+
+    private void comboBoxDirectoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDirectoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxDirectoresActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
+
+    }//GEN-LAST:event_txtNombreFocusLost
+
+    private void txtNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusGained
+
+    }//GEN-LAST:event_txtNombreFocusGained
+
+    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefonoActionPerformed
+
+    private void txtTelefonoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefonoFocusLost
+
+    }//GEN-LAST:event_txtTelefonoFocusLost
+
+    private void txtTelefonoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefonoFocusGained
+
+    }//GEN-LAST:event_txtTelefonoFocusGained
+
+    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDireccionActionPerformed
+
+    private void txtDireccionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionFocusLost
+
+    }//GEN-LAST:event_txtDireccionFocusLost
+
+    private void txtDireccionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionFocusGained
+
+    }//GEN-LAST:event_txtDireccionFocusGained
+
+    private void jLabel7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MousePressed
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel7MousePressed
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void jLabel7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseDragged
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jLabel7MouseDragged
+
+    private void btnRegistrarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarSocioActionPerformed
+        //             panelCartelera pc= new panelCartelera();
+        //
+        //            // Cambia el layout del contenedor principal a BorderLayout
+        //            this.setLayout(new BorderLayout());
+        //
+        //            // Remueve todos los componentes del contenedor principal
+        //            this.removeAll();
+        //
+        //            // Agrega el panelMenu al centro del contenedor principal
+        //            this.add(pc, BorderLayout.CENTER);
+        //
+        //            // Revalida y repinta el contenedor principal
+        //            this.revalidate();
+        //            this.repaint();
+        String nombre = txtNombre.getText().trim();
+        String direccion = txtDireccion.getText().trim();
+        String telefono = txtTelefono.getText().trim();
+        String placeholderNombre = "Introduzca su nombre";
+        String placeholderDireccion = "Av. Del Coso 123";
+        String placeholderTelefono = "987654321";
+
+        boolean esValido = ValidadorFormulario.validarRegistroSocio(nombre, direccion, telefono, placeholderNombre, placeholderDireccion, placeholderTelefono);
+
+        if(esValido){
+            Socio socio = new Socio();
+            socio.setNombre(txtNombre.getText());
+            socio.setDireccion(txtDireccion.getText());
+            socio.setTelefono(txtTelefono.getText());
+            socio.setDirectoresFavoritos((String)comboBoxDirectores.getSelectedItem());
+            socio.setActoresFavoritos((String)comboBoxActores.getSelectedItem());
+            socio.setGenerosPreferidos((String)comboBoxGeneros.getSelectedItem());
+
+            try {
+                socioService.registrarSocio(socio);
+                JTextField[] camposParaLimpiar = {txtNombre, txtDireccion, txtTelefono};
+                JComboBox[] camposComboParaLimpiar = {comboBoxActores, comboBoxDirectores, comboBoxGeneros};
+                UIUtils.mostrarMensajeExitoYLimpiarCampos(camposParaLimpiar, camposComboParaLimpiar, "El socio ha sido registrado con exito.", "Registro Exitoso");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al resgistrar el socio: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnRegistrarSocioActionPerformed
+
+    private void btnRegistrarSocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarSocioMouseClicked
+
+    }//GEN-LAST:event_btnRegistrarSocioMouseClicked
+
+    private void jButton8ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton8ComponentResized
+        ImageUtils.escalarImagen(jButton1, "/Imgs/Imgs Cartelera/Batman.jpg");
+    }//GEN-LAST:event_jButton8ComponentResized
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+       
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
+     tabbedPane.setSelectedIndex(5);      // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8MouseClicked
+
+    private void jButton7ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton7ComponentResized
+        ImageUtils.escalarImagen(jButton7, "/Imgs/Imgs Cartelera/BusquedaImplacable.jpg");
+    }//GEN-LAST:event_jButton7ComponentResized
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    
+
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
+tabbedPane.setSelectedIndex(6);       // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7MouseClicked
+
+    private void jButton6ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton6ComponentResized
+        ImageUtils.escalarImagen(jButton6, "/Imgs/Imgs Cartelera/DestinoFinal.jpg");
+    }//GEN-LAST:event_jButton6ComponentResized
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+      tabbedPane.setSelectedIndex(7);   // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6MouseClicked
+
+    private void jButton4ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton4ComponentResized
+        ImageUtils.escalarImagen(jButton1, "/Imgs/Imgs Cartelera/FNAF.jpg");
+    }//GEN-LAST:event_jButton4ComponentResized
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+            // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton5ComponentResized
+        ImageUtils.escalarImagen(jButton2, "/Imgs/Imgs Cartelera/ExtranioMundoDeJack.jpg");
+    }//GEN-LAST:event_jButton5ComponentResized
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+            // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton9ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton9ComponentResized
+        ImageUtils.escalarImagen(jButton3, "/Imgs/Imgs Cartelera/ElHobbit.jpg");
+    }//GEN-LAST:event_jButton9ComponentResized
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton10ComponentResized
+        ImageUtils.escalarImagen(jButton4, "/Imgs/Imgs Cartelera/DragonBall.jpg");
+    }//GEN-LAST:event_jButton10ComponentResized
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+       
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton11ComponentResized
+        ImageUtils.escalarImagen(jButton8, "/Imgs/Imgs Cartelera/Pixeles.jpg");
+    }//GEN-LAST:event_jButton11ComponentResized
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+           // TODO add your handling code here:
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton12ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton12ComponentResized
+        ImageUtils.escalarImagen(jButton9, "/Imgs/Imgs Cartelera/Matrix.jpg");
+    }//GEN-LAST:event_jButton12ComponentResized
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+            // TODO add your handling code here:
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton13ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton13ComponentResized
+        ImageUtils.escalarImagen(jButton10, "/Imgs/Imgs Cartelera/MarioBros.jpg");
+    }//GEN-LAST:event_jButton13ComponentResized
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+            // TODO add your handling code here:
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton14ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton14ComponentResized
+        ImageUtils.escalarImagen(jButton11, "/Imgs/Imgs Cartelera/JurassicWorld.jpg");
+    }//GEN-LAST:event_jButton14ComponentResized
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+              // TODO add your handling code here:
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton15ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton15ComponentResized
+        ImageUtils.escalarImagen(jButton12, "/Imgs/Imgs Cartelera/Ju-On.jpg");
+    }//GEN-LAST:event_jButton15ComponentResized
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+              // TODO add your handling code here:
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jButton16ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton16ComponentResized
+        ImageUtils.escalarImagen(jButton13, "/Imgs/Imgs Cartelera/Intensamente.jpg");
+    }//GEN-LAST:event_jButton16ComponentResized
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+       
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void jButton17ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton17ComponentResized
+        ImageUtils.escalarImagen(jButton15, "/Imgs/Imgs Cartelera/Susy.jpg");
+    }//GEN-LAST:event_jButton17ComponentResized
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+              // TODO add your handling code here:
+    }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void jButton18ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton18ComponentResized
+        ImageUtils.escalarImagen(jButton16, "/Imgs/Imgs Cartelera/Soul.jpg");
+    }//GEN-LAST:event_jButton18ComponentResized
+
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+             // TODO add your handling code here:
+    }//GEN-LAST:event_jButton18ActionPerformed
+
+    private void jButton19ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton19ComponentResized
+        ImageUtils.escalarImagen(jButton17, "/Imgs/Imgs Cartelera/ScaryMovie.jpg");
+    }//GEN-LAST:event_jButton19ComponentResized
+
+    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
+           // TODO add your handling code here:
+    }//GEN-LAST:event_jButton19ActionPerformed
+
+    private void jButton20ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton20ComponentResized
+        ImageUtils.escalarImagen(jButton18, "/Imgs/Imgs Cartelera/RapidosFuriososX.jpg");
+    }//GEN-LAST:event_jButton20ComponentResized
+
+    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
+            // TODO add your handling code here:
+    }//GEN-LAST:event_jButton20ActionPerformed
+
+    private void jButton21ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton21ComponentResized
+        ImageUtils.escalarImagen(jButton20, "/Imgs/Imgs Cartelera/Vengadores.jpg");
+    }//GEN-LAST:event_jButton21ComponentResized
+
+    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
+               // TODO add your handling code here:
+    }//GEN-LAST:event_jButton21ActionPerformed
+
+    private void jButton22ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton22ComponentResized
+        ImageUtils.escalarImagen(jButton21, "/Imgs/Imgs Cartelera/Ted.jpg");
+    }//GEN-LAST:event_jButton22ComponentResized
+
+    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
+                // TODO add your handling code here:
+    }//GEN-LAST:event_jButton22ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminarSocio;
+    private javax.swing.JButton btnPeli;
     private javax.swing.JButton btnRegistrarSocio;
     private javax.swing.JButton btndevoluciones;
     private javax.swing.JButton btnpeliprestadas;
@@ -829,8 +1535,27 @@ public class panelMenu extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> comboBoxDirectores;
     private javax.swing.JComboBox<String> comboBoxGeneros;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
+    private javax.swing.JButton jButton16;
+    private javax.swing.JButton jButton17;
+    private javax.swing.JButton jButton18;
+    private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton20;
+    private javax.swing.JButton jButton21;
+    private javax.swing.JButton jButton22;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -838,14 +1563,45 @@ public class panelMenu extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
@@ -861,11 +1617,15 @@ public class panelMenu extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel pDevoluciones;
+    private javax.swing.JPanel pPelicula;
     private javax.swing.JPanel pPrestaciones;
     private javax.swing.JPanel pRegistrarSocio;
     private javax.swing.JPanel pSocio;
     private javax.swing.JPanel panelBarra;
-    public javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JPanel pc1;
+    private javax.swing.JPanel pc2;
+    private javax.swing.JPanel pc3;
+    private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTable tableSocios;
     private javax.swing.JTextField txtCodSocio;
     private javax.swing.JTextField txtDireccion;
