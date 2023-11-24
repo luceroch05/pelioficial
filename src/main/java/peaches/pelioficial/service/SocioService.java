@@ -34,7 +34,7 @@ public class SocioService {
         Optional<Socio> socio = socioDAO.get(idsocio);
         if(socio.isPresent()){
             socioDAO.delete(socio.get());
-            JOptionPane.showMessageDialog(null, "Socio eliminado con exito.");
+            JOptionPane.showMessageDialog(null, "Socio eliminado con exito.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

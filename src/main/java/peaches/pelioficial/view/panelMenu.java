@@ -128,9 +128,6 @@ public class panelMenu extends javax.swing.JPanel {
         jSeparator3 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        pSocio = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableSocios = new javax.swing.JTable();
         pDevoluciones = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -139,6 +136,10 @@ public class panelMenu extends javax.swing.JPanel {
         txtFechaEntrega = new javax.swing.JTextField();
         jSeparator9 = new javax.swing.JSeparator();
         jButton2 = new javax.swing.JButton();
+        pSocio = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableSocios = new javax.swing.JTable();
+        btnEliminarSocio = new javax.swing.JButton();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -510,40 +511,6 @@ public class panelMenu extends javax.swing.JPanel {
 
         tabbedPane.addTab("tab2", pPrestaciones);
 
-        pSocio.setBackground(new java.awt.Color(255, 255, 255));
-
-        tableSocios.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "IDSocio", "Nombre", "Dirección", "Teléfono", "Director favorito", "Actor favorito", "Género favorito"
-            }
-        ));
-        jScrollPane1.setViewportView(tableSocios);
-
-        javax.swing.GroupLayout pSocioLayout = new javax.swing.GroupLayout(pSocio);
-        pSocio.setLayout(pSocioLayout);
-        pSocioLayout.setHorizontalGroup(
-            pSocioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pSocioLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(241, Short.MAX_VALUE))
-        );
-        pSocioLayout.setVerticalGroup(
-            pSocioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pSocioLayout.createSequentialGroup()
-                .addGap(137, 137, 137)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(195, Short.MAX_VALUE))
-        );
-
-        tabbedPane.addTab("tab4", pSocio);
-
         pDevoluciones.setBackground(new java.awt.Color(255, 255, 255));
         pDevoluciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -600,6 +567,54 @@ public class panelMenu extends javax.swing.JPanel {
         pDevoluciones.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, 220, 30));
 
         tabbedPane.addTab("tab3", pDevoluciones);
+
+        pSocio.setBackground(new java.awt.Color(255, 255, 255));
+
+        tableSocios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "IDSocio", "Nombre", "Dirección", "Teléfono", "Director favorito", "Actor favorito", "Género favorito"
+            }
+        ));
+        jScrollPane1.setViewportView(tableSocios);
+
+        btnEliminarSocio.setText("Eliminar");
+        btnEliminarSocio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarSocioActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pSocioLayout = new javax.swing.GroupLayout(pSocio);
+        pSocio.setLayout(pSocioLayout);
+        pSocioLayout.setHorizontalGroup(
+            pSocioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pSocioLayout.createSequentialGroup()
+                .addGroup(pSocioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pSocioLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pSocioLayout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(btnEliminarSocio)))
+                .addContainerGap(241, Short.MAX_VALUE))
+        );
+        pSocioLayout.setVerticalGroup(
+            pSocioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pSocioLayout.createSequentialGroup()
+                .addGap(137, 137, 137)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73)
+                .addComponent(btnEliminarSocio)
+                .addContainerGap(99, Short.MAX_VALUE))
+        );
+
+        tabbedPane.addTab("tab4", pSocio);
 
         add(tabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, -20, 890, 550));
     }// </editor-fold>//GEN-END:initComponents
@@ -787,11 +802,22 @@ public class panelMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_panelBarraMousePressed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnEliminarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarSocioActionPerformed
+        int selectedRow = tableSocios.getSelectedRow();
+        if(selectedRow >= 0){
+            int socioId = (int) tableModel.getValueAt(selectedRow, 0);
+            socioService.eliminarSocio(socioId);
+            actualizarVista();
+        }else{
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un socio para eliminar.");
+        }
+    }//GEN-LAST:event_btnEliminarSocioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEliminarSocio;
     private javax.swing.JButton btnRegistrarSocio;
     private javax.swing.JButton btndevoluciones;
     private javax.swing.JButton btnpeliprestadas;
