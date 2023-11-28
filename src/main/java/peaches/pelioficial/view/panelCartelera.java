@@ -28,6 +28,7 @@ public class panelCartelera extends javax.swing.JPanel {
     public panelCartelera(framePrincipal framePrincipal) {
         initComponents();
         this.framePrincipal = framePrincipal;
+        pSinopsis.setVisible(false);
     }
     
     public void verCaracteristica(){
@@ -68,6 +69,17 @@ public class panelCartelera extends javax.swing.JPanel {
         jButton20 = new javax.swing.JButton();
         jButton21 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        pSinopsis = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -377,15 +389,70 @@ public class panelCartelera extends javax.swing.JPanel {
         jLabel1.setText("Cartelera");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 170, 30));
 
+        pSinopsis.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Cartelera/Pixeles.jpg"))); // NOI18N
+        pSinopsis.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 130, 250));
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel16.setText("PIXELES");
+        pSinopsis.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
+
+        jLabel17.setText("<html>\nSINOPSIS: <br>\nEn 1982, la NASA envió una sonda el espacio con la esperanza de contactar<br>\n con otras  formas de vida extraterrestre. <br>\nElla incluía muestras de nuestra cultura, como videojuegos  recreativos de los años <br>\nochenta.<br>\n</html>");
+        pSinopsis.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 460, 90));
+
+        jLabel18.setText("ESTADO:");
+        pSinopsis.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, -1, -1));
+
+        jLabel19.setText("disponible");
+        pSinopsis.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 280, -1, -1));
+
+        jLabel20.setText("DIRECTOR:");
+        pSinopsis.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, -1, 10));
+
+        jLabel21.setText("Chris Columbus");
+        pSinopsis.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, -1, -1));
+
+        jLabel22.setText("´GÉNERO:");
+        pSinopsis.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, -1, -1));
+
+        jLabel23.setText("Animación y fantasía");
+        pSinopsis.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, -1, -1));
+
+        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 490, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        pSinopsis.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 440, 490, 10));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 920, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(pSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(pSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -573,6 +640,17 @@ verCaracteristica();        // TODO add your handling code here:
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel pSinopsis;
     // End of variables declaration//GEN-END:variables
 }
