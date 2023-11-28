@@ -131,7 +131,6 @@ public class panelMenu extends javax.swing.JPanel {
         btnregistrarsocio = new javax.swing.JButton();
         btnprestaciones = new javax.swing.JButton();
         btndevoluciones = new javax.swing.JButton();
-        btnPeli = new javax.swing.JButton();
         panelBarra = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         tabbedPane = new javax.swing.JTabbedPane();
@@ -258,23 +257,6 @@ public class panelMenu extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btndevoluciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 250, 40));
-
-        btnPeli.setBackground(new java.awt.Color(0, 0, 0));
-        btnPeli.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        btnPeli.setForeground(new java.awt.Color(255, 255, 255));
-        btnPeli.setText("PELICULAS");
-        btnPeli.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        btnPeli.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPeliMouseClicked(evt);
-            }
-        });
-        btnPeli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPeliActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnPeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 250, 40));
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 16, 250, 510));
 
@@ -730,14 +712,6 @@ public class panelMenu extends javax.swing.JPanel {
         yMouse = evt.getY();
     }//GEN-LAST:event_panelBarraMousePressed
 
-    private void btnPeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPeliMouseClicked
-    tabbedPane.setSelectedIndex(4);        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPeliMouseClicked
-
-    private void btnPeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeliActionPerformed
-       // TODO add your handling code here:
-    }//GEN-LAST:event_btnPeliActionPerformed
-
     private void btnEliminarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarSocioActionPerformed
         int selectedRow = tableSocios.getSelectedRow();
         if(selectedRow >= 0){
@@ -890,7 +864,6 @@ public class panelMenu extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminarSocio;
-    private javax.swing.JButton btnPeli;
     private javax.swing.JButton btnRegistrarSocio;
     private javax.swing.JButton btndevoluciones;
     private javax.swing.JButton btnpeliprestadas;
