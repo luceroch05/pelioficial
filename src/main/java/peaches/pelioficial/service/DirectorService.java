@@ -23,4 +23,21 @@ public class DirectorService {
     public List<Director> obtenerTodosLosDirectores(){
         return directorDAO.getAll();
     }
+    
+    public void agregarDirector(String nombre){
+        Director director = new Director();
+        director.setNombre(nombre);
+        directorDAO.save(director);
+    }
+    
+    public void editarDirector(int id, String nuevoNombre){
+        Director director = directorDAO.get(id).orElseThrow(() -> new IllegalArgumentException("Director not found."));
+        director.setNombre(nuevoNombre);
+        directorDAO.update(director, new String[]{nuevoNombre});
+    }
+    
+    public void eliminarDirector(int id){
+        Director director = directorDAO.get(id).orElseThrow(() -> new IllegalArgumentException("Director not found."));
+        directorDAO.delete(director);
+    }
 }

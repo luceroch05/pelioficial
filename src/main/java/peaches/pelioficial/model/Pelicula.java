@@ -4,6 +4,7 @@
  */
 package peaches.pelioficial.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,9 +14,16 @@ import java.util.List;
 public class Pelicula {
     private int peliculaId;
     private String titulo;
-    private String genero;
-    private int directorId;
-    private List<Integer> actores;//Lista de Id's de Actores
+    private Director director;
+    
+    public Pelicula(){
+    }
+
+    public Pelicula(int peliculaId, String titulo, Director director) {
+        this.peliculaId = peliculaId;
+        this.titulo = titulo;
+        this.director = director;
+    }
 
     public int getPeliculaId() {
         return peliculaId;
@@ -33,27 +41,11 @@ public class Pelicula {
         this.titulo = titulo;
     }
 
-    public String getGenero() {
-        return genero;
+    public Director getDirector() {
+        return director;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public int getDirectorId() {
-        return directorId;
-    }
-
-    public void setDirectorId(int directorId) {
-        this.directorId = directorId;
-    }
-
-    public List<Integer> getActores() {
-        return actores;
-    }
-
-    public void setActores(List<Integer> actores) {
-        this.actores = actores;
+    public void setDirector(Director director) {
+        this.director = director;
     }
 }

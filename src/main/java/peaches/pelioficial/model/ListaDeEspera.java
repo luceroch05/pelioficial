@@ -16,6 +16,16 @@ public class ListaDeEspera {
     private int socioId;
     private LocalDate fechaSolicitud;
 
+    public ListaDeEspera() {
+    }
+
+    public ListaDeEspera(int listaEsperaId, int peliculaId, int socioId, LocalDate fechaSolicitud) {
+        this.listaEsperaId = listaEsperaId;
+        this.peliculaId = peliculaId;
+        this.socioId = socioId;
+        this.fechaSolicitud = fechaSolicitud;
+    }
+    
     public int getListaEsperaId() {
         return listaEsperaId;
     }

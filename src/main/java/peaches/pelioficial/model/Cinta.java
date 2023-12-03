@@ -13,6 +13,15 @@ public class Cinta {
     private int peliculaId;
     private String estado; //Disponible, Prestado, Daniada, Perdida
 
+    public Cinta() {
+    }
+
+    public Cinta(int cintaId, int peliculaId, String estado) {
+        this.cintaId = cintaId;
+        this.peliculaId = peliculaId;
+        this.estado = estado;
+    }
+    
     public int getCintaId() {
         return cintaId;
     }

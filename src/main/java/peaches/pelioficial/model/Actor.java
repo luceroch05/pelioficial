@@ -12,6 +12,14 @@ public class Actor {
     private int actorId;
     private String nombre;
 
+    public Actor() {
+    }
+
+    public Actor(int actorId, String nombre) {
+        this.actorId = actorId;
+        this.nombre = nombre;
+    }
+    
     public int getActorId() {
         return actorId;
     }

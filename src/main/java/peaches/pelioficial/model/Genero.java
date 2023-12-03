@@ -6,26 +6,26 @@ package peaches.pelioficial.model;
 
 /**
  *
- * @author q-ql
+ * @author mtx0v
  */
-public class Director {
-    private int directorId;
+public class Genero {
+    private int generoId;
     private String nombre;
 
-    public Director() {
+    public Genero() {
     }
 
-    public Director(int directorId, String nombre) {
-        this.directorId = directorId;
+    public Genero(int generoId, String nombre) {
+        this.generoId = generoId;
         this.nombre = nombre;
     }
     
-    public int getDirectorId() {
-        return directorId;
+    public int getGeneroId() {
+        return generoId;
     }
 
-    public void setDirectorId(int directorId) {
-        this.directorId = directorId;
+    public void setGeneroId(int generoId) {
+        this.generoId = generoId;
     }
 
     public String getNombre() {
@@ -34,10 +34,5 @@ public class Director {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-    
-    @Override
-    public String toString(){
-        return this.nombre;
     }
 }

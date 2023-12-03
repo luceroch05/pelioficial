@@ -17,12 +17,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import peaches.pelioficial.model.Actor;
 import peaches.pelioficial.model.Director;
+import peaches.pelioficial.model.Genero;
 import peaches.pelioficial.model.Socio;
 import peaches.pelioficial.model.SocioTableModel;
 import peaches.pelioficial.service.ActorService;
 import peaches.pelioficial.service.DirectorService;
+import peaches.pelioficial.service.PeliculaService;
 import peaches.pelioficial.service.SocioService;
 import peaches.pelioficial.util.DatabaseConnector;
 import peaches.pelioficial.util.ImageUtils;
@@ -38,6 +41,9 @@ public class panelMenu extends javax.swing.JPanel {
         int xMouse,yMouse;
         private SocioTableModel tableModel;
         SocioService socioService = new SocioService();
+        PeliculaService peliculaService = new PeliculaService(DatabaseConnector.conectar());
+        DirectorService directorService = new DirectorService(DatabaseConnector.conectar());
+        ActorService actorService = new ActorService(DatabaseConnector.conectar());
         private framePrincipal framePrincipal;
         
     /**
@@ -48,6 +54,7 @@ public class panelMenu extends javax.swing.JPanel {
         initTable();
         cargarDirectores();
         cargarActores();
+        rellenarCboGenero();
         this.framePrincipal = framePrincipal;
      
 
@@ -71,8 +78,9 @@ public class panelMenu extends javax.swing.JPanel {
         
         });
     }
+        
     
-       private void actualizarFecha() {
+        private void actualizarFecha() {
         // Obtener la fecha actual
            Date fechaActual = new Date(System.currentTimeMillis());
 
@@ -83,7 +91,7 @@ public class panelMenu extends javax.swing.JPanel {
         // Establecer la fecha en el JTextField
         txtFechaPrestamo.setText(fechaFormateada);
     }
-       
+
     public void cargarDirectores(){
         DirectorService directorService = new DirectorService(DatabaseConnector.conectar());
         List<Director> directores = directorService.obtenerTodosLosDirectores();
@@ -115,6 +123,36 @@ public class panelMenu extends javax.swing.JPanel {
         return tabbedPane;
     }
     
+    private void rellenarCboGenero(){
+        try{
+           List<Genero> generos = peliculaService.obtenerTodosLosGeneros();
+           for(Genero genero : generos){
+               comboBoxGeneros.addItem(genero.getNombre());
+           }
+        }catch (Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar los generos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void actualizarTablaDirectores(){
+        List<Director> directores = directorService.obtenerTodosLosDirectores();
+        DefaultTableModel model = (DefaultTableModel) tableDirectores.getModel();
+        model.setRowCount(0);
+        for(Director director : directores){
+            model.addRow(new Object[]{director.getDirectorId(), director.getNombre()});
+        }
+    }
+    
+    public void actualizarTablaActores(){
+        List<Actor> actores = actorService.obtenerTodosLosActores();
+        DefaultTableModel model = (DefaultTableModel) tableActores.getModel();
+        model.setRowCount(0);
+        for(Actor actor : actores){
+            model.addRow(new Object[]{actor.getActorId(), actor.getNombre()});
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -127,10 +165,12 @@ public class panelMenu extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        btnpeliprestadas = new javax.swing.JButton();
+        btnDirectores = new javax.swing.JButton();
         btnregistrarsocio = new javax.swing.JButton();
         btnprestaciones = new javax.swing.JButton();
         btndevoluciones = new javax.swing.JButton();
+        btnpeliprestadas = new javax.swing.JButton();
+        btnActores = new javax.swing.JButton();
         panelBarra = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         tabbedPane = new javax.swing.JTabbedPane();
@@ -180,6 +220,28 @@ public class panelMenu extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableSocios = new javax.swing.JTable();
         btnEliminarSocio = new javax.swing.JButton();
+        pDirectores = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        txtNombreDirector = new javax.swing.JTextField();
+        btnAgregarDirector = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableDirectores = new javax.swing.JTable();
+        btnEditarDirector = new javax.swing.JButton();
+        btnEliminarDirector = new javax.swing.JButton();
+        txtBuscarDirector = new javax.swing.JTextField();
+        btnBuscarDirector = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
+        pActores = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        txtNombreActor = new javax.swing.JTextField();
+        txtBuscarActor = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tableActores = new javax.swing.JTable();
+        btnAgregarActor = new javax.swing.JButton();
+        btnBuscarActor = new javax.swing.JButton();
+        btnEditarActor = new javax.swing.JButton();
+        btnEliminarActor = new javax.swing.JButton();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -190,22 +252,17 @@ public class panelMenu extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnpeliprestadas.setBackground(new java.awt.Color(0, 0, 0));
-        btnpeliprestadas.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        btnpeliprestadas.setForeground(new java.awt.Color(255, 255, 255));
-        btnpeliprestadas.setText("SOCIOS");
-        btnpeliprestadas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        btnpeliprestadas.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnDirectores.setBackground(new java.awt.Color(0, 0, 0));
+        btnDirectores.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        btnDirectores.setForeground(new java.awt.Color(255, 255, 255));
+        btnDirectores.setText("DIRECTORES");
+        btnDirectores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnDirectores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnpeliprestadasMouseClicked(evt);
+                btnDirectoresMouseClicked(evt);
             }
         });
-        btnpeliprestadas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnpeliprestadasActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnpeliprestadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 250, 40));
+        jPanel1.add(btnDirectores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 250, 40));
 
         btnregistrarsocio.setBackground(new java.awt.Color(0, 0, 0));
         btnregistrarsocio.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
@@ -215,11 +272,6 @@ public class panelMenu extends javax.swing.JPanel {
         btnregistrarsocio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnregistrarsocioMouseClicked(evt);
-            }
-        });
-        btnregistrarsocio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnregistrarsocioActionPerformed(evt);
             }
         });
         jPanel1.add(btnregistrarsocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 250, 40));
@@ -234,11 +286,6 @@ public class panelMenu extends javax.swing.JPanel {
                 btnprestacionesMouseClicked(evt);
             }
         });
-        btnprestaciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnprestacionesActionPerformed(evt);
-            }
-        });
         jPanel1.add(btnprestaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 250, 40));
 
         btndevoluciones.setBackground(new java.awt.Color(0, 0, 0));
@@ -251,12 +298,33 @@ public class panelMenu extends javax.swing.JPanel {
                 btndevolucionesMouseClicked(evt);
             }
         });
-        btndevoluciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btndevolucionesActionPerformed(evt);
+        jPanel1.add(btndevoluciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 250, 40));
+
+        btnpeliprestadas.setBackground(new java.awt.Color(0, 0, 0));
+        btnpeliprestadas.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        btnpeliprestadas.setForeground(new java.awt.Color(255, 255, 255));
+        btnpeliprestadas.setText("SOCIOS");
+        btnpeliprestadas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnpeliprestadas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnpeliprestadasMouseClicked(evt);
             }
         });
-        jPanel1.add(btndevoluciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 250, 40));
+        jPanel1.add(btnpeliprestadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 250, 40));
+
+        btnActores.setBackground(new java.awt.Color(0, 0, 0));
+        btnActores.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        btnActores.setForeground(new java.awt.Color(255, 255, 255));
+        btnActores.setText("ACTORES");
+        btnActores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnActores.setMaximumSize(new java.awt.Dimension(84, 22));
+        btnActores.setMinimumSize(new java.awt.Dimension(84, 22));
+        btnActores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnActoresMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btnActores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 250, 40));
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 16, 250, 510));
 
@@ -457,7 +525,6 @@ public class panelMenu extends javax.swing.JPanel {
 
         pRegistrarSocio.add(comboBoxActores, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 230, -1));
 
-        comboBoxGeneros.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Acción", "Animación", "Aventura", "Biográfico", "Ciencia ficción", "Cine experimental", "Comedia", "Comedia negra", "Comedia romántica", "Crimen", "Cine de superhéroes", "Cine de guerra", "Ciencia ficción distópica", "Documental", "Drama", "Deportes", "Fantasía", "Histórico", "Musical", "Romántico", "Suspense", "Terror", "Western" }));
         pRegistrarSocio.add(comboBoxGeneros, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 340, 230, -1));
 
         tabbedPane.addTab("tab1", pRegistrarSocio);
@@ -658,6 +725,150 @@ public class panelMenu extends javax.swing.JPanel {
 
         tabbedPane.addTab("tab4", pSocio);
 
+        pDirectores.setBackground(new java.awt.Color(255, 255, 255));
+        pDirectores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setText("Nombre:");
+        pDirectores.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
+        pDirectores.add(txtNombreDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 240, -1));
+
+        btnAgregarDirector.setText("Agregar");
+        btnAgregarDirector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarDirectorActionPerformed(evt);
+            }
+        });
+        pDirectores.add(btnAgregarDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 70, -1, -1));
+
+        tableDirectores.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "ID", "Nombre"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableDirectores.getColumnModel().getColumn(0).setMinWidth(0);
+        tableDirectores.getColumnModel().getColumn(0).setMaxWidth(0);
+        tableDirectores.getColumnModel().getColumn(0).setWidth(0);
+        actualizarTablaDirectores();
+        jScrollPane2.setViewportView(tableDirectores);
+
+        pDirectores.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 400, 160));
+
+        btnEditarDirector.setText("Editar");
+        btnEditarDirector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarDirectorActionPerformed(evt);
+            }
+        });
+        pDirectores.add(btnEditarDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, -1, -1));
+
+        btnEliminarDirector.setText("Eliminar");
+        btnEliminarDirector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarDirectorActionPerformed(evt);
+            }
+        });
+        pDirectores.add(btnEliminarDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, -1, -1));
+        pDirectores.add(txtBuscarDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 240, -1));
+
+        btnBuscarDirector.setText("Buscar");
+        btnBuscarDirector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarDirectorActionPerformed(evt);
+            }
+        });
+        pDirectores.add(btnBuscarDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, -1, -1));
+
+        jLabel15.setText("Buscar:");
+        pDirectores.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+
+        tabbedPane.addTab("tab5", pDirectores);
+
+        pActores.setBackground(new java.awt.Color(255, 255, 255));
+        pActores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel16.setText("Nombre:");
+        pActores.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, -1, -1));
+
+        jLabel17.setText("Buscar:");
+        pActores.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
+        pActores.add(txtNombreActor, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 280, -1));
+        pActores.add(txtBuscarActor, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 280, -1));
+
+        tableActores.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "ID", "Nombre"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableActores.getColumnModel().getColumn(0).setMinWidth(0);
+        tableActores.getColumnModel().getColumn(0).setMaxWidth(0);
+        tableActores.getColumnModel().getColumn(0).setWidth(0);
+        jScrollPane3.setViewportView(tableActores);
+        actualizarTablaActores();
+
+        pActores.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 480, 200));
+
+        btnAgregarActor.setText("Agregar");
+        btnAgregarActor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActorActionPerformed(evt);
+            }
+        });
+        pActores.add(btnAgregarActor, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, -1, -1));
+
+        btnBuscarActor.setText("Buscar");
+        btnBuscarActor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActorActionPerformed(evt);
+            }
+        });
+        pActores.add(btnBuscarActor, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 100, -1, -1));
+
+        btnEditarActor.setText("Editar");
+        btnEditarActor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActorActionPerformed(evt);
+            }
+        });
+        pActores.add(btnEditarActor, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, -1, -1));
+
+        btnEliminarActor.setText("Eliminar");
+        btnEliminarActor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActorActionPerformed(evt);
+            }
+        });
+        pActores.add(btnEliminarActor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 390, -1, -1));
+
+        tabbedPane.addTab("tab6", pActores);
+
         add(tabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, -20, 890, 550));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -670,32 +881,13 @@ public class panelMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_btnprestacionesMouseClicked
 
     private void btndevolucionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btndevolucionesMouseClicked
-        tabbedPane.setSelectedIndex(2);
+         tabbedPane.setSelectedIndex(2);
     }//GEN-LAST:event_btndevolucionesMouseClicked
 
-    private void btnpeliprestadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnpeliprestadasMouseClicked
-        tabbedPane.setSelectedIndex(3);
-        actualizarVista();
-    }//GEN-LAST:event_btnpeliprestadasMouseClicked
-
-    private void btnregistrarsocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarsocioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnregistrarsocioActionPerformed
-
-    private void btndevolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndevolucionesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btndevolucionesActionPerformed
-
-    private void btnprestacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnprestacionesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnprestacionesActionPerformed
-
-    private void btnpeliprestadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpeliprestadasActionPerformed
-            this.setLayout(new BorderLayout());
-           tabbedPane.setSelectedIndex(3); 
-            
-                  // TODO add your handling code here:
-    }//GEN-LAST:event_btnpeliprestadasActionPerformed
+    private void btnDirectoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDirectoresMouseClicked
+        tabbedPane.setSelectedIndex(4); 
+        actualizarTablaDirectores();
+    }//GEN-LAST:event_btnDirectoresMouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         System.exit(0);
@@ -828,41 +1020,168 @@ public class panelMenu extends javax.swing.JPanel {
         //            // Revalida y repinta el contenedor principal
         //            this.revalidate();
         //            this.repaint();
-        String nombre = txtNombre.getText().trim();
-        String direccion = txtDireccion.getText().trim();
-        String telefono = txtTelefono.getText().trim();
-        String placeholderNombre = "Introduzca su nombre";
-        String placeholderDireccion = "Av. Del Coso 123";
-        String placeholderTelefono = "987654321";
-
-        boolean esValido = ValidadorFormulario.validarRegistroSocio(nombre, direccion, telefono, placeholderNombre, placeholderDireccion, placeholderTelefono);
-
-        if(esValido){
-            Socio socio = new Socio();
-            socio.setNombre(txtNombre.getText());
-            socio.setDireccion(txtDireccion.getText());
-            socio.setTelefono(txtTelefono.getText());
-            socio.setDirectoresFavoritos((String)comboBoxDirectores.getSelectedItem());
-            socio.setActoresFavoritos((String)comboBoxActores.getSelectedItem());
-            socio.setGenerosPreferidos((String)comboBoxGeneros.getSelectedItem());
-
-            try {
-                socioService.registrarSocio(socio);
-                JTextField[] camposParaLimpiar = {txtNombre, txtDireccion, txtTelefono};
-                JComboBox[] camposComboParaLimpiar = {comboBoxActores, comboBoxDirectores, comboBoxGeneros};
-                UIUtils.mostrarMensajeExitoYLimpiarCampos(camposParaLimpiar, camposComboParaLimpiar, "El socio ha sido registrado con exito.", "Registro Exitoso");
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Error al resgistrar el socio: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+        
+        
+//        String nombre = txtNombre.getText().trim();
+//        String direccion = txtDireccion.getText().trim();
+//        String telefono = txtTelefono.getText().trim();
+//        String placeholderNombre = "Introduzca su nombre";
+//        String placeholderDireccion = "Av. Del Coso 123";
+//        String placeholderTelefono = "987654321";
+//
+//        boolean esValido = ValidadorFormulario.validarRegistroSocio(nombre, direccion, telefono, placeholderNombre, placeholderDireccion, placeholderTelefono);
+//
+//        if(esValido){
+//            Socio socio = new Socio();
+//            socio.setNombre(txtNombre.getText());
+//            socio.setDireccion(txtDireccion.getText());
+//            socio.setTelefono(txtTelefono.getText());
+//            socio.setDirectoresFavoritos((String)comboBoxDirectores.getSelectedItem());
+//            socio.setActoresFavoritos((String)comboBoxActores.getSelectedItem());
+//            socio.setGenerosPreferidos((String)comboBoxGeneros.getSelectedItem());
+//
+//            try {
+//                socioService.registrarSocio(socio);
+//                JTextField[] camposParaLimpiar = {txtNombre, txtDireccion, txtTelefono};
+//                JComboBox[] camposComboParaLimpiar = {comboBoxActores, comboBoxDirectores, comboBoxGeneros};
+//                UIUtils.mostrarMensajeExitoYLimpiarCampos(camposParaLimpiar, camposComboParaLimpiar, "El socio ha sido registrado con exito.", "Registro Exitoso");
+//            } catch (Exception e) {
+//                JOptionPane.showMessageDialog(this, "Error al resgistrar el socio: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//            }
+//        }
     }//GEN-LAST:event_btnRegistrarSocioActionPerformed
 
     private void btnRegistrarSocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarSocioMouseClicked
 
     }//GEN-LAST:event_btnRegistrarSocioMouseClicked
 
+    private void btnpeliprestadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnpeliprestadasMouseClicked
+        tabbedPane.setSelectedIndex(3);
+        actualizarVista();
+    }//GEN-LAST:event_btnpeliprestadasMouseClicked
+
+    private void btnAgregarDirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDirectorActionPerformed
+        String nombre = txtNombreDirector.getText();
+        if(!nombre.trim().isEmpty()){
+            directorService.agregarDirector(nombre);
+            actualizarTablaDirectores();
+        }else{
+            JOptionPane.showMessageDialog(null, "El nombre del director no puede estar vacio.");
+        }
+    }//GEN-LAST:event_btnAgregarDirectorActionPerformed
+
+    private void btnBuscarDirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarDirectorActionPerformed
+        String nombre = txtBuscarDirector.getText();
+        List<Director> directores = directorService.obtenerTodosLosDirectores();
+        DefaultTableModel model = (DefaultTableModel) tableDirectores.getModel();
+        model.setRowCount(0);
+        
+        for(Director director : directores){
+            if(director.getNombre().toLowerCase().contains(nombre.toLowerCase())){
+                model.addRow(new Object[]{director.getDirectorId(), director.getNombre()});
+            }
+        }
+    }//GEN-LAST:event_btnBuscarDirectorActionPerformed
+
+    private void btnEditarDirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarDirectorActionPerformed
+        int row = tableDirectores.getSelectedRow();
+        if(row != -1){
+            int directorId = Integer.parseInt(tableDirectores.getValueAt(row, 0).toString());
+            String nuevoNombre = JOptionPane.showInputDialog(null, "Ingrese el nuevo nombre del director: ", "Editar Director", JOptionPane.PLAIN_MESSAGE);
+            if(nuevoNombre != null && !nuevoNombre.trim().isEmpty()){
+                directorService.editarDirector(directorId, nuevoNombre);
+                actualizarTablaDirectores();
+            }else{
+                JOptionPane.showMessageDialog(null, "El nombre no puede estar vacio.");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un director de la lista para editar.");
+        }
+    }//GEN-LAST:event_btnEditarDirectorActionPerformed
+
+    private void btnEliminarDirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarDirectorActionPerformed
+        int row = tableDirectores.getSelectedRow();
+        if(row != -1){
+            int confirmacion = JOptionPane.showConfirmDialog(null, "Está seguro de que desea eliminar este director?", "Eliminar Director", JOptionPane.YES_NO_OPTION);
+            if(confirmacion == JOptionPane.YES_OPTION){
+                int directorId = Integer.parseInt(tableDirectores.getValueAt(row, 0).toString());
+                directorService.eliminarDirector(directorId);
+                actualizarTablaDirectores();
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un director de la lista para eliminar.");
+        }
+    }//GEN-LAST:event_btnEliminarDirectorActionPerformed
+
+    private void btnActoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActoresMouseClicked
+        tabbedPane.setSelectedIndex(5); 
+    }//GEN-LAST:event_btnActoresMouseClicked
+
+    private void btnAgregarActorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActorActionPerformed
+        String nombre = txtNombreActor.getText();
+        if(!nombre.trim().isEmpty()){
+            actorService.agregarActor(nombre);
+            actualizarTablaActores();
+        }else{
+            JOptionPane.showMessageDialog(null, "El nombre del actor no puede estar vacio.");
+        }
+    }//GEN-LAST:event_btnAgregarActorActionPerformed
+
+    private void btnBuscarActorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActorActionPerformed
+        String nombre = txtBuscarActor.getText();
+        List<Actor> actores = actorService.obtenerTodosLosActores();
+        DefaultTableModel model = (DefaultTableModel) tableActores.getModel();
+        model.setRowCount(0);
+        
+        for(Actor actor : actores){
+            if(actor.getNombre().toLowerCase().contains(nombre.toLowerCase())){
+                model.addRow(new Object[]{actor.getActorId(), actor.getNombre()});
+            }
+        }
+    }//GEN-LAST:event_btnBuscarActorActionPerformed
+
+    private void btnEditarActorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActorActionPerformed
+        int row = tableActores.getSelectedRow();
+        if(row != -1){
+            int actorId = Integer.parseInt(tableActores.getValueAt(row, 0).toString());
+            String nuevoNombre = JOptionPane.showInputDialog(null, "Ingrese el nuevo nombre del actor: ", "Editar Actor", JOptionPane.PLAIN_MESSAGE);
+            if(nuevoNombre != null && !nuevoNombre.trim().isEmpty()){
+                actorService.editarActor(actorId, nuevoNombre);
+                actualizarTablaActores();
+            }else{
+                JOptionPane.showMessageDialog(null, "El nombre no puede estar vacio.");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un actor de la lista para editar.");
+        }
+    }//GEN-LAST:event_btnEditarActorActionPerformed
+
+    private void btnEliminarActorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActorActionPerformed
+        int row = tableActores.getSelectedRow();
+        if(row != -1){
+            int confirmacion = JOptionPane.showConfirmDialog(null, "Está seguro de que desea eliminar este actor?", "Eliminar Actor", JOptionPane.YES_NO_OPTION);
+            if(confirmacion == JOptionPane.YES_OPTION){
+                int actorId = Integer.parseInt(tableActores.getValueAt(row, 0).toString());
+                actorService.eliminarActor(actorId);
+                actualizarTablaActores();
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un actor de la lista para eliminar.");
+        }
+    }//GEN-LAST:event_btnEliminarActorActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActores;
+    private javax.swing.JButton btnAgregarActor;
+    private javax.swing.JButton btnAgregarDirector;
+    private javax.swing.JButton btnBuscarActor;
+    private javax.swing.JButton btnBuscarDirector;
+    private javax.swing.JButton btnDirectores;
+    private javax.swing.JButton btnEditarActor;
+    private javax.swing.JButton btnEditarDirector;
+    private javax.swing.JButton btnEliminarActor;
+    private javax.swing.JButton btnEliminarDirector;
     private javax.swing.JButton btnEliminarSocio;
     private javax.swing.JButton btnRegistrarSocio;
     private javax.swing.JButton btndevoluciones;
@@ -882,16 +1201,22 @@ public class panelMenu extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
@@ -904,13 +1229,19 @@ public class panelMenu extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel pActores;
     private javax.swing.JPanel pDevoluciones;
+    private javax.swing.JPanel pDirectores;
     private javax.swing.JPanel pPrestaciones;
     private javax.swing.JPanel pRegistrarSocio;
     private javax.swing.JPanel pSocio;
     private javax.swing.JPanel panelBarra;
     public javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JTable tableActores;
+    private javax.swing.JTable tableDirectores;
     private javax.swing.JTable tableSocios;
+    private javax.swing.JTextField txtBuscarActor;
+    private javax.swing.JTextField txtBuscarDirector;
     private javax.swing.JTextField txtCodSocio;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtFechaDevolucion;
@@ -918,6 +1249,8 @@ public class panelMenu extends javax.swing.JPanel {
     private javax.swing.JTextField txtFechaPrestamo;
     private javax.swing.JTextField txtIdPrestamo;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNombreActor;
+    private javax.swing.JTextField txtNombreDirector;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }

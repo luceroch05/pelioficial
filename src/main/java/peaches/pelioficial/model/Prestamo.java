@@ -17,6 +17,17 @@ public class Prestamo {
     private LocalDate fechaPrestamo;
     private LocalDate fechaDevolucion;
 
+    public Prestamo() {
+    }
+
+    public Prestamo(int prestamoId, int socioId, int cintaId, LocalDate fechaPrestamo, LocalDate fechaDevolucion) {
+        this.prestamoId = prestamoId;
+        this.socioId = socioId;
+        this.cintaId = cintaId;
+        this.fechaPrestamo = fechaPrestamo;
+        this.fechaDevolucion = fechaDevolucion;
+    }
+    
     public int getPrestamoId() {
         return prestamoId;
     }

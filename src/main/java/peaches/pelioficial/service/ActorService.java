@@ -23,4 +23,21 @@ public class ActorService {
     public List<Actor> obtenerTodosLosActores(){
         return actorDAO.getAll();
     }
+    
+    public void agregarActor(String nombre){
+        Actor actor = new Actor();
+        actor.setNombre(nombre);
+        actorDAO.save(actor);
+    }
+    
+    public void editarActor(int id, String nuevoNombre){
+        Actor actor = actorDAO.get(id).orElseThrow(() -> new IllegalArgumentException("Actor not found."));
+        actor.setNombre(nuevoNombre);
+        actorDAO.update(actor, new String[]{nuevoNombre});
+    }
+    
+    public void eliminarActor(int id){
+        Actor actor = actorDAO.get(id).orElseThrow(() -> new IllegalArgumentException("Actor not found."));
+        actorDAO.delete(actor);
+    }
 }
