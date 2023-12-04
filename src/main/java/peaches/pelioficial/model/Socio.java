@@ -4,6 +4,7 @@
  */
 package peaches.pelioficial.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,9 +16,9 @@ public class Socio {
     private String nombre;
     private String direccion;
     private String telefono;
-    private List<Director> directoresFavoritos;
-    private List<Actor> actoresFavoritos;
-    private List<Genero> generosPreferidos;
+    private List<Director> directoresFavoritos = new ArrayList<>();
+    private List<Actor> actoresFavoritos = new ArrayList<>();
+    private List<Genero> generosFavoritos = new ArrayList<>();
 
     public Socio() {
     }
@@ -77,12 +78,12 @@ public class Socio {
         this.actoresFavoritos = actoresFavoritos;
     }
 
-    public List<Genero> getGenerosPreferidos() {
-        return generosPreferidos;
+    public List<Genero> getGenerosFavoritos() {
+        return generosFavoritos;
     }
 
-    public void setGenerosPreferidos(List<Genero> generosPreferidos) {
-        this.generosPreferidos = generosPreferidos;
+    public void setGenerosFavoritos(List<Genero> generosFavoritos) {
+        this.generosFavoritos = generosFavoritos;
     }
     
 }

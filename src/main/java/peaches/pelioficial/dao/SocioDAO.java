@@ -42,7 +42,7 @@ public class SocioDAO implements Dao<Socio>{
                 socio.setTelefono(resultSet.getString("telefono"));
                 socio.setDirectoresFavoritos(getDirectoresFavoritos(socio.getSocioId()));
                 socio.setActoresFavoritos(getActoresFavoritos(socio.getSocioId()));
-                socio.setGenerosPreferidos(getGenerosPreferidos(socio.getSocioId()));
+                socio.setGenerosFavoritos(getGenerosPreferidos(socio.getSocioId()));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,7 +63,7 @@ public class SocioDAO implements Dao<Socio>{
                 socio.setTelefono(resultSet.getString("telefono"));
                 socio.setDirectoresFavoritos(getDirectoresFavoritos(socio.getSocioId()));
                 socio.setActoresFavoritos(getActoresFavoritos(socio.getSocioId()));
-                socio.setGenerosPreferidos(getGenerosPreferidos(socio.getSocioId()));
+                socio.setGenerosFavoritos(getGenerosPreferidos(socio.getSocioId()));
                 socios.add(socio);
             }
         } catch (SQLException e) {
@@ -120,15 +120,38 @@ public class SocioDAO implements Dao<Socio>{
 
     @Override
     public void delete(Socio socio){
-        try (PreparedStatement statement = connection.prepareStatement("DELETE FROM Socios WHERE socio_id = ?")){
-            statement.setInt(1, socio.getSocioId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
+        try{
+            connection.setAutoCommit(false);
+            
+            deleteSocioDirectoresFavoritos(socio.getSocioId());
+            deleteSocioActoresFavoritos(socio.getSocioId());
+            deleteSocioGenerosFavoritos(socio.getSocioId());
+            
+            try(PreparedStatement statement = connection.prepareStatement("DELETE FROM Socios WHERE socio_id = ?")){
+                statement.setInt(1, socio.getSocioId());
+                int affectedRows = statement.executeUpdate();
+                if(affectedRows == 0){
+                    throw new SQLException("Deleting socio failed, no rows affected.");
+                }
+            }
+            
+            connection.commit();
+        }catch(SQLException e){
             e.printStackTrace();
+            try{
+                connection.rollback();
+            }catch (SQLException ex){
+                ex.printStackTrace();
+            }
+        }finally{
+            try{
+                connection.setAutoCommit(true);
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
         }
     }
     
-    // Método para obtener los directores favoritos de un socio
     private List<Director> getDirectoresFavoritos(int socioId) {
         List<Director> directores = new ArrayList<>();
         String sql = "SELECT d.* FROM directores d " +
@@ -149,7 +172,6 @@ public class SocioDAO implements Dao<Socio>{
         return directores;
     }
     
-    // Método para obtener los actores favoritos de un socio
     private List<Actor> getActoresFavoritos(int socioId) {
         List<Actor> actores = new ArrayList<>();
         String sql = "SELECT a.* FROM actores a " +
@@ -170,7 +192,6 @@ public class SocioDAO implements Dao<Socio>{
         return actores;
     }
     
-    // Método para obtener los géneros preferidos de un socio
     private List<Genero> getGenerosPreferidos(int socioId) {
         List<Genero> generos = new ArrayList<>();
         String sql = "SELECT g.* FROM generos g " +
@@ -215,7 +236,7 @@ public class SocioDAO implements Dao<Socio>{
     
     private void insertSocioGenerosFavoritos(Socio socio) throws SQLException{
         String sql = "INSERT INTO socio_genero (socio_id, genero_id) VALUES (?, ?)";
-        for(Genero genero : socio.getGenerosPreferidos()){
+        for(Genero genero : socio.getGenerosFavoritos()){
             try(PreparedStatement statement = connection.prepareStatement(sql)){
                 statement.setInt(1, socio.getSocioId());
                 statement.setInt(2, genero.getGeneroId());
@@ -249,5 +270,29 @@ public class SocioDAO implements Dao<Socio>{
             statement.executeUpdate();
         }
         insertSocioGenerosFavoritos(socio);
+    }
+    
+    private void deleteSocioDirectoresFavoritos(int socioId) throws SQLException{
+        String sql = "DELETE FROM socio_director WHERE socio_id = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, socioId);
+            statement.executeUpdate();
+        }
+    }
+    
+    private void deleteSocioActoresFavoritos(int socioId) throws SQLException{
+        String sql = "DELETE FROM socio_actor WHERE socio_id = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, socioId);
+            statement.executeUpdate();
+        }
+    }
+    
+    private void deleteSocioGenerosFavoritos(int socioId) throws SQLException{
+        String sql = "DELETE FROM socio_genero WHERE socio_id = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, socioId);
+            statement.executeUpdate();
+        }
     }
 }

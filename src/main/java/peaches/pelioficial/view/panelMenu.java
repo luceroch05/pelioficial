@@ -12,26 +12,21 @@ import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import javax.swing.JComboBox;
+import java.util.Optional;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import peaches.pelioficial.model.Actor;
 import peaches.pelioficial.model.Director;
 import peaches.pelioficial.model.Genero;
 import peaches.pelioficial.model.Socio;
-import peaches.pelioficial.model.SocioTableModel;
 import peaches.pelioficial.service.ActorService;
 import peaches.pelioficial.service.DirectorService;
 import peaches.pelioficial.service.PeliculaService;
 import peaches.pelioficial.service.SocioService;
 import peaches.pelioficial.util.DatabaseConnector;
-import peaches.pelioficial.util.ImageUtils;
 import peaches.pelioficial.util.Placeholders;
-import peaches.pelioficial.util.UIUtils;
-import peaches.pelioficial.util.ValidadorFormulario;
 
 /**
  *
@@ -39,7 +34,6 @@ import peaches.pelioficial.util.ValidadorFormulario;
  */
 public class panelMenu extends javax.swing.JPanel {
         int xMouse,yMouse;
-        private SocioTableModel tableModel;
         SocioService socioService = new SocioService();
         PeliculaService peliculaService = new PeliculaService(DatabaseConnector.conectar());
         DirectorService directorService = new DirectorService(DatabaseConnector.conectar());
@@ -51,10 +45,8 @@ public class panelMenu extends javax.swing.JPanel {
      */
     public panelMenu(framePrincipal framePrincipal) {
         initComponents();
-        initTable();
-        cargarDirectores();
-        cargarActores();
-        rellenarCboGenero();
+//        initTable();
+        rellenarComboBoxes();
         this.framePrincipal = framePrincipal;
      
 
@@ -91,47 +83,38 @@ public class panelMenu extends javax.swing.JPanel {
         // Establecer la fecha en el JTextField
         txtFechaPrestamo.setText(fechaFormateada);
     }
-
-    public void cargarDirectores(){
-        DirectorService directorService = new DirectorService(DatabaseConnector.conectar());
-        List<Director> directores = directorService.obtenerTodosLosDirectores();
-        for(Director director : directores){
-            comboBoxDirectores.addItem(director.getNombre());
-        }
-    }
-    
-    public void cargarActores(){
-        ActorService actorService = new ActorService(DatabaseConnector.conectar());
-        List<Actor> actores = actorService.obtenerTodosLosActores();
-        for(Actor actor : actores){
-            comboBoxActores.addItem(actor.getNombre());
-        }
-    }
-    
-    private void initTable(){
-        List<Socio> socios = socioService.obtenerTodosLosSocios();
-        tableModel = new SocioTableModel(socios);
-        tableSocios.setModel(tableModel);
-    }
-    
-    public void actualizarVista(){
-        List<Socio> sociosActualizados = socioService.obtenerTodosLosSocios();
-        tableModel.setSocios(sociosActualizados);
-    }
     
     public JTabbedPane getTabbedPane(){
         return tabbedPane;
     }
     
-    private void rellenarCboGenero(){
-        try{
-           List<Genero> generos = peliculaService.obtenerTodosLosGeneros();
-           for(Genero genero : generos){
-               comboBoxGeneros.addItem(genero.getNombre());
-           }
-        }catch (Exception e){
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al cargar los generos.", "Error", JOptionPane.ERROR_MESSAGE);
+    private void rellenarComboBoxes() {
+        rellenarCboDirectores();
+        rellenarCboActores();
+        rellenarCboGeneros();
+    }
+    
+    private void rellenarCboDirectores() {
+        List<Director> directores = directorService.obtenerTodosLosDirectores();
+        comboBoxDirectores.removeAllItems();
+        for (Director director : directores) {
+            comboBoxDirectores.addItem(director);
+        }
+    }
+    
+    private void rellenarCboActores() {
+        List<Actor> actores = actorService.obtenerTodosLosActores();
+        comboBoxActores.removeAllItems();
+        for (Actor actor : actores) {
+            comboBoxActores.addItem(actor);
+        }
+    }
+    
+    private void rellenarCboGeneros() {
+        List<Genero> generos = peliculaService.obtenerTodosLosGeneros();
+        comboBoxGeneros.removeAllItems();
+        for (Genero genero : generos) {
+            comboBoxGeneros.addItem(genero);
         }
     }
     
@@ -153,6 +136,54 @@ public class panelMenu extends javax.swing.JPanel {
         }
     }
     
+    public void actualizarTablaSocios(){
+        DefaultTableModel model = (DefaultTableModel) tableSocios.getModel();
+        model.setRowCount(0);
+        List<Socio> listaSocios = socioService.obtenerTodosLosSocios();
+        for(Socio socio : listaSocios){
+            model.addRow(new Object[]{
+                socio.getSocioId(),
+                socio.getNombre(),
+                socio.getDireccion(),
+                socio.getTelefono(),
+                socio.getDirectoresFavoritos().toString(),
+                socio.getActoresFavoritos().toString(),
+                socio.getGenerosFavoritos().toString()
+            });
+        }
+    }
+    
+    private void cargarDatosSocios(int idSocio){
+        Socio socio = socioService.obtenerSocioId(idSocio);
+        if(socio != null){
+            txtIdSocio.setText(String.valueOf(socio.getSocioId()));
+            txtNombreSocio.setText(socio.getNombre());
+            txtDireccionSocio.setText(socio.getDireccion());
+            txtTelefonoSocio.setText(socio.getTelefono());
+            
+        }else{
+            JOptionPane.showMessageDialog(this, "Socio no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void actualizarTablaSociosConUnSocio(Socio socio){
+        DefaultTableModel model = (DefaultTableModel) tableSocios.getModel();
+        model.setRowCount(0);
+        model.addRow(new Object[]{
+            socio.getSocioId(),
+            socio.getNombre(),
+            socio.getDireccion(),
+            socio.getTelefono(),
+            socio.getDirectoresFavoritos().toString(),
+            socio.getActoresFavoritos().toString(),
+            socio.getGenerosFavoritos().toString()
+        });
+    }
+    
+    private void limpiarTablaSocios(){
+        DefaultTableModel model = (DefaultTableModel) tableSocios.getModel();
+        model.setRowCount(0);
+    }    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -169,12 +200,11 @@ public class panelMenu extends javax.swing.JPanel {
         btnregistrarsocio = new javax.swing.JButton();
         btnprestaciones = new javax.swing.JButton();
         btndevoluciones = new javax.swing.JButton();
-        btnpeliprestadas = new javax.swing.JButton();
         btnActores = new javax.swing.JButton();
         panelBarra = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         tabbedPane = new javax.swing.JTabbedPane();
-        pRegistrarSocio = new javax.swing.JPanel();
+        pSocios = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -182,11 +212,11 @@ public class panelMenu extends javax.swing.JPanel {
         btnRegistrarSocio = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        txtDireccion = new javax.swing.JTextField();
+        txtDireccionSocio = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
-        txtTelefono = new javax.swing.JTextField();
+        txtTelefonoSocio = new javax.swing.JTextField();
         jSeparator6 = new javax.swing.JSeparator();
-        txtNombre = new javax.swing.JTextField();
+        txtNombreSocio = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -196,6 +226,13 @@ public class panelMenu extends javax.swing.JPanel {
         comboBoxDirectores = new javax.swing.JComboBox<>();
         comboBoxActores = new javax.swing.JComboBox<>();
         comboBoxGeneros = new javax.swing.JComboBox<>();
+        jLabel18 = new javax.swing.JLabel();
+        txtIdSocio = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableSocios = new javax.swing.JTable();
+        btnEditarSocio = new javax.swing.JButton();
+        btnEliminarSocio = new javax.swing.JButton();
+        txtBuscarSocio = new javax.swing.JTextField();
         pPrestaciones = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -216,10 +253,6 @@ public class panelMenu extends javax.swing.JPanel {
         txtFechaEntrega = new javax.swing.JTextField();
         jSeparator9 = new javax.swing.JSeparator();
         jButton2 = new javax.swing.JButton();
-        pSocio = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableSocios = new javax.swing.JTable();
-        btnEliminarSocio = new javax.swing.JButton();
         pDirectores = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txtNombreDirector = new javax.swing.JTextField();
@@ -262,12 +295,12 @@ public class panelMenu extends javax.swing.JPanel {
                 btnDirectoresMouseClicked(evt);
             }
         });
-        jPanel1.add(btnDirectores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 250, 40));
+        jPanel1.add(btnDirectores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 250, 40));
 
         btnregistrarsocio.setBackground(new java.awt.Color(0, 0, 0));
         btnregistrarsocio.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         btnregistrarsocio.setForeground(new java.awt.Color(255, 255, 255));
-        btnregistrarsocio.setText("REGISTRAR SOCIO");
+        btnregistrarsocio.setText("SOCIO");
         btnregistrarsocio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         btnregistrarsocio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -300,18 +333,6 @@ public class panelMenu extends javax.swing.JPanel {
         });
         jPanel1.add(btndevoluciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 250, 40));
 
-        btnpeliprestadas.setBackground(new java.awt.Color(0, 0, 0));
-        btnpeliprestadas.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        btnpeliprestadas.setForeground(new java.awt.Color(255, 255, 255));
-        btnpeliprestadas.setText("SOCIOS");
-        btnpeliprestadas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        btnpeliprestadas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnpeliprestadasMouseClicked(evt);
-            }
-        });
-        jPanel1.add(btnpeliprestadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 250, 40));
-
         btnActores.setBackground(new java.awt.Color(0, 0, 0));
         btnActores.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         btnActores.setForeground(new java.awt.Color(255, 255, 255));
@@ -324,7 +345,7 @@ public class panelMenu extends javax.swing.JPanel {
                 btnActoresMouseClicked(evt);
             }
         });
-        jPanel1.add(btnActores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 250, 40));
+        jPanel1.add(btnActores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 250, 40));
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 16, 250, 510));
 
@@ -367,45 +388,40 @@ public class panelMenu extends javax.swing.JPanel {
 
         tabbedPane.setBackground(new java.awt.Color(255, 204, 204));
 
-        pRegistrarSocio.setBackground(new java.awt.Color(255, 255, 255));
-        pRegistrarSocio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pSocios.setBackground(new java.awt.Color(255, 255, 255));
+        pSocios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel1.setText("Nombre:");
-        pRegistrarSocio.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, -1));
+        pSocios.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel2.setText("Dirección:");
-        pRegistrarSocio.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
+        pSocios.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel3.setText("Teléfono:");
-        pRegistrarSocio.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, -1, -1));
+        pSocios.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel4.setText("Directores favoritos:");
-        pRegistrarSocio.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, -1, -1));
+        pSocios.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
 
         btnRegistrarSocio.setBackground(new java.awt.Color(0, 0, 0));
         btnRegistrarSocio.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         btnRegistrarSocio.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrarSocio.setText("Registrar");
         btnRegistrarSocio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRegistrarSocio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnRegistrarSocioMouseClicked(evt);
-            }
-        });
         btnRegistrarSocio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarSocioActionPerformed(evt);
             }
         });
-        pRegistrarSocio.add(btnRegistrarSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 410, 250, 40));
+        pSocios.add(btnRegistrarSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 40, 250, 40));
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -425,109 +441,168 @@ public class panelMenu extends javax.swing.JPanel {
         });
         jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 10, 20));
 
-        pRegistrarSocio.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 0, 60, 30));
+        pSocios.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 0, 60, 30));
 
-        txtDireccion.setForeground(new java.awt.Color(204, 204, 204));
-        txtDireccion.setText("Av. Del Coso 123");
-        txtDireccion.setToolTipText("");
-        txtDireccion.setBorder(null);
-        txtDireccion.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtDireccionSocio.setForeground(new java.awt.Color(204, 204, 204));
+        txtDireccionSocio.setText("Av. Del Coso 123");
+        txtDireccionSocio.setToolTipText("");
+        txtDireccionSocio.setBorder(null);
+        txtDireccionSocio.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDireccionFocusGained(evt);
+                txtDireccionSocioFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDireccionFocusLost(evt);
+                txtDireccionSocioFocusLost(evt);
             }
         });
-        txtDireccion.addActionListener(new java.awt.event.ActionListener() {
+        txtDireccionSocio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDireccionActionPerformed(evt);
+                txtDireccionSocioActionPerformed(evt);
             }
         });
-        pRegistrarSocio.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 410, 30));
-        txtDireccion.setForeground(new Color(204, 204, 204));
-        txtDireccion.addFocusListener(new Placeholders("Av. Del Coso 123", new Color(204, 204, 204), Color.BLACK));
+        pSocios.add(txtDireccionSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 240, 30));
+        txtDireccionSocio.setForeground(new Color(204, 204, 204));
+        txtDireccionSocio.addFocusListener(new Placeholders("Av. Del Coso 123", new Color(204, 204, 204), Color.BLACK));
 
         jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
-        pRegistrarSocio.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 550, 10));
+        pSocios.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 320, 10));
 
-        txtTelefono.setForeground(new java.awt.Color(204, 204, 204));
-        txtTelefono.setText("987654321");
-        txtTelefono.setBorder(null);
-        txtTelefono.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtTelefonoSocio.setForeground(new java.awt.Color(204, 204, 204));
+        txtTelefonoSocio.setText("987654321");
+        txtTelefonoSocio.setBorder(null);
+        txtTelefonoSocio.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtTelefonoFocusGained(evt);
+                txtTelefonoSocioFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtTelefonoFocusLost(evt);
+                txtTelefonoSocioFocusLost(evt);
             }
         });
-        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
+        txtTelefonoSocio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefonoActionPerformed(evt);
+                txtTelefonoSocioActionPerformed(evt);
             }
         });
-        pRegistrarSocio.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 460, 30));
-        txtTelefono.setForeground(new Color(204, 204, 204));
-        txtTelefono.addFocusListener(new Placeholders("987654321", new Color(204, 204, 204), Color.BLACK));
+        pSocios.add(txtTelefonoSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 240, 30));
+        txtTelefonoSocio.setForeground(new Color(204, 204, 204));
+        txtTelefonoSocio.addFocusListener(new Placeholders("987654321", new Color(204, 204, 204), Color.BLACK));
 
         jSeparator6.setForeground(new java.awt.Color(0, 0, 0));
-        pRegistrarSocio.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 550, 10));
+        pSocios.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 320, 10));
 
-        txtNombre.setForeground(new java.awt.Color(204, 204, 204));
-        txtNombre.setText("Introduzca su nombre");
-        txtNombre.setBorder(null);
-        txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtNombreSocio.setForeground(new java.awt.Color(204, 204, 204));
+        txtNombreSocio.setText("Introduzca su nombre");
+        txtNombreSocio.setBorder(null);
+        txtNombreSocio.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtNombreFocusGained(evt);
+                txtNombreSocioFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtNombreFocusLost(evt);
+                txtNombreSocioFocusLost(evt);
             }
         });
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+        txtNombreSocio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
+                txtNombreSocioActionPerformed(evt);
             }
         });
-        pRegistrarSocio.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 310, 30));
-        txtNombre.setForeground(new Color(204, 204, 204));
-        txtNombre.addFocusListener(new Placeholders("Introduzca su nombre", new Color(204, 204, 204), Color.BLACK));
+        pSocios.add(txtNombreSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 240, 30));
+        txtNombreSocio.setForeground(new Color(204, 204, 204));
+        txtNombreSocio.addFocusListener(new Placeholders("Introduzca su nombre", new Color(204, 204, 204), Color.BLACK));
 
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
-        pRegistrarSocio.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 540, 10));
+        pSocios.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 320, 10));
 
         jLabel11.setBackground(new java.awt.Color(255, 255, 255));
         jLabel11.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel11.setText("Actores favoritos:");
-        pRegistrarSocio.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, -1, -1));
+        pSocios.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
         jLabel12.setBackground(new java.awt.Color(255, 255, 255));
         jLabel12.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel12.setText("Géneros preferidos:");
-        pRegistrarSocio.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, -1, -1));
+        pSocios.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
 
         jSeparator11.setForeground(new java.awt.Color(0, 0, 0));
-        pRegistrarSocio.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 550, 10));
+        pSocios.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 320, 10));
 
         jSeparator12.setForeground(new java.awt.Color(0, 0, 0));
-        pRegistrarSocio.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 550, 10));
+        pSocios.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 320, 10));
 
         jSeparator13.setForeground(new java.awt.Color(0, 0, 0));
-        pRegistrarSocio.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 550, 10));
+        pSocios.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 320, 10));
 
         comboBoxDirectores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxDirectoresActionPerformed(evt);
             }
         });
-        pRegistrarSocio.add(comboBoxDirectores, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 230, 230, -1));
+        pSocios.add(comboBoxDirectores, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 170, -1));
 
-        pRegistrarSocio.add(comboBoxActores, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 230, -1));
+        pSocios.add(comboBoxActores, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, 170, -1));
 
-        pRegistrarSocio.add(comboBoxGeneros, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 340, 230, -1));
+        pSocios.add(comboBoxGeneros, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 170, -1));
 
-        tabbedPane.addTab("tab1", pRegistrarSocio);
+        jLabel18.setText("ID Socio:");
+        pSocios.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+
+        txtIdSocio.setEnabled(false);
+        pSocios.add(txtIdSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 240, -1));
+
+        tableSocios.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        tableSocios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "IDSocio", "Nombre", "Dirección", "Teléfono", "Director favorito", "Actor favorito", "Género favorito"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableSocios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableSociosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableSocios);
+        actualizarTablaSocios();
+
+        pSocios.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 590, 140));
+
+        btnEditarSocio.setText("Editar");
+        btnEditarSocio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarSocioActionPerformed(evt);
+            }
+        });
+        pSocios.add(btnEditarSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 140, -1, -1));
+
+        btnEliminarSocio.setText("Eliminar");
+        btnEliminarSocio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarSocioActionPerformed(evt);
+            }
+        });
+        pSocios.add(btnEliminarSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, -1, -1));
+
+        txtBuscarSocio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarSocioKeyReleased(evt);
+            }
+        });
+        pSocios.add(txtBuscarSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 480, 170, -1));
+
+        tabbedPane.addTab("tab1", pSocios);
 
         pPrestaciones.setBackground(new java.awt.Color(255, 255, 255));
         pPrestaciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -675,56 +750,6 @@ public class panelMenu extends javax.swing.JPanel {
 
         tabbedPane.addTab("tab3", pDevoluciones);
 
-        pSocio.setBackground(new java.awt.Color(255, 255, 255));
-
-        tableSocios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tableSocios.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        tableSocios.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "IDSocio", "Nombre", "Dirección", "Teléfono", "Director favorito", "Actor favorito", "Género favorito"
-            }
-        ));
-        jScrollPane1.setViewportView(tableSocios);
-
-        btnEliminarSocio.setText("Eliminar");
-        btnEliminarSocio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarSocioActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pSocioLayout = new javax.swing.GroupLayout(pSocio);
-        pSocio.setLayout(pSocioLayout);
-        pSocioLayout.setHorizontalGroup(
-            pSocioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pSocioLayout.createSequentialGroup()
-                .addGroup(pSocioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pSocioLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pSocioLayout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addComponent(btnEliminarSocio)))
-                .addContainerGap(241, Short.MAX_VALUE))
-        );
-        pSocioLayout.setVerticalGroup(
-            pSocioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pSocioLayout.createSequentialGroup()
-                .addGap(132, 132, 132)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
-                .addComponent(btnEliminarSocio)
-                .addContainerGap(108, Short.MAX_VALUE))
-        );
-
-        tabbedPane.addTab("tab4", pSocio);
-
         pDirectores.setBackground(new java.awt.Color(255, 255, 255));
         pDirectores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -795,7 +820,7 @@ public class panelMenu extends javax.swing.JPanel {
         jLabel15.setText("Buscar:");
         pDirectores.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
 
-        tabbedPane.addTab("tab5", pDirectores);
+        tabbedPane.addTab("tab4", pDirectores);
 
         pActores.setBackground(new java.awt.Color(255, 255, 255));
         pActores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -867,13 +892,14 @@ public class panelMenu extends javax.swing.JPanel {
         });
         pActores.add(btnEliminarActor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 390, -1, -1));
 
-        tabbedPane.addTab("tab6", pActores);
+        tabbedPane.addTab("tab5", pActores);
 
         add(tabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, -20, 890, 550));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnregistrarsocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrarsocioMouseClicked
         tabbedPane.setSelectedIndex(0);
+        actualizarTablaSocios();
     }//GEN-LAST:event_btnregistrarsocioMouseClicked
 
     private void btnprestacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnprestacionesMouseClicked
@@ -885,7 +911,7 @@ public class panelMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_btndevolucionesMouseClicked
 
     private void btnDirectoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDirectoresMouseClicked
-        tabbedPane.setSelectedIndex(4); 
+        tabbedPane.setSelectedIndex(3); 
         actualizarTablaDirectores();
     }//GEN-LAST:event_btnDirectoresMouseClicked
 
@@ -903,18 +929,6 @@ public class panelMenu extends javax.swing.JPanel {
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_panelBarraMousePressed
-
-    private void btnEliminarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarSocioActionPerformed
-        int selectedRow = tableSocios.getSelectedRow();
-        if(selectedRow >= 0){
-            int socioId = (int) tableModel.getValueAt(selectedRow, 0);
-            socioService.eliminarSocio(socioId);
-            actualizarVista();
-        }else{
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un socio para eliminar.");
-        }
-
-    }//GEN-LAST:event_btnEliminarSocioActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -955,41 +969,41 @@ public class panelMenu extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxDirectoresActionPerformed
 
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+    private void txtNombreSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreSocioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
+    }//GEN-LAST:event_txtNombreSocioActionPerformed
 
-    private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
+    private void txtNombreSocioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreSocioFocusLost
 
-    }//GEN-LAST:event_txtNombreFocusLost
+    }//GEN-LAST:event_txtNombreSocioFocusLost
 
-    private void txtNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusGained
+    private void txtNombreSocioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreSocioFocusGained
 
-    }//GEN-LAST:event_txtNombreFocusGained
+    }//GEN-LAST:event_txtNombreSocioFocusGained
 
-    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
+    private void txtTelefonoSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoSocioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefonoActionPerformed
+    }//GEN-LAST:event_txtTelefonoSocioActionPerformed
 
-    private void txtTelefonoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefonoFocusLost
+    private void txtTelefonoSocioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefonoSocioFocusLost
 
-    }//GEN-LAST:event_txtTelefonoFocusLost
+    }//GEN-LAST:event_txtTelefonoSocioFocusLost
 
-    private void txtTelefonoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefonoFocusGained
+    private void txtTelefonoSocioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefonoSocioFocusGained
 
-    }//GEN-LAST:event_txtTelefonoFocusGained
+    }//GEN-LAST:event_txtTelefonoSocioFocusGained
 
-    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
+    private void txtDireccionSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionSocioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDireccionActionPerformed
+    }//GEN-LAST:event_txtDireccionSocioActionPerformed
 
-    private void txtDireccionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionFocusLost
+    private void txtDireccionSocioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionSocioFocusLost
 
-    }//GEN-LAST:event_txtDireccionFocusLost
+    }//GEN-LAST:event_txtDireccionSocioFocusLost
 
-    private void txtDireccionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionFocusGained
+    private void txtDireccionSocioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionSocioFocusGained
 
-    }//GEN-LAST:event_txtDireccionFocusGained
+    }//GEN-LAST:event_txtDireccionSocioFocusGained
 
     private void jLabel7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MousePressed
 
@@ -1006,59 +1020,38 @@ public class panelMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel7MouseDragged
 
     private void btnRegistrarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarSocioActionPerformed
-        //             panelCartelera pc= new panelCartelera();
-        //
-        //            // Cambia el layout del contenedor principal a BorderLayout
-        //            this.setLayout(new BorderLayout());
-        //
-        //            // Remueve todos los componentes del contenedor principal
-        //            this.removeAll();
-        //
-        //            // Agrega el panelMenu al centro del contenedor principal
-        //            this.add(pc, BorderLayout.CENTER);
-        //
-        //            // Revalida y repinta el contenedor principal
-        //            this.revalidate();
-        //            this.repaint();
+        Socio nuevoSocio = new Socio();
+        nuevoSocio.setNombre(txtNombreSocio.getText());
+        nuevoSocio.setDireccion(txtDireccionSocio.getText());
+        nuevoSocio.setTelefono(txtTelefonoSocio.getText());
         
+        Director directorFavorito = (Director) comboBoxDirectores.getSelectedItem();
+        Actor actorFavorito = (Actor) comboBoxActores.getSelectedItem();
+        Genero generoFavorito = (Genero) comboBoxGeneros.getSelectedItem();
         
-//        String nombre = txtNombre.getText().trim();
-//        String direccion = txtDireccion.getText().trim();
-//        String telefono = txtTelefono.getText().trim();
-//        String placeholderNombre = "Introduzca su nombre";
-//        String placeholderDireccion = "Av. Del Coso 123";
-//        String placeholderTelefono = "987654321";
-//
-//        boolean esValido = ValidadorFormulario.validarRegistroSocio(nombre, direccion, telefono, placeholderNombre, placeholderDireccion, placeholderTelefono);
-//
-//        if(esValido){
-//            Socio socio = new Socio();
-//            socio.setNombre(txtNombre.getText());
-//            socio.setDireccion(txtDireccion.getText());
-//            socio.setTelefono(txtTelefono.getText());
-//            socio.setDirectoresFavoritos((String)comboBoxDirectores.getSelectedItem());
-//            socio.setActoresFavoritos((String)comboBoxActores.getSelectedItem());
-//            socio.setGenerosPreferidos((String)comboBoxGeneros.getSelectedItem());
-//
-//            try {
-//                socioService.registrarSocio(socio);
-//                JTextField[] camposParaLimpiar = {txtNombre, txtDireccion, txtTelefono};
-//                JComboBox[] camposComboParaLimpiar = {comboBoxActores, comboBoxDirectores, comboBoxGeneros};
-//                UIUtils.mostrarMensajeExitoYLimpiarCampos(camposParaLimpiar, camposComboParaLimpiar, "El socio ha sido registrado con exito.", "Registro Exitoso");
-//            } catch (Exception e) {
-//                JOptionPane.showMessageDialog(this, "Error al resgistrar el socio: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-//            }
-//        }
+        if (directorFavorito != null) {
+            nuevoSocio.getDirectoresFavoritos().add(directorFavorito);
+        }
+        if (actorFavorito != null) {
+            nuevoSocio.getActoresFavoritos().add(actorFavorito);
+        }
+        if (generoFavorito != null) {
+            nuevoSocio.getGenerosFavoritos().add(generoFavorito);
+        }
+        
+        socioService.agregarSocio(nuevoSocio);
+        
+        txtNombreSocio.setText("");
+        txtDireccionSocio.setText("");
+        txtTelefonoSocio.setText("");
+        comboBoxDirectores.setSelectedIndex(0);
+        comboBoxActores.setSelectedIndex(0);
+        comboBoxGeneros.setSelectedIndex(0);
+        
+        actualizarTablaSocios();
+        
+        JOptionPane.showMessageDialog(null, "Socio agregado con exito.", "Agregar Socio", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnRegistrarSocioActionPerformed
-
-    private void btnRegistrarSocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarSocioMouseClicked
-
-    }//GEN-LAST:event_btnRegistrarSocioMouseClicked
-
-    private void btnpeliprestadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnpeliprestadasMouseClicked
-        tabbedPane.setSelectedIndex(3);
-        actualizarVista();
-    }//GEN-LAST:event_btnpeliprestadasMouseClicked
 
     private void btnAgregarDirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDirectorActionPerformed
         String nombre = txtNombreDirector.getText();
@@ -1114,7 +1107,7 @@ public class panelMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEliminarDirectorActionPerformed
 
     private void btnActoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActoresMouseClicked
-        tabbedPane.setSelectedIndex(5); 
+        tabbedPane.setSelectedIndex(4); 
     }//GEN-LAST:event_btnActoresMouseClicked
 
     private void btnAgregarActorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActorActionPerformed
@@ -1170,6 +1163,87 @@ public class panelMenu extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnEliminarActorActionPerformed
 
+    private void btnEditarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarSocioActionPerformed
+        int idSocio = Integer.parseInt(txtIdSocio.getText());
+        Socio socio = socioService.obtenerSocioId(idSocio);
+        if(socio != null){
+            socio.setNombre(txtNombreSocio.getText());
+            socio.setDireccion(txtDireccionSocio.getText());
+            socio.setTelefono(txtTelefonoSocio.getText());
+            
+            Director directorFavorito = (Director) comboBoxDirectores.getSelectedItem();
+            socio.getDirectoresFavoritos().clear();
+            socio.getDirectoresFavoritos().add(directorFavorito);
+            
+            Actor actorFavorito = (Actor) comboBoxActores.getSelectedItem();
+            socio.getActoresFavoritos().clear();
+            socio.getActoresFavoritos().add(actorFavorito);
+            
+            Genero generoFavorito = (Genero) comboBoxGeneros.getSelectedItem();
+            socio.getGenerosFavoritos().clear();
+            socio.getGenerosFavoritos().add(generoFavorito);
+            
+            socioService.actualizarSocio(socio);
+            actualizarTablaSocios();
+            JOptionPane.showMessageDialog(this, "Socio actualizado correctamente.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(this, "Error al actualizar el socio.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEditarSocioActionPerformed
+
+    private void btnEliminarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarSocioActionPerformed
+        int fila = tableSocios.getSelectedRow();
+        if(fila != -1){
+            int idSocio = Integer.parseInt(tableSocios.getValueAt(fila, 0).toString());
+            int confirmacion = JOptionPane.showConfirmDialog(null, "Estás seguro de que deseas eliminar el socio seleccionado?", "Eliminar Socio", JOptionPane.YES_NO_OPTION);
+            if(confirmacion == JOptionPane.YES_OPTION){
+                Socio socioParaEliminar = new Socio();
+                socioParaEliminar.setSocioId(idSocio);
+                socioService.eliminarSocio(socioParaEliminar);
+                actualizarTablaSocios();
+                JOptionPane.showMessageDialog(null, "Socio eliminado con exito.", "Eliminar Socio", JOptionPane.INFORMATION_MESSAGE);
+                
+                txtNombreSocio.setText("");
+                txtDireccionSocio.setText("");
+                txtTelefonoSocio.setText("");
+                comboBoxDirectores.setSelectedIndex(0);
+                comboBoxActores.setSelectedIndex(0);
+                comboBoxGeneros.setSelectedIndex(0);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un socio de la tabla.", "Eliminar Socio", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEliminarSocioActionPerformed
+
+    private void tableSociosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSociosMouseClicked
+        if(evt.getClickCount() == 2){
+            int fila  = tableSocios.getSelectedRow();
+            if(fila != -1){
+                int idSocio = Integer.parseInt(tableSocios.getValueAt(fila, 0).toString());
+                cargarDatosSocios(idSocio);
+            }
+        }
+    }//GEN-LAST:event_tableSociosMouseClicked
+
+    private void txtBuscarSocioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarSocioKeyReleased
+        String text = txtBuscarSocio.getText();
+        if(!text.trim().isEmpty()){
+            try{
+                int idBusqueda = Integer.parseInt(text);
+                Socio socioEncontrado = socioService.obtenerSocioId(idBusqueda);
+                if(socioEncontrado != null){
+                    actualizarTablaSociosConUnSocio(socioEncontrado);
+                }else{
+                    limpiarTablaSocios();
+                }
+            }catch(NumberFormatException ex){
+                limpiarTablaSocios();
+            }
+        }else{
+            actualizarTablaSocios();
+        }
+    }//GEN-LAST:event_txtBuscarSocioKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActores;
@@ -1180,17 +1254,17 @@ public class panelMenu extends javax.swing.JPanel {
     private javax.swing.JButton btnDirectores;
     private javax.swing.JButton btnEditarActor;
     private javax.swing.JButton btnEditarDirector;
+    private javax.swing.JButton btnEditarSocio;
     private javax.swing.JButton btnEliminarActor;
     private javax.swing.JButton btnEliminarDirector;
     private javax.swing.JButton btnEliminarSocio;
     private javax.swing.JButton btnRegistrarSocio;
     private javax.swing.JButton btndevoluciones;
-    private javax.swing.JButton btnpeliprestadas;
     private javax.swing.JButton btnprestaciones;
     private javax.swing.JButton btnregistrarsocio;
-    private javax.swing.JComboBox<String> comboBoxActores;
-    private javax.swing.JComboBox<String> comboBoxDirectores;
-    private javax.swing.JComboBox<String> comboBoxGeneros;
+    private javax.swing.JComboBox<Actor> comboBoxActores;
+    private javax.swing.JComboBox<Director> comboBoxDirectores;
+    private javax.swing.JComboBox<Genero> comboBoxGeneros;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -1204,6 +1278,7 @@ public class panelMenu extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1233,8 +1308,7 @@ public class panelMenu extends javax.swing.JPanel {
     private javax.swing.JPanel pDevoluciones;
     private javax.swing.JPanel pDirectores;
     private javax.swing.JPanel pPrestaciones;
-    private javax.swing.JPanel pRegistrarSocio;
-    private javax.swing.JPanel pSocio;
+    private javax.swing.JPanel pSocios;
     private javax.swing.JPanel panelBarra;
     public javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTable tableActores;
@@ -1242,15 +1316,17 @@ public class panelMenu extends javax.swing.JPanel {
     private javax.swing.JTable tableSocios;
     private javax.swing.JTextField txtBuscarActor;
     private javax.swing.JTextField txtBuscarDirector;
+    private javax.swing.JTextField txtBuscarSocio;
     private javax.swing.JTextField txtCodSocio;
-    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtDireccionSocio;
     private javax.swing.JTextField txtFechaDevolucion;
     private javax.swing.JTextField txtFechaEntrega;
     private javax.swing.JTextField txtFechaPrestamo;
     private javax.swing.JTextField txtIdPrestamo;
-    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtIdSocio;
     private javax.swing.JTextField txtNombreActor;
     private javax.swing.JTextField txtNombreDirector;
-    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtNombreSocio;
+    private javax.swing.JTextField txtTelefonoSocio;
     // End of variables declaration//GEN-END:variables
 }

@@ -22,7 +22,7 @@ public class SocioService {
         this.socioDAO = new SocioDAO(DatabaseConnector.conectar());
     }
     
-    public void registrarSocio(Socio socio){        
+    public void agregarSocio(Socio socio){        
         socioDAO.save(socio);
     }
     
@@ -30,11 +30,16 @@ public class SocioService {
         return socioDAO.getAll();
     }
     
-    public void eliminarSocio(int idsocio){
-        Optional<Socio> socio = socioDAO.get(idsocio);
-        if(socio.isPresent()){
-            socioDAO.delete(socio.get());
-            JOptionPane.showMessageDialog(null, "Socio eliminado con exito.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-        }
+    public void actualizarSocio(Socio socio){
+        socioDAO.update(socio, null);
+    }
+    
+    public void eliminarSocio(Socio socio){
+        socioDAO.delete(socio);
+    }
+    
+    public Socio obtenerSocioId(long id){
+        Optional<Socio> socioOpt = socioDAO.get(id);
+        return socioOpt.orElse(null);
     }
 }
