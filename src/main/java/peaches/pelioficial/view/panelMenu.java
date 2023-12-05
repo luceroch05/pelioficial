@@ -162,9 +162,13 @@ public class panelMenu extends javax.swing.JPanel {
         if(socio != null){
             txtIdSocio.setText(String.valueOf(socio.getSocioId()));
             txtNombreSocio.setText(socio.getNombre());
+            txtNombreSocio.setForeground(Color.black);
             txtDireccionSocio.setText(socio.getDireccion());
+              txtDireccionSocio.setForeground(Color.black);
+
             txtTelefonoSocio.setText(socio.getTelefono());
-            
+              txtTelefonoSocio.setForeground(Color.black);
+
         }else{
             JOptionPane.showMessageDialog(this, "Socio no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -237,6 +241,7 @@ public class panelMenu extends javax.swing.JPanel {
         btnEditarSocio = new javax.swing.JButton();
         btnEliminarSocio = new javax.swing.JButton();
         txtBuscarSocio = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
         pPrestaciones = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -561,7 +566,7 @@ public class panelMenu extends javax.swing.JPanel {
         pSocios.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
         txtIdSocio.setEnabled(false);
-        pSocios.add(txtIdSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 240, -1));
+        pSocios.add(txtIdSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 240, -1));
 
         tableSocios.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         tableSocios.setModel(new javax.swing.table.DefaultTableModel(
@@ -614,7 +619,11 @@ public class panelMenu extends javax.swing.JPanel {
                 txtBuscarSocioKeyReleased(evt);
             }
         });
-        pSocios.add(txtBuscarSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 480, 170, -1));
+        pSocios.add(txtBuscarSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 340, 80, -1));
+
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel19.setText("Buscar por ID");
+        pSocios.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 310, -1, -1));
 
         tabbedPane.addTab("tab1", pSocios);
 
@@ -1486,6 +1495,7 @@ private boolean validarFecha(String fechaTexto, String formato) {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
