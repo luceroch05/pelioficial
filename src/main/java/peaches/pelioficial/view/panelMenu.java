@@ -3,14 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package peaches.pelioficial.view;
-
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Date;
+//import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import javax.swing.JOptionPane;
@@ -483,6 +487,11 @@ public class panelMenu extends javax.swing.JPanel {
                 txtTelefonoSocioActionPerformed(evt);
             }
         });
+        txtTelefonoSocio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoSocioKeyTyped(evt);
+            }
+        });
         pSocios.add(txtTelefonoSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 240, 30));
         txtTelefonoSocio.setForeground(new Color(204, 204, 204));
         txtTelefonoSocio.addFocusListener(new Placeholders("987654321", new Color(204, 204, 204), Color.BLACK));
@@ -504,6 +513,11 @@ public class panelMenu extends javax.swing.JPanel {
         txtNombreSocio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreSocioActionPerformed(evt);
+            }
+        });
+        txtNombreSocio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreSocioKeyTyped(evt);
             }
         });
         pSocios.add(txtNombreSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 240, 30));
@@ -628,6 +642,11 @@ public class panelMenu extends javax.swing.JPanel {
                 txtCodSocioActionPerformed(evt);
             }
         });
+        txtCodSocio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodSocioKeyTyped(evt);
+            }
+        });
         pPrestaciones.add(txtCodSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, 160, 30));
         txtCodSocio.setForeground(Color.GRAY);
         txtCodSocio.addFocusListener(new Placeholders("Codigo", new Color(204, 204, 204), Color.BLACK));
@@ -639,9 +658,19 @@ public class panelMenu extends javax.swing.JPanel {
         txtFechaPrestamo.setForeground(new java.awt.Color(204, 204, 204));
         txtFechaPrestamo.setText("dd/mm/yy");
         txtFechaPrestamo.setBorder(null);
+        txtFechaPrestamo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFechaPrestamoFocusLost(evt);
+            }
+        });
         txtFechaPrestamo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFechaPrestamoActionPerformed(evt);
+            }
+        });
+        txtFechaPrestamo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFechaPrestamoKeyTyped(evt);
             }
         });
         pPrestaciones.add(txtFechaPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 160, 30));
@@ -655,9 +684,19 @@ public class panelMenu extends javax.swing.JPanel {
         txtFechaDevolucion.setForeground(new java.awt.Color(204, 204, 204));
         txtFechaDevolucion.setText("dd/mm/yy");
         txtFechaDevolucion.setBorder(null);
+        txtFechaDevolucion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFechaDevolucionFocusLost(evt);
+            }
+        });
         txtFechaDevolucion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFechaDevolucionActionPerformed(evt);
+            }
+        });
+        txtFechaDevolucion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFechaDevolucionKeyTyped(evt);
             }
         });
         pPrestaciones.add(txtFechaDevolucion, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 230, 160, 30));
@@ -724,6 +763,11 @@ public class panelMenu extends javax.swing.JPanel {
         txtFechaEntrega.setForeground(new java.awt.Color(204, 204, 204));
         txtFechaEntrega.setText("dd/mm/yy");
         txtFechaEntrega.setBorder(null);
+        txtFechaEntrega.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFechaEntregaFocusLost(evt);
+            }
+        });
         txtFechaEntrega.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFechaEntregaActionPerformed(evt);
@@ -755,6 +799,12 @@ public class panelMenu extends javax.swing.JPanel {
 
         jLabel6.setText("Nombre:");
         pDirectores.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
+
+        txtNombreDirector.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreDirectorKeyTyped(evt);
+            }
+        });
         pDirectores.add(txtNombreDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 240, -1));
 
         btnAgregarDirector.setText("Agregar");
@@ -807,6 +857,12 @@ public class panelMenu extends javax.swing.JPanel {
             }
         });
         pDirectores.add(btnEliminarDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, -1, -1));
+
+        txtBuscarDirector.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarDirectorKeyTyped(evt);
+            }
+        });
         pDirectores.add(txtBuscarDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 240, -1));
 
         btnBuscarDirector.setText("Buscar");
@@ -830,7 +886,19 @@ public class panelMenu extends javax.swing.JPanel {
 
         jLabel17.setText("Buscar:");
         pActores.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
+
+        txtNombreActor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreActorKeyTyped(evt);
+            }
+        });
         pActores.add(txtNombreActor, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 280, -1));
+
+        txtBuscarActor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarActorKeyTyped(evt);
+            }
+        });
         pActores.add(txtBuscarActor, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 280, -1));
 
         tableActores.setModel(new javax.swing.table.DefaultTableModel(
@@ -1244,6 +1312,145 @@ public class panelMenu extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtBuscarSocioKeyReleased
 
+    private void txtNombreSocioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreSocioKeyTyped
+           validacionTexto(evt);
+     
+    }//GEN-LAST:event_txtNombreSocioKeyTyped
+
+    private void txtTelefonoSocioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoSocioKeyTyped
+validacionNumerica(evt); // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefonoSocioKeyTyped
+
+    private void txtNombreActorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreActorKeyTyped
+          validacionTexto(evt);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActorKeyTyped
+
+    private void txtBuscarActorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarActorKeyTyped
+        validacionTexto(evt);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActorKeyTyped
+
+    private void txtNombreDirectorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreDirectorKeyTyped
+validacionTexto(evt);        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreDirectorKeyTyped
+
+    private void txtBuscarDirectorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarDirectorKeyTyped
+validacionTexto(evt);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarDirectorKeyTyped
+
+    private void txtCodSocioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodSocioKeyTyped
+validacionNumerica(evt);        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodSocioKeyTyped
+
+    private void txtFechaPrestamoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFechaPrestamoKeyTyped
+// TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaPrestamoKeyTyped
+
+    private void txtFechaDevolucionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFechaDevolucionKeyTyped
+  
+// TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaDevolucionKeyTyped
+
+    private void txtFechaPrestamoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFechaPrestamoFocusLost
+        validacionFecha(evt);
+  
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaPrestamoFocusLost
+
+    private void txtFechaDevolucionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFechaDevolucionFocusLost
+    validacionFecha(evt);     // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaDevolucionFocusLost
+
+    private void txtFechaEntregaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFechaEntregaFocusLost
+ validacionFecha(evt);        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaEntregaFocusLost
+
+private boolean validarFecha(String fechaTexto, String formato) {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat(formato);
+        formatoFecha.setLenient(false);
+
+        try {
+            Date fecha = formatoFecha.parse(fechaTexto);
+
+            // Validar día en función del mes
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(fecha);
+
+            int dia = cal.get(Calendar.DAY_OF_MONTH);
+            int mes = cal.get(Calendar.MONTH) + 1; // Los meses en Calendar son 0-indexados
+
+            // Validar días según el mes
+            if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia > 30) {
+                return false; // Meses con 30 días
+            } else if (mes == 2) {
+                int anio = cal.get(Calendar.YEAR);
+
+                if ((anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0)) {
+                    // Año bisiesto
+                    if (dia > 29) {
+                        return false;
+                    }
+                } else {
+                    // No es un año bisiesto
+                    if (dia > 28) {
+                        return false;
+                    }
+                }
+            } else if (dia > 31) {
+                return false; // Meses con 31 días
+            }
+
+            // La fecha es válida
+            return true;
+        } catch (ParseException e) {
+            // La fecha no es válida
+            System.out.println("Error de validación: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    void validacionFecha(java.awt.event.FocusEvent evt)
+    {
+         javax.swing.JTextField textField = (javax.swing.JTextField) evt.getSource();
+        String fechaTexto = textField.getText().trim();
+
+        if (!fechaTexto.isEmpty()) {
+            if (!validarFecha(fechaTexto, "dd/MM/yyyy")) {
+                JOptionPane.showMessageDialog(null, "Fecha no válida. Utilice el formato dd/MM/yyyy");
+                textField.requestFocus();
+            } else {
+                System.out.println("Fecha válida: " + fechaTexto);
+            }
+        }
+    }
+    
+    
+    void validacionTexto(java.awt.event.KeyEvent evt){
+        char c = evt.getKeyChar();
+
+ if ((Character.isLetter(c) || c == KeyEvent.VK_SPACE || c == KeyEvent.VK_BACK_SPACE)) {
+        // Código a ejecutar si la condición es verdadera
+    } else {
+        evt.consume();
+        JOptionPane.showMessageDialog(null, "Solo ingresar caracteres de tipo texto");
+    }
+    }
+    
+    void validacionNumerica(java.awt.event.KeyEvent evt){
+             char c = evt.getKeyChar();
+
+ if ((Character.isDigit(c) || c == KeyEvent.VK_SPACE || c == KeyEvent.VK_BACK_SPACE)) {
+        // Código a ejecutar si la condición es verdadera
+    } else {
+        evt.consume();
+        JOptionPane.showMessageDialog(null, "Solo ingresar caracteres de tipo numérico");  
+ }
+    }
+    
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActores;
@@ -1329,4 +1536,4 @@ public class panelMenu extends javax.swing.JPanel {
     private javax.swing.JTextField txtNombreSocio;
     private javax.swing.JTextField txtTelefonoSocio;
     // End of variables declaration//GEN-END:variables
-}
+   }
