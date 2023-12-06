@@ -209,6 +209,7 @@ public class panelMenu extends javax.swing.JPanel {
         btnprestaciones = new javax.swing.JButton();
         btndevoluciones = new javax.swing.JButton();
         btnActores = new javax.swing.JButton();
+        btnPeliculas = new javax.swing.JButton();
         panelBarra = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         tabbedPane = new javax.swing.JTabbedPane();
@@ -284,6 +285,7 @@ public class panelMenu extends javax.swing.JPanel {
         btnBuscarActor = new javax.swing.JButton();
         btnEditarActor = new javax.swing.JButton();
         btnEliminarActor = new javax.swing.JButton();
+        pPeliculas = new javax.swing.JPanel();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -355,6 +357,14 @@ public class panelMenu extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btnActores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 250, 40));
+
+        btnPeliculas.setText("PELICULAS");
+        btnPeliculas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPeliculasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnPeliculas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 250, 40));
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 16, 250, 510));
 
@@ -971,6 +981,21 @@ public class panelMenu extends javax.swing.JPanel {
 
         tabbedPane.addTab("tab5", pActores);
 
+        pPeliculas.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout pPeliculasLayout = new javax.swing.GroupLayout(pPeliculas);
+        pPeliculas.setLayout(pPeliculasLayout);
+        pPeliculasLayout.setHorizontalGroup(
+            pPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 890, Short.MAX_VALUE)
+        );
+        pPeliculasLayout.setVerticalGroup(
+            pPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 515, Short.MAX_VALUE)
+        );
+
+        tabbedPane.addTab("tab6", pPeliculas);
+
         add(tabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, -20, 890, 550));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1376,6 +1401,10 @@ validacionNumerica(evt);        // TODO add your handling code here:
  validacionFecha(evt);        // TODO add your handling code here:
     }//GEN-LAST:event_txtFechaEntregaFocusLost
 
+    private void btnPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeliculasActionPerformed
+        
+    }//GEN-LAST:event_btnPeliculasActionPerformed
+
 private boolean validarFecha(String fechaTexto, String formato) {
         SimpleDateFormat formatoFecha = new SimpleDateFormat(formato);
         formatoFecha.setLenient(false);
@@ -1474,6 +1503,7 @@ private boolean validarFecha(String fechaTexto, String formato) {
     private javax.swing.JButton btnEliminarActor;
     private javax.swing.JButton btnEliminarDirector;
     private javax.swing.JButton btnEliminarSocio;
+    private javax.swing.JButton btnPeliculas;
     private javax.swing.JButton btnRegistrarSocio;
     private javax.swing.JButton btndevoluciones;
     private javax.swing.JButton btnprestaciones;
@@ -1524,6 +1554,7 @@ private boolean validarFecha(String fechaTexto, String formato) {
     private javax.swing.JPanel pActores;
     private javax.swing.JPanel pDevoluciones;
     private javax.swing.JPanel pDirectores;
+    private javax.swing.JPanel pPeliculas;
     private javax.swing.JPanel pPrestaciones;
     private javax.swing.JPanel pSocios;
     private javax.swing.JPanel panelBarra;
