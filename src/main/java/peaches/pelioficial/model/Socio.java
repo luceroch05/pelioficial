@@ -16,9 +16,9 @@ public class Socio {
     private String nombre;
     private String direccion;
     private String telefono;
-    private List<Director> directoresFavoritos = new ArrayList<>();
-    private List<Actor> actoresFavoritos = new ArrayList<>();
-    private List<Genero> generosFavoritos = new ArrayList<>();
+    private List<Director> directoresFavoritos;
+    private List<Actor> actoresFavoritos;
+    private List<Genero> generosFavoritos;
 
     public Socio() {
     }
@@ -28,6 +28,9 @@ public class Socio {
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
+        this.directoresFavoritos = new ArrayList<>();
+        this.actoresFavoritos = new ArrayList<>();
+        this.generosFavoritos = new ArrayList<>();
     }
 
     public int getSocioId() {
@@ -67,11 +70,18 @@ public class Socio {
     }
 
     public void setDirectoresFavoritos(List<Director> directoresFavoritos) {
-        this.directoresFavoritos = directoresFavoritos;
+        if(directoresFavoritos == null) {
+            this.directoresFavoritos = new ArrayList<>();
+        } else {
+            this.directoresFavoritos = directoresFavoritos;
+        }
     }
 
     public List<Actor> getActoresFavoritos() {
-        return actoresFavoritos;
+        if (this.actoresFavoritos == null) {
+            this.actoresFavoritos = new ArrayList<>();
+        }
+        return this.actoresFavoritos;
     }
 
     public void setActoresFavoritos(List<Actor> actoresFavoritos) {
@@ -85,5 +95,4 @@ public class Socio {
     public void setGenerosFavoritos(List<Genero> generosFavoritos) {
         this.generosFavoritos = generosFavoritos;
     }
-    
 }

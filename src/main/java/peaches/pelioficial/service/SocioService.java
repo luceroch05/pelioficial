@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Optional;
 import javax.swing.JOptionPane;
 import peaches.pelioficial.dao.SocioDAO;
+import peaches.pelioficial.model.Actor;
+import peaches.pelioficial.model.Director;
+import peaches.pelioficial.model.Genero;
 import peaches.pelioficial.model.Socio;
 import peaches.pelioficial.util.DatabaseConnector;
 
@@ -20,6 +23,10 @@ public class SocioService {
     
     public SocioService(){
         this.socioDAO = new SocioDAO(DatabaseConnector.conectar());
+    }
+    
+    public SocioService(SocioDAO socioDAO){
+        this.socioDAO = socioDAO;
     }
     
     public void agregarSocio(Socio socio){        
@@ -41,5 +48,24 @@ public class SocioService {
     public Socio obtenerSocioId(long id){
         Optional<Socio> socioOpt = socioDAO.get(id);
         return socioOpt.orElse(null);
+    }
+    
+    public void agregarSocioConFavoritos(Socio socio, List<Director> directoresFavoritos, List<Actor> actoresFavoritos, List<Genero> generosFavoritos) {
+        int idSocio = socioDAO.save(socio);
+        socioDAO.guardarDirectoresFavoritos(idSocio, directoresFavoritos);
+        socioDAO.guardarActoresFavoritos(idSocio, actoresFavoritos);
+        socioDAO.guardarGenerosFavoritos(idSocio, generosFavoritos);
+    }
+
+    public List<Director> obtenerTodosLosDirectores(){
+        return socioDAO.obtenerTodosLosDirectores();
+    }
+    
+    public List<Actor> obtenerTodosLosActores(){
+        return socioDAO.obtenerTodosLosActores();
+    }
+    
+    public List<Genero> obtenerTodosLosGeneros(){
+        return socioDAO.obtenerTodosLosGeneros();
     }
 }

@@ -212,21 +212,31 @@ public class SocioDAO implements Dao<Socio>{
         return generos;
     }
     
-    private void insertSocioDirectoresFavoritos(Socio socio) throws SQLException{
+    private void insertSocioDirectoresFavoritos(Socio socio) throws SQLException {
         String sql = "INSERT INTO socio_director (socio_id, director_id) VALUES (?, ?)";
-        for(Director director : socio.getDirectoresFavoritos()){
-            try(PreparedStatement statement = connection.prepareStatement(sql)){
-                statement.setInt(1, socio.getSocioId());
-                statement.setInt(2, director.getDirectorId());
-                statement.executeUpdate();
+        List<Director> directores = socio.getDirectoresFavoritos();
+        if (directores != null) {
+            for (Director director : directores) {
+                try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                    statement.setInt(1, socio.getSocioId());
+                    statement.setInt(2, director.getDirectorId());
+                    statement.executeUpdate();
+                }
             }
         }
     }
     
-    private void insertSocioActoresFavoritos(Socio socio) throws SQLException{
+    private void insertSocioActoresFavoritos(Socio socio) throws SQLException {
+        List<Actor> actoresFavoritos = socio.getActoresFavoritos();
+        if (actoresFavoritos == null) {
+            actoresFavoritos = new ArrayList<>();
+            // Opcionalmente, establecer de nuevo la lista en el objeto socio si es necesario
+            // socio.setActoresFavoritos(actoresFavoritos);
+        }
+
         String sql = "INSERT INTO socio_actor (socio_id, actor_id) VALUES (?, ?)";
-        for(Actor actor : socio.getActoresFavoritos()){
-            try(PreparedStatement statement = connection.prepareStatement(sql)){
+        for (Actor actor : actoresFavoritos) {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, socio.getSocioId());
                 statement.setInt(2, actor.getActorId());
                 statement.executeUpdate();
@@ -234,10 +244,18 @@ public class SocioDAO implements Dao<Socio>{
         }
     }
     
-    private void insertSocioGenerosFavoritos(Socio socio) throws SQLException{
+    private void insertSocioGenerosFavoritos(Socio socio) throws SQLException {
+        List<Genero> generosFavoritos = socio.getGenerosFavoritos();
+        if (generosFavoritos == null) {
+            // Si es null, inicializa la lista para evitar NullPointerException
+            generosFavoritos = new ArrayList<>();
+            // Opcionalmente, puedes establecer la lista vacía en el objeto socio
+            // socio.setGenerosFavoritos(generosFavoritos);
+        }
+
         String sql = "INSERT INTO socio_genero (socio_id, genero_id) VALUES (?, ?)";
-        for(Genero genero : socio.getGenerosFavoritos()){
-            try(PreparedStatement statement = connection.prepareStatement(sql)){
+        for (Genero genero : generosFavoritos) {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, socio.getSocioId());
                 statement.setInt(2, genero.getGeneroId());
                 statement.executeUpdate();
@@ -294,5 +312,111 @@ public class SocioDAO implements Dao<Socio>{
             statement.setInt(1, socioId);
             statement.executeUpdate();
         }
+    }
+    
+    public void guardarDirectoresFavoritos(int idSocio, List<Director> directores) {
+        // Comprobamos si la lista es null y en ese caso imprimimos un mensaje o lanzamos una excepción
+        if (directores == null) {
+            System.out.println("La lista de directores es null.");
+            return; // Salimos del método para evitar el NullPointerException
+        }
+
+        String sql = "INSERT INTO socio_director (socio_id, director_id) VALUES (?, ?)";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (Director director : directores) {
+                statement.setInt(1, idSocio);
+                statement.setInt(2, director.getDirectorId());
+                statement.addBatch();
+            }
+            statement.executeBatch(); // Ejecutamos el lote de inserciones
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void guardarActoresFavoritos(int idSocio, List<Actor> actores){
+        String sql = "INSERT INTO socio_actor (socio_id, actor_id) VALUES (?, ?)";
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            for(Actor actor : actores){
+                statement.setInt(1, idSocio);
+                statement.setInt(2, actor.getActorId());
+                statement.addBatch();
+            }
+            statement.executeBatch();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void guardarGenerosFavoritos(int idSocio, List<Genero> generos) {
+        if (generos == null) {
+            System.out.println("La lista de géneros es null.");
+            return; // Salimos del método para evitar el NullPointerException
+        }
+
+        String sql = "INSERT INTO socio_genero (socio_id, genero_id) VALUES (?, ?)";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (Genero genero : generos) {
+                statement.setInt(1, idSocio);
+                statement.setInt(2, genero.getGeneroId());
+                statement.addBatch();
+            }
+            statement.executeBatch(); // Ejecutamos el lote de inserciones
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public List<Director> obtenerTodosLosDirectores(){
+        List<Director> directores = new ArrayList<>();
+        String sql = "SELECT * FROM directores";
+        try(PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery()){
+                while (resultSet.next()){
+                    Director director = new Director();
+                    director.setDirectorId(resultSet.getInt("director_id"));
+                    director.setNombre(resultSet.getString("nombre"));
+                    directores.add(director);
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        return directores;
+    }
+    
+    public List<Actor> obtenerTodosLosActores(){
+        List<Actor> actores = new ArrayList<>();
+        String sql = "SELECT * FROM actores";
+        try(PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery()){
+                while(resultSet.next()){
+                    Actor actor = new Actor();
+                    actor.setActorId(resultSet.getInt("actor_id"));
+                    actor.setNombre(resultSet.getString("nombre"));
+                    actores.add(actor);
+                }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return actores;
+    }
+    
+    public List<Genero> obtenerTodosLosGeneros(){
+        List<Genero> generos = new ArrayList<>();
+        String sql = "SELECT * FROM generos";
+        try(PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery()){
+                while(resultSet.next()){
+                    Genero genero = new Genero();
+                    genero.setGeneroId(resultSet.getInt("genero_id"));
+                    genero.setNombre(resultSet.getString("nombre"));
+                    generos.add(genero);
+                }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return generos;
     }
 }

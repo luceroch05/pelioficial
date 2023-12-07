@@ -5,19 +5,21 @@
 package peaches.pelioficial.view;
 import java.util.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Point;
+import java.awt.Window;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 //import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
@@ -37,6 +39,7 @@ import peaches.pelioficial.service.PeliculaService;
 import peaches.pelioficial.service.SocioService;
 import peaches.pelioficial.util.DatabaseConnector;
 import peaches.pelioficial.util.Placeholders;
+import peaches.pelioficial.util.SeleccionElementosDialog;
 
 /**
  *
@@ -49,7 +52,13 @@ public class panelMenu extends javax.swing.JPanel {
         DirectorService directorService = new DirectorService(DatabaseConnector.conectar());
         ActorService actorService = new ActorService(DatabaseConnector.conectar());
         private framePrincipal framePrincipal;
-        private List<Genero> generosSeleccionados;
+        
+        private Set<Director> directoresSeleccionados = new HashSet<>();
+        private Set<Actor> actoresSeleccionados = new HashSet<>();
+        private Set<Genero> generosSeleccionados = new HashSet<>();
+        private List<Director> listaDirectores = directorService.obtenerTodosLosDirectores();
+        private List<Actor> listaActores = actorService.obtenerTodosLosActores();
+        private List<Genero> listaGeneros = peliculaService.obtenerTodosLosGeneros();
         
     /**
      * Creates new form panelMenu
@@ -107,26 +116,20 @@ public class panelMenu extends javax.swing.JPanel {
     
     private void rellenarCboDirectores() {
         List<Director> directores = directorService.obtenerTodosLosDirectores();
-        comboBoxDirectores.removeAllItems();
         for (Director director : directores) {
-            comboBoxDirectores.addItem(director);
             cboDirectoresPelicula.addItem(director);
         }
     }
     
     private void rellenarCboActores() {
         List<Actor> actores = actorService.obtenerTodosLosActores();
-        comboBoxActores.removeAllItems();
         for (Actor actor : actores) {
-            comboBoxActores.addItem(actor);
         }
     }
     
     private void rellenarCboGeneros() {
         List<Genero> generos = peliculaService.obtenerTodosLosGeneros();
-        comboBoxGeneros.removeAllItems();
         for (Genero genero : generos) {
-            comboBoxGeneros.addItem(genero);
         }
     }
     
@@ -148,19 +151,29 @@ public class panelMenu extends javax.swing.JPanel {
         }
     }
     
-    public void actualizarTablaSocios(){
+    public void actualizarTablaSocios() {
         DefaultTableModel model = (DefaultTableModel) tableSocios.getModel();
         model.setRowCount(0);
         List<Socio> listaSocios = socioService.obtenerTodosLosSocios();
-        for(Socio socio : listaSocios){
+        for (Socio socio : listaSocios) {
+            String directores = String.join(", ", socio.getDirectoresFavoritos().stream()
+                                                       .map(Director::getNombre)
+                                                       .collect(Collectors.toList()));
+            String actores = String.join(", ", socio.getActoresFavoritos().stream()
+                                                    .map(Actor::getNombre)
+                                                    .collect(Collectors.toList()));
+            String generos = String.join(", ", socio.getGenerosFavoritos().stream()
+                                                    .map(Genero::getNombre)
+                                                    .collect(Collectors.toList()));
+
             model.addRow(new Object[]{
                 socio.getSocioId(),
                 socio.getNombre(),
                 socio.getDireccion(),
                 socio.getTelefono(),
-                socio.getDirectoresFavoritos().toString(),
-                socio.getActoresFavoritos().toString(),
-                socio.getGenerosFavoritos().toString()
+                directores,
+                actores,
+                generos
             });
         }
     }
@@ -182,17 +195,28 @@ public class panelMenu extends javax.swing.JPanel {
         }
     }
     
-    private void actualizarTablaSociosConUnSocio(Socio socio){
+    private void actualizarTablaSociosConUnSocio(Socio socio) {
         DefaultTableModel model = (DefaultTableModel) tableSocios.getModel();
         model.setRowCount(0);
+
+        String directores = socio.getDirectoresFavoritos().stream()
+                                 .map(Director::getNombre)
+                                 .collect(Collectors.joining(", "));
+        String actores = socio.getActoresFavoritos().stream()
+                              .map(Actor::getNombre)
+                              .collect(Collectors.joining(", "));
+        String generos = socio.getGenerosFavoritos().stream()
+                              .map(Genero::getNombre)
+                              .collect(Collectors.joining(", "));
+
         model.addRow(new Object[]{
             socio.getSocioId(),
             socio.getNombre(),
             socio.getDireccion(),
             socio.getTelefono(),
-            socio.getDirectoresFavoritos().toString(),
-            socio.getActoresFavoritos().toString(),
-            socio.getGenerosFavoritos().toString()
+            directores,
+            actores,
+            generos
         });
     }
     
@@ -200,12 +224,6 @@ public class panelMenu extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tableSocios.getModel();
         model.setRowCount(0);
     } 
-
-    
-    public void actualizarLabelGeneros(List<Genero> generosSeleccionados){
-        this.generosSeleccionados = generosSeleccionados;
-        lblGenerosSeleccionados.setText(generosSeleccionados.size() + " generos seleccionados.");
-    }
     
     public void actualizarTablaPeliculas(){
         DefaultTableModel modelo = (DefaultTableModel) tablePeliculas.getModel();
@@ -302,6 +320,49 @@ public class panelMenu extends javax.swing.JPanel {
         }
     }
     
+    private void actualizarSeleccionDirectores(Set<Director> seleccion){
+        directoresSeleccionados = seleccion;
+        lblDirectoresSeleccionados.setText(seleccion.size() + " Directores seleccionados");
+    }
+    
+    private void actualizarSeleccionActores(Set<Actor> seleccion){
+        actoresSeleccionados = seleccion;
+        lblActoresSeleccionados.setText(seleccion.size() + " Actores seleccionados");
+    }
+    
+    private void actualizarSeleccionGeneros(Set<Genero> seleccion){
+        generosSeleccionados = seleccion;
+        lblGenerosSeleccionados.setText(seleccion.size() + " Generos seleccionados");
+    }
+    
+    private void limpiarCamposFormularioSocio(){
+        txtIdSocio.setText("");
+        txtNombreSocio.setText("");
+        txtDireccionSocio.setText("");
+        txtTelefonoSocio.setText("");
+        
+        lblDirectoresSeleccionados.setText("");
+        lblActoresSeleccionados.setText("");
+        lblGenerosSeleccionados.setText("");
+        
+        directoresSeleccionados.clear();
+        actoresSeleccionados.clear();
+        generosSeleccionados.clear();
+    }
+    
+    private List<Director> obtenerDirectoresSeleccionados() {
+        return new ArrayList<>(directoresSeleccionados);
+    }
+
+    private List<Actor> obtenerActoresSeleccionados() {
+        return new ArrayList<>(actoresSeleccionados);
+    }
+
+    private List<Genero> obtenerGenerosSeleccionados() {
+        return new ArrayList<>(generosSeleccionados);
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -342,9 +403,6 @@ public class panelMenu extends javax.swing.JPanel {
         jSeparator11 = new javax.swing.JSeparator();
         jSeparator12 = new javax.swing.JSeparator();
         jSeparator13 = new javax.swing.JSeparator();
-        comboBoxDirectores = new javax.swing.JComboBox<>();
-        comboBoxActores = new javax.swing.JComboBox<>();
-        comboBoxGeneros = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
         txtIdSocio = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -353,6 +411,12 @@ public class panelMenu extends javax.swing.JPanel {
         btnEliminarSocio = new javax.swing.JButton();
         txtBuscarSocio = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
+        btnDirectoresSocios = new javax.swing.JButton();
+        btnActoresSocios = new javax.swing.JButton();
+        btnGenerosSocios = new javax.swing.JButton();
+        lblDirectoresSeleccionados = new javax.swing.JLabel();
+        lblActoresSeleccionados = new javax.swing.JLabel();
+        lblGenerosSeleccionados = new javax.swing.JLabel();
         pPrestaciones = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -406,7 +470,6 @@ public class panelMenu extends javax.swing.JPanel {
         btnEditarPelicula = new javax.swing.JButton();
         btnEliminarPelicula = new javax.swing.JButton();
         txtBuscarPelicula = new javax.swing.JTextField();
-        lblGenerosSeleccionados = new javax.swing.JLabel();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -687,21 +750,10 @@ public class panelMenu extends javax.swing.JPanel {
         jSeparator13.setForeground(new java.awt.Color(0, 0, 0));
         pSocios.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 320, 10));
 
-        comboBoxDirectores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxDirectoresActionPerformed(evt);
-            }
-        });
-        pSocios.add(comboBoxDirectores, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 170, -1));
-
-        pSocios.add(comboBoxActores, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, 170, -1));
-
-        pSocios.add(comboBoxGeneros, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 170, -1));
-
         jLabel18.setText("ID Socio:");
         pSocios.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
-        txtIdSocio.setEnabled(false);
+        txtIdSocio.setEditable(false);
         pSocios.add(txtIdSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 240, -1));
 
         tableSocios.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -713,7 +765,7 @@ public class panelMenu extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "IDSocio", "Nombre", "Dirección", "Teléfono", "Director favorito", "Actor favorito", "Género favorito"
+                "IDSocio", "Nombre", "Dirección", "Teléfono", "Directores favorito", "Actores favorito", "Generos favoritos"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -755,11 +807,38 @@ public class panelMenu extends javax.swing.JPanel {
                 txtBuscarSocioKeyReleased(evt);
             }
         });
-        pSocios.add(txtBuscarSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 340, 80, -1));
+        pSocios.add(txtBuscarSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, 80, -1));
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel19.setText("Buscar por ID");
-        pSocios.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 310, -1, -1));
+        pSocios.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 240, -1, -1));
+
+        btnDirectoresSocios.setText("Elegir Directores");
+        btnDirectoresSocios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDirectoresSociosActionPerformed(evt);
+            }
+        });
+        pSocios.add(btnDirectoresSocios, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, -1, -1));
+
+        btnActoresSocios.setText("Elegir Actores");
+        btnActoresSocios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActoresSociosActionPerformed(evt);
+            }
+        });
+        pSocios.add(btnActoresSocios, new org.netbeans.lib.awtextra.AbsoluteConstraints(225, 240, 110, -1));
+
+        btnGenerosSocios.setText("Elegir Generos");
+        btnGenerosSocios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerosSociosActionPerformed(evt);
+            }
+        });
+        pSocios.add(btnGenerosSocios, new org.netbeans.lib.awtextra.AbsoluteConstraints(225, 280, 110, -1));
+        pSocios.add(lblDirectoresSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, -1, -1));
+        pSocios.add(lblActoresSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, -1, -1));
+        pSocios.add(lblGenerosSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, -1, -1));
 
         tabbedPane.addTab("tab1", pSocios);
 
@@ -1237,7 +1316,6 @@ public class panelMenu extends javax.swing.JPanel {
             }
         });
         pPeliculas.add(txtBuscarPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 260, -1));
-        pPeliculas.add(lblGenerosSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, -1, -1));
 
         tabbedPane.addTab("tab6", pPeliculas);
 
@@ -1312,10 +1390,6 @@ public class panelMenu extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodSocioActionPerformed
 
-    private void comboBoxDirectoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDirectoresActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxDirectoresActionPerformed
-
     private void txtNombreSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreSocioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreSocioActionPerformed
@@ -1367,37 +1441,23 @@ public class panelMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel7MouseDragged
 
     private void btnRegistrarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarSocioActionPerformed
+        String nombre = txtNombreSocio.getText();
+        String direccion = txtDireccionSocio.getText();
+        String telefono = txtTelefonoSocio.getText();
+        
         Socio nuevoSocio = new Socio();
-        nuevoSocio.setNombre(txtNombreSocio.getText());
-        nuevoSocio.setDireccion(txtDireccionSocio.getText());
-        nuevoSocio.setTelefono(txtTelefonoSocio.getText());
+        nuevoSocio.setNombre(nombre);
+        nuevoSocio.setDireccion(direccion);
+        nuevoSocio.setTelefono(telefono);
         
-        Director directorFavorito = (Director) comboBoxDirectores.getSelectedItem();
-        Actor actorFavorito = (Actor) comboBoxActores.getSelectedItem();
-        Genero generoFavorito = (Genero) comboBoxGeneros.getSelectedItem();
-        
-        if (directorFavorito != null) {
-            nuevoSocio.getDirectoresFavoritos().add(directorFavorito);
-        }
-        if (actorFavorito != null) {
-            nuevoSocio.getActoresFavoritos().add(actorFavorito);
-        }
-        if (generoFavorito != null) {
-            nuevoSocio.getGenerosFavoritos().add(generoFavorito);
-        }
-        
-        socioService.agregarSocio(nuevoSocio);
-        
-        txtNombreSocio.setText("");
-        txtDireccionSocio.setText("");
-        txtTelefonoSocio.setText("");
-        comboBoxDirectores.setSelectedIndex(0);
-        comboBoxActores.setSelectedIndex(0);
-        comboBoxGeneros.setSelectedIndex(0);
-        
+        List<Director> listaDirectoresFavoritos = new ArrayList<>(directoresSeleccionados);
+        List<Actor> listaActoresFavoritos = new ArrayList<>(actoresSeleccionados);
+        List<Genero> listaGenerosFavoritos = new ArrayList<>(generosSeleccionados);
+
+        socioService.agregarSocioConFavoritos(nuevoSocio, listaDirectoresFavoritos, listaActoresFavoritos, listaGenerosFavoritos);
+
         actualizarTablaSocios();
-        
-        JOptionPane.showMessageDialog(null, "Socio agregado con exito.", "Agregar Socio", JOptionPane.INFORMATION_MESSAGE);
+        limpiarCamposFormularioSocio();
     }//GEN-LAST:event_btnRegistrarSocioActionPerformed
 
     private void btnAgregarDirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDirectorActionPerformed
@@ -1491,19 +1551,6 @@ public class panelMenu extends javax.swing.JPanel {
             socio.setNombre(txtNombreSocio.getText());
             socio.setDireccion(txtDireccionSocio.getText());
             socio.setTelefono(txtTelefonoSocio.getText());
-            
-            Director directorFavorito = (Director) comboBoxDirectores.getSelectedItem();
-            socio.getDirectoresFavoritos().clear();
-            socio.getDirectoresFavoritos().add(directorFavorito);
-            
-            Actor actorFavorito = (Actor) comboBoxActores.getSelectedItem();
-            socio.getActoresFavoritos().clear();
-            socio.getActoresFavoritos().add(actorFavorito);
-            
-            Genero generoFavorito = (Genero) comboBoxGeneros.getSelectedItem();
-            socio.getGenerosFavoritos().clear();
-            socio.getGenerosFavoritos().add(generoFavorito);
-            
             socioService.actualizarSocio(socio);
             actualizarTablaSocios();
             JOptionPane.showMessageDialog(this, "Socio actualizado correctamente.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
@@ -1527,9 +1574,6 @@ public class panelMenu extends javax.swing.JPanel {
                 txtNombreSocio.setText("");
                 txtDireccionSocio.setText("");
                 txtTelefonoSocio.setText("");
-                comboBoxDirectores.setSelectedIndex(0);
-                comboBoxActores.setSelectedIndex(0);
-                comboBoxGeneros.setSelectedIndex(0);
             }
         }else{
             JOptionPane.showMessageDialog(null, "Por favor, seleccione un socio de la tabla.", "Eliminar Socio", JOptionPane.ERROR_MESSAGE);
@@ -1620,34 +1664,31 @@ validacionNumerica(evt);        // TODO add your handling code here:
     }//GEN-LAST:event_btnPeliculasMouseClicked
 
     private void btnAbrirListaGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirListaGenerosActionPerformed
-        Frame owner = (Frame) SwingUtilities.getWindowAncestor(this);
-        SeleccionGenerosDialog seleccionGenerosDialog = new SeleccionGenerosDialog(owner, true, this);
-        seleccionGenerosDialog.cargarGenerosEnLista();
-        seleccionGenerosDialog.setVisible(true);
+        
     }//GEN-LAST:event_btnAbrirListaGenerosActionPerformed
 
     private void btnAgregarPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPeliculaActionPerformed
-        String titulo = txtTituloPelicula.getText();
-        Director director = (Director) cboDirectoresPelicula.getSelectedItem();
-//        List<Genero> generosSeleccionados = this.generosSeleccionados;
-        
-        if(titulo.isEmpty() || director == null || generosSeleccionados == null || generosSeleccionados.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos requeridos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-                
-        Pelicula nuevaPelicula = new Pelicula();
-        nuevaPelicula.setTitulo(titulo);
-        nuevaPelicula.setDirector(director);
-        
-       int peliculaId = peliculaService.agregarPeliculaConGeneros(nuevaPelicula, generosSeleccionados);
-       if(peliculaId > 0){
-           actualizarTablaPeliculas();
-           limpiarCamposPelicula();
-       }else{
-           JOptionPane.showMessageDialog(this, "Error al agregar la pelicula.", "Error", JOptionPane.ERROR_MESSAGE);
-       }
-           
+//        String titulo = txtTituloPelicula.getText();
+//        Director director = (Director) cboDirectoresPelicula.getSelectedItem();
+////        List<Genero> generosSeleccionados = this.generosSeleccionados;
+//        
+//        if(titulo.isEmpty() || director == null || generosSeleccionados == null || generosSeleccionados.isEmpty()){
+//            JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos requeridos.", "Error", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+//                
+//        Pelicula nuevaPelicula = new Pelicula();
+//        nuevaPelicula.setTitulo(titulo);
+//        nuevaPelicula.setDirector(director);
+//        
+//       int peliculaId = peliculaService.agregarPeliculaConGeneros(nuevaPelicula, generosSeleccionados);
+//       if(peliculaId > 0){
+//           actualizarTablaPeliculas();
+//           limpiarCamposPelicula();
+//       }else{
+//           JOptionPane.showMessageDialog(this, "Error al agregar la pelicula.", "Error", JOptionPane.ERROR_MESSAGE);
+//       }
+//           
     }//GEN-LAST:event_btnAgregarPeliculaActionPerformed
 
     private void btnEliminarPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPeliculaActionPerformed
@@ -1672,28 +1713,88 @@ validacionNumerica(evt);        // TODO add your handling code here:
     }//GEN-LAST:event_tablePeliculasMouseClicked
 
     private void btnEditarPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPeliculaActionPerformed
-        if(txtIdPelicula.getText().isEmpty()){
-            JOptionPane.showMessageDialog(panelMenu.this, "Por favor, selecciona una pelicula para editar.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        int peliculaId = Integer.parseInt(txtIdPelicula.getText());
-        Pelicula peliculaEditada = new Pelicula();
-        peliculaEditada.setPeliculaId(peliculaId);
-        peliculaEditada.setTitulo(txtTituloPelicula.getText());
-        peliculaEditada.setDirector((Director) cboDirectoresPelicula.getSelectedItem());
-        
-        List<Genero> generosSeleccionados = this.generosSeleccionados;
-        
-        boolean exito = peliculaService.editarPeliculaConGeneros(peliculaEditada, generosSeleccionados);
-        
-        if(exito){
-            actualizarTablaPeliculas();
-            limpiarCamposPelicula();
-        }else{
-            JOptionPane.showMessageDialog(panelMenu.this , "Hubo un error al editar la pelicula.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        if(txtIdPelicula.getText().isEmpty()){
+//            JOptionPane.showMessageDialog(panelMenu.this, "Por favor, selecciona una pelicula para editar.", "Error", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+//        
+//        int peliculaId = Integer.parseInt(txtIdPelicula.getText());
+//        Pelicula peliculaEditada = new Pelicula();
+//        peliculaEditada.setPeliculaId(peliculaId);
+//        peliculaEditada.setTitulo(txtTituloPelicula.getText());
+//        peliculaEditada.setDirector((Director) cboDirectoresPelicula.getSelectedItem());
+//        
+//        List<Genero> generosSeleccionados = this.generosSeleccionados;
+//        
+//        boolean exito = peliculaService.editarPeliculaConGeneros(peliculaEditada, generosSeleccionados);
+//        
+//        if(exito){
+//            actualizarTablaPeliculas();
+//            limpiarCamposPelicula();
+//        }else{
+//            JOptionPane.showMessageDialog(panelMenu.this , "Hubo un error al editar la pelicula.", "Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }//GEN-LAST:event_btnEditarPeliculaActionPerformed
+
+    private void btnDirectoresSociosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDirectoresSociosActionPerformed
+        Window windowAncestor = SwingUtilities.getWindowAncestor(this);
+        if(windowAncestor instanceof Frame){
+            Frame owner = (Frame) windowAncestor;
+            SeleccionElementosDialog<Director> dialogo = new SeleccionElementosDialog<>(
+                    owner,
+                    true,
+                    listaDirectores,
+                    directoresSeleccionados,
+                    Director::getNombre,
+                    this::actualizarSeleccionDirectores
+            );
+            
+            dialogo.setTitle("Seleccionar Directores");
+            dialogo.setVisible(true);
+        }else{
+            
+        }
+    }//GEN-LAST:event_btnDirectoresSociosActionPerformed
+
+    private void btnActoresSociosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActoresSociosActionPerformed
+        Window windowAncestor = SwingUtilities.getWindowAncestor(this);
+        if(windowAncestor instanceof Frame){
+            Frame owner = (Frame) windowAncestor;
+            SeleccionElementosDialog<Actor> dialogo = new SeleccionElementosDialog<>(
+                    owner,
+                    true,
+                    listaActores,
+                    actoresSeleccionados,
+                    Actor::getNombre,
+                    this::actualizarSeleccionActores
+            );
+            
+            dialogo.setTitle("Seleccionar Actores");
+            dialogo.setVisible(true);
+        }else{
+            
+        }
+    }//GEN-LAST:event_btnActoresSociosActionPerformed
+
+    private void btnGenerosSociosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerosSociosActionPerformed
+        Window windowAncestor = SwingUtilities.getWindowAncestor(this);
+        if(windowAncestor instanceof Frame){
+            Frame owner = (Frame) windowAncestor;
+            SeleccionElementosDialog<Genero> dialogo = new SeleccionElementosDialog<>(
+                    owner,
+                    true,
+                    listaGeneros,
+                    generosSeleccionados,
+                    Genero::getNombre,
+                    this::actualizarSeleccionGeneros
+            );
+            
+            dialogo.setTitle("Seleccionar Generos");
+            dialogo.setVisible(true);
+        }else{
+            
+        }
+    }//GEN-LAST:event_btnGenerosSociosActionPerformed
 
 private boolean validarFecha(String fechaTexto, String formato) {
         SimpleDateFormat formatoFecha = new SimpleDateFormat(formato);
@@ -1783,10 +1884,12 @@ private boolean validarFecha(String fechaTexto, String formato) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAbrirListaGeneros;
     private javax.swing.JButton btnActores;
+    private javax.swing.JButton btnActoresSocios;
     private javax.swing.JButton btnAgregarActor;
     private javax.swing.JButton btnAgregarDirector;
     private javax.swing.JButton btnAgregarPelicula;
     private javax.swing.JButton btnDirectores;
+    private javax.swing.JButton btnDirectoresSocios;
     private javax.swing.JButton btnEditarActor;
     private javax.swing.JButton btnEditarDirector;
     private javax.swing.JButton btnEditarPelicula;
@@ -1795,15 +1898,13 @@ private boolean validarFecha(String fechaTexto, String formato) {
     private javax.swing.JButton btnEliminarDirector;
     private javax.swing.JButton btnEliminarPelicula;
     private javax.swing.JButton btnEliminarSocio;
+    private javax.swing.JButton btnGenerosSocios;
     private javax.swing.JButton btnPeliculas;
     private javax.swing.JButton btnRegistrarSocio;
     private javax.swing.JButton btndevoluciones;
     private javax.swing.JButton btnprestaciones;
     private javax.swing.JButton btnregistrarsocio;
     private javax.swing.JComboBox<Director> cboDirectoresPelicula;
-    private javax.swing.JComboBox<Actor> comboBoxActores;
-    private javax.swing.JComboBox<Director> comboBoxDirectores;
-    private javax.swing.JComboBox<Genero> comboBoxGeneros;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -1847,6 +1948,8 @@ private boolean validarFecha(String fechaTexto, String formato) {
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblActoresSeleccionados;
+    private javax.swing.JLabel lblDirectoresSeleccionados;
     private javax.swing.JLabel lblGenerosSeleccionados;
     private javax.swing.JPanel pActores;
     private javax.swing.JPanel pDevoluciones;
