@@ -15,6 +15,7 @@ public class Pelicula {
     private int peliculaId;
     private String titulo;
     private Director director;
+    private List<Genero> generos;
     
     public Pelicula(){
     }
@@ -47,5 +48,13 @@ public class Pelicula {
 
     public void setDirector(Director director) {
         this.director = director;
+    }
+    
+    public void setGeneros(List<Genero> generos){
+        this.generos = generos;
+    }
+    
+    public List<Genero> getGeneros(){
+        return this.generos;
     }
 }

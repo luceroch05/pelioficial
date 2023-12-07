@@ -11,7 +11,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import peaches.pelioficial.model.Director;
 import peaches.pelioficial.model.Genero;
@@ -182,5 +185,66 @@ public class PeliculaDAO implements Dao<Pelicula>{
             e.printStackTrace();
         }
         return generos;
+    }
+    
+    public void removerGenerosDePelicula(int peliculaId){
+        String sql = "DELETE FROM pelicula_genero WHERE pelicula_id = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, peliculaId);
+            statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
+    public List<Pelicula> buscarPorTitulo(String titulo){
+        List<Pelicula> peliculas = new ArrayList<>();
+        String sqlPelis = "SELECT p.pelicula_id, p.titulo, d.nombre AS director_nombre FROM Peliculas p " +
+                 "INNER JOIN Directores d ON p.director_id = d.director_id " +
+                 "WHERE p.titulo LIKE ?";
+        try(PreparedStatement statement = connection.prepareStatement(sqlPelis)){
+            statement.setString(1, "%" + titulo + "%");
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                Pelicula pelicula = new Pelicula();
+                pelicula.setPeliculaId(resultSet.getInt("pelicula_id"));
+                pelicula.setTitulo(resultSet.getString("titulo"));
+                
+                Director director = new Director();
+                director.setNombre(resultSet.getString("nombre"));
+                pelicula.setDirector(director);
+                
+                peliculas.add(pelicula);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return peliculas;
+    }
+    
+    public Map<Integer, List<Genero>> obtenerGenerosDePeliculas(List<Integer> peliculaIds){
+        Map<Integer, List<Genero>> generosPorPelicula = new HashMap<>();
+        String sqlGeneros = "SELECT pg.pelicula_id, g.genero_id, g.nombre FROM generos g " +
+                 "JOIN pelicula_genero pg ON g.genero_id = pg.genero_id " +
+                 "WHERE pg.pelicula_id IN (%s)";
+        String inSql = String.join(",", Collections.nCopies(peliculaIds.size(), "?"));
+        try(PreparedStatement statement = connection.prepareStatement(String.format(sqlGeneros, inSql))){
+            int index = 1;
+            for(Integer id : peliculaIds){
+                statement.setInt(index++, id);
+            }
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                int peliculaId = resultSet.getInt("pelicula_id");
+                Genero genero = new Genero();
+                genero.setGeneroId(resultSet.getInt("genero_id"));
+                genero.setNombre(resultSet.getString("nombre"));
+                
+                generosPorPelicula.computeIfAbsent(peliculaId, k -> new ArrayList<>()).add(genero);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return generosPorPelicula;
     }
 }

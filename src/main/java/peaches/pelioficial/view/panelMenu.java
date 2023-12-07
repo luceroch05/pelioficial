@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -17,13 +18,18 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import peaches.pelioficial.model.Actor;
 import peaches.pelioficial.model.Director;
 import peaches.pelioficial.model.Genero;
+import peaches.pelioficial.model.Pelicula;
 import peaches.pelioficial.model.Socio;
 import peaches.pelioficial.service.ActorService;
 import peaches.pelioficial.service.DirectorService;
@@ -43,6 +49,7 @@ public class panelMenu extends javax.swing.JPanel {
         DirectorService directorService = new DirectorService(DatabaseConnector.conectar());
         ActorService actorService = new ActorService(DatabaseConnector.conectar());
         private framePrincipal framePrincipal;
+        private List<Genero> generosSeleccionados;
         
     /**
      * Creates new form panelMenu
@@ -103,6 +110,7 @@ public class panelMenu extends javax.swing.JPanel {
         comboBoxDirectores.removeAllItems();
         for (Director director : directores) {
             comboBoxDirectores.addItem(director);
+            cboDirectoresPelicula.addItem(director);
         }
     }
     
@@ -191,7 +199,62 @@ public class panelMenu extends javax.swing.JPanel {
     private void limpiarTablaSocios(){
         DefaultTableModel model = (DefaultTableModel) tableSocios.getModel();
         model.setRowCount(0);
-    }    
+    } 
+
+    
+    public void actualizarLabelGeneros(List<Genero> generosSeleccionados){
+        this.generosSeleccionados = generosSeleccionados;
+        lblGenerosSeleccionados.setText(generosSeleccionados.size() + " generos seleccionados.");
+    }
+    
+    public void actualizarTablaPeliculas(){
+        DefaultTableModel modelo = (DefaultTableModel) tablePeliculas.getModel();
+        modelo.setRowCount(0);
+        List<Pelicula> listaPeliculas = peliculaService.obtenerTodasLasPeliculas();
+        for(Pelicula pelicula : listaPeliculas){
+            List<Genero> generos = peliculaService.obtenerGenerosPorPelicula(pelicula.getPeliculaId());
+            String nombresGeneros = generos.stream()
+                                    .map(Genero::getNombre)
+                                    .collect(Collectors.joining(", "));
+            modelo.addRow(new Object[]{
+                pelicula.getPeliculaId(),
+                pelicula.getTitulo(),
+                pelicula.getDirector().getNombre(),
+                nombresGeneros
+            });
+        }
+    }
+    
+    private void rellenarFormularioParaEdicion(int filaSeleccionada){
+        int peliculaId = (int) tablePeliculas.getValueAt(filaSeleccionada, 0);
+        Pelicula pelicula = peliculaService.obtenerPeliculaPorId(peliculaId);
+        List<Genero> generos = peliculaService.obtenerGenerosPorPelicula(peliculaId);
+        
+        txtIdPelicula.setText(String.valueOf(pelicula.getPeliculaId()));
+        txtTituloPelicula.setText(pelicula.getTitulo());
+        cboDirectoresPelicula.setSelectedItem(pelicula.getDirector());
+        
+        actualizarTablaPeliculas();
+    }
+    
+    public void actualizarTablaPeliculasConBusqueda(String text){
+        DefaultTableModel modelo = (DefaultTableModel) tablePeliculas.getModel();
+        modelo.setRowCount(0);
+        
+        List<Pelicula> listaPeliculas = peliculaService.buscarPeliculasPorTitulo(text);
+        for(Pelicula pelicula : listaPeliculas){
+            List<Genero> generos = peliculaService.obtenerGenerosPorPelicula(pelicula.getPeliculaId());
+            String nombresGeneros = generos.stream()
+                                    .map(Genero::getNombre)
+                                    .collect(Collectors.joining(", "));
+            modelo.addRow(new Object[]{
+                pelicula.getPeliculaId(),
+                pelicula.getTitulo(),
+                pelicula.getDirector().getNombre(),
+                nombresGeneros
+            });
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -286,6 +349,21 @@ public class panelMenu extends javax.swing.JPanel {
         btnEditarActor = new javax.swing.JButton();
         btnEliminarActor = new javax.swing.JButton();
         pPeliculas = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        txtIdPelicula = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        txtTituloPelicula = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        cboDirectoresPelicula = new javax.swing.JComboBox<>();
+        jLabel23 = new javax.swing.JLabel();
+        btnAbrirListaGeneros = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tablePeliculas = new javax.swing.JTable();
+        btnAgregarPelicula = new javax.swing.JButton();
+        btnEditarPelicula = new javax.swing.JButton();
+        btnEliminarPelicula = new javax.swing.JButton();
+        txtBuscarPelicula = new javax.swing.JTextField();
+        lblGenerosSeleccionados = new javax.swing.JLabel();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -359,6 +437,11 @@ public class panelMenu extends javax.swing.JPanel {
         jPanel1.add(btnActores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 250, 40));
 
         btnPeliculas.setText("PELICULAS");
+        btnPeliculas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPeliculasMouseClicked(evt);
+            }
+        });
         btnPeliculas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPeliculasActionPerformed(evt);
@@ -982,17 +1065,118 @@ public class panelMenu extends javax.swing.JPanel {
         tabbedPane.addTab("tab5", pActores);
 
         pPeliculas.setBackground(new java.awt.Color(255, 255, 255));
+        pPeliculas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout pPeliculasLayout = new javax.swing.GroupLayout(pPeliculas);
-        pPeliculas.setLayout(pPeliculasLayout);
-        pPeliculasLayout.setHorizontalGroup(
-            pPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 890, Short.MAX_VALUE)
-        );
-        pPeliculasLayout.setVerticalGroup(
-            pPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 515, Short.MAX_VALUE)
-        );
+        jLabel20.setText("ID Pelicula");
+        pPeliculas.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
+
+        txtIdPelicula.setEditable(false);
+        pPeliculas.add(txtIdPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 120, 20));
+
+        jLabel21.setText("Titulo");
+        pPeliculas.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
+        pPeliculas.add(txtTituloPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 120, -1));
+
+        jLabel22.setText("Director");
+        pPeliculas.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
+
+        pPeliculas.add(cboDirectoresPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 120, -1));
+
+        jLabel23.setText("Generos");
+        pPeliculas.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
+
+        btnAbrirListaGeneros.setText("Abrir generos");
+        btnAbrirListaGeneros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbrirListaGenerosActionPerformed(evt);
+            }
+        });
+        pPeliculas.add(btnAbrirListaGeneros, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, -1, -1));
+
+        tablePeliculas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "Titulo", "Director", "Genero"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablePeliculas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablePeliculasMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tablePeliculas);
+
+        pPeliculas.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 530, 150));
+
+        btnAgregarPelicula.setText("Agregar");
+        btnAgregarPelicula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarPeliculaActionPerformed(evt);
+            }
+        });
+        pPeliculas.add(btnAgregarPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, -1, -1));
+
+        btnEditarPelicula.setText("Editar");
+        btnEditarPelicula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarPeliculaActionPerformed(evt);
+            }
+        });
+        pPeliculas.add(btnEditarPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, -1, -1));
+
+        btnEliminarPelicula.setText("Eliminar");
+        btnEliminarPelicula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarPeliculaActionPerformed(evt);
+            }
+        });
+        pPeliculas.add(btnEliminarPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, -1, -1));
+
+        txtBuscarPelicula.getDocument().addDocumentListener(new DocumentListener(){
+            @Override
+            public void insertUpdate(DocumentEvent e){
+                actualizarTablaConFiltro();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e){
+                actualizarTablaConFiltro();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e){
+                actualizarTablaConFiltro();
+            }
+
+            private void actualizarTablaConFiltro(){
+
+                txtBuscarPelicula.getDocument().removeDocumentListener(this);
+
+                String texto = txtBuscarPelicula.getText();
+                if(texto.trim().isEmpty()){
+                    actualizarTablaPeliculas();
+                }else{
+                    actualizarTablaPeliculasConBusqueda(texto);
+                }
+
+                txtBuscarPelicula.getDocument().addDocumentListener(this);
+            }
+        });
+        pPeliculas.add(txtBuscarPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 260, -1));
+        pPeliculas.add(lblGenerosSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, -1, -1));
 
         tabbedPane.addTab("tab6", pPeliculas);
 
@@ -1405,6 +1589,85 @@ validacionNumerica(evt);        // TODO add your handling code here:
         
     }//GEN-LAST:event_btnPeliculasActionPerformed
 
+    private void btnPeliculasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPeliculasMouseClicked
+        tabbedPane.setSelectedIndex(5); 
+        actualizarTablaPeliculas();
+    }//GEN-LAST:event_btnPeliculasMouseClicked
+
+    private void btnAbrirListaGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirListaGenerosActionPerformed
+        Frame owner = (Frame) SwingUtilities.getWindowAncestor(this);
+        SeleccionGenerosDialog seleccionGenerosDialog = new SeleccionGenerosDialog(owner, true, this);
+        seleccionGenerosDialog.cargarGenerosEnLista();
+        seleccionGenerosDialog.setVisible(true);
+    }//GEN-LAST:event_btnAbrirListaGenerosActionPerformed
+
+    private void btnAgregarPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPeliculaActionPerformed
+        String titulo = txtTituloPelicula.getText();
+        Director director = (Director) cboDirectoresPelicula.getSelectedItem();
+        List<Genero> generosSeleccionados = this.generosSeleccionados;
+        
+        if(titulo.isEmpty() || director == null || generosSeleccionados.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos requeridos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+                
+        Pelicula nuevaPelicula = new Pelicula();
+        nuevaPelicula.setTitulo(titulo);
+        nuevaPelicula.setDirector(director);
+        
+       int peliculaId = peliculaService.agregarPeliculaConGeneros(nuevaPelicula, generosSeleccionados);
+       if(peliculaId > 0){
+           actualizarTablaPeliculas();
+       }else{
+           JOptionPane.showMessageDialog(this, "Error al agregar la pelicula.", "Error", JOptionPane.ERROR_MESSAGE);
+       }
+           
+    }//GEN-LAST:event_btnAgregarPeliculaActionPerformed
+
+    private void btnEliminarPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPeliculaActionPerformed
+        int filaSeleccionada = tablePeliculas.getSelectedRow();
+        if(filaSeleccionada == -1){
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona una pelicula para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        int peliculaId = (int) tablePeliculas.getModel().getValueAt(filaSeleccionada, 0);
+        int confirmacion = JOptionPane.showConfirmDialog(this, "Estas seguro de que deseas eliminar la pelicula seleccionada?", "Confirmar Eliminacion", JOptionPane.YES_NO_OPTION);
+        if(confirmacion == JOptionPane.YES_OPTION){
+            peliculaService.eliminarPelicula(peliculaId);
+            actualizarTablaPeliculas();
+        }
+    }//GEN-LAST:event_btnEliminarPeliculaActionPerformed
+
+    private void tablePeliculasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePeliculasMouseClicked
+        if(evt.getClickCount() == 2 && tablePeliculas.getSelectedRow() != -1){
+            rellenarFormularioParaEdicion(tablePeliculas.getSelectedRow());
+        }
+    }//GEN-LAST:event_tablePeliculasMouseClicked
+
+    private void btnEditarPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPeliculaActionPerformed
+        if(txtIdPelicula.getText().isEmpty()){
+            JOptionPane.showMessageDialog(panelMenu.this, "Por favor, selecciona una pelicula para editar.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        int peliculaId = Integer.parseInt(txtIdPelicula.getText());
+        Pelicula peliculaEditada = new Pelicula();
+        peliculaEditada.setPeliculaId(peliculaId);
+        peliculaEditada.setTitulo(txtTituloPelicula.getText());
+        peliculaEditada.setDirector((Director) cboDirectoresPelicula.getSelectedItem());
+        
+        List<Genero> generosSeleccionados = this.generosSeleccionados;
+        
+        boolean exito = peliculaService.editarPeliculaConGeneros(peliculaEditada, generosSeleccionados);
+        
+        if(exito){
+            actualizarTablaPeliculas();
+        }else{
+            JOptionPane.showMessageDialog(panelMenu.this , "Hubo un error al editar la pelicula.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEditarPeliculaActionPerformed
+
 private boolean validarFecha(String fechaTexto, String formato) {
         SimpleDateFormat formatoFecha = new SimpleDateFormat(formato);
         formatoFecha.setLenient(false);
@@ -1491,23 +1754,28 @@ private boolean validarFecha(String fechaTexto, String formato) {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAbrirListaGeneros;
     private javax.swing.JButton btnActores;
     private javax.swing.JButton btnAgregarActor;
     private javax.swing.JButton btnAgregarDirector;
+    private javax.swing.JButton btnAgregarPelicula;
     private javax.swing.JButton btnBuscarActor;
     private javax.swing.JButton btnBuscarDirector;
     private javax.swing.JButton btnDirectores;
     private javax.swing.JButton btnEditarActor;
     private javax.swing.JButton btnEditarDirector;
+    private javax.swing.JButton btnEditarPelicula;
     private javax.swing.JButton btnEditarSocio;
     private javax.swing.JButton btnEliminarActor;
     private javax.swing.JButton btnEliminarDirector;
+    private javax.swing.JButton btnEliminarPelicula;
     private javax.swing.JButton btnEliminarSocio;
     private javax.swing.JButton btnPeliculas;
     private javax.swing.JButton btnRegistrarSocio;
     private javax.swing.JButton btndevoluciones;
     private javax.swing.JButton btnprestaciones;
     private javax.swing.JButton btnregistrarsocio;
+    private javax.swing.JComboBox<Director> cboDirectoresPelicula;
     private javax.swing.JComboBox<Actor> comboBoxActores;
     private javax.swing.JComboBox<Director> comboBoxDirectores;
     private javax.swing.JComboBox<Genero> comboBoxGeneros;
@@ -1527,6 +1795,10 @@ private boolean validarFecha(String fechaTexto, String formato) {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1539,6 +1811,7 @@ private boolean validarFecha(String fechaTexto, String formato) {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
@@ -1551,6 +1824,7 @@ private boolean validarFecha(String fechaTexto, String formato) {
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblGenerosSeleccionados;
     private javax.swing.JPanel pActores;
     private javax.swing.JPanel pDevoluciones;
     private javax.swing.JPanel pDirectores;
@@ -1561,20 +1835,24 @@ private boolean validarFecha(String fechaTexto, String formato) {
     public javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTable tableActores;
     private javax.swing.JTable tableDirectores;
+    private javax.swing.JTable tablePeliculas;
     private javax.swing.JTable tableSocios;
     private javax.swing.JTextField txtBuscarActor;
     private javax.swing.JTextField txtBuscarDirector;
+    private javax.swing.JTextField txtBuscarPelicula;
     private javax.swing.JTextField txtBuscarSocio;
     private javax.swing.JTextField txtCodSocio;
     private javax.swing.JTextField txtDireccionSocio;
     private javax.swing.JTextField txtFechaDevolucion;
     private javax.swing.JTextField txtFechaEntrega;
     private javax.swing.JTextField txtFechaPrestamo;
+    private javax.swing.JTextField txtIdPelicula;
     private javax.swing.JTextField txtIdPrestamo;
     private javax.swing.JTextField txtIdSocio;
     private javax.swing.JTextField txtNombreActor;
     private javax.swing.JTextField txtNombreDirector;
     private javax.swing.JTextField txtNombreSocio;
     private javax.swing.JTextField txtTelefonoSocio;
+    private javax.swing.JTextField txtTituloPelicula;
     // End of variables declaration//GEN-END:variables
    }
