@@ -228,11 +228,18 @@ public class panelMenu extends javax.swing.JPanel {
     private void rellenarFormularioParaEdicion(int filaSeleccionada){
         int peliculaId = (int) tablePeliculas.getValueAt(filaSeleccionada, 0);
         Pelicula pelicula = peliculaService.obtenerPeliculaPorId(peliculaId);
+        Director director = pelicula.getDirector();
         List<Genero> generos = peliculaService.obtenerGenerosPorPelicula(peliculaId);
         
         txtIdPelicula.setText(String.valueOf(pelicula.getPeliculaId()));
         txtTituloPelicula.setText(pelicula.getTitulo());
-        cboDirectoresPelicula.setSelectedItem(pelicula.getDirector());
+        for(int i = 0; i < cboDirectoresPelicula.getItemCount(); i++){
+            Director dir = (Director) cboDirectoresPelicula.getItemAt(i);
+            if(dir != null && dir.getDirectorId() == director.getDirectorId()){
+                cboDirectoresPelicula.setSelectedIndex(i);
+                break;
+            }
+        }
         
         actualizarTablaPeliculas();
     }
@@ -255,6 +262,46 @@ public class panelMenu extends javax.swing.JPanel {
             });
         }
     }
+    
+    private void limpiarCamposPelicula(){
+        txtIdPelicula.setText("");
+        txtTituloPelicula.setText("");
+        cboDirectoresPelicula.setSelectedIndex(0);
+        lblGenerosSeleccionados.setText("");
+    }
+    
+    private void filtrarTablaDirectores(String texto){
+        List<Director> directoresFiltrados = directorService.obtenerTodosLosDirectores().stream()
+                                                                                        .filter(d -> d.getNombre().toLowerCase().contains(texto.toLowerCase()))
+                                                                                        .collect(Collectors.toList());
+        
+        DefaultTableModel model = (DefaultTableModel) tableDirectores.getModel();
+        model.setRowCount(0);
+        
+        for(Director director : directoresFiltrados){
+            model.addRow(new Object[]{
+                director.getDirectorId(),
+                director.getNombre()
+            });
+        }
+    }
+    
+    private void filtrarTablaActores(String texto){
+        List<Actor> actoresFiltrados = actorService.obtenerTodosLosActores().stream()
+                                                                            .filter(a -> a.getNombre().toLowerCase().contains(texto.toLowerCase()))
+                                                                            .collect(Collectors.toList());
+        
+        DefaultTableModel model = (DefaultTableModel) tableActores.getModel();
+        model.setRowCount(0);
+        
+        for(Actor actor : actoresFiltrados){
+            model.addRow(new Object[]{
+                actor.getActorId(),
+                actor.getNombre()
+            });
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -335,17 +382,13 @@ public class panelMenu extends javax.swing.JPanel {
         btnEditarDirector = new javax.swing.JButton();
         btnEliminarDirector = new javax.swing.JButton();
         txtBuscarDirector = new javax.swing.JTextField();
-        btnBuscarDirector = new javax.swing.JButton();
-        jLabel15 = new javax.swing.JLabel();
         pActores = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
         txtNombreActor = new javax.swing.JTextField();
         txtBuscarActor = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         tableActores = new javax.swing.JTable();
         btnAgregarActor = new javax.swing.JButton();
-        btnBuscarActor = new javax.swing.JButton();
         btnEditarActor = new javax.swing.JButton();
         btnEliminarActor = new javax.swing.JButton();
         pPeliculas = new javax.swing.JPanel();
@@ -960,23 +1003,32 @@ public class panelMenu extends javax.swing.JPanel {
         });
         pDirectores.add(btnEliminarDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, -1, -1));
 
-        txtBuscarDirector.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtBuscarDirectorKeyTyped(evt);
+        txtBuscarDirector.getDocument().addDocumentListener(new DocumentListener(){
+            @Override
+            public void insertUpdate(DocumentEvent e){
+                actualizarTablaDirectoresConFiltro();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e){
+                actualizarTablaDirectoresConFiltro();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e){
+                actualizarTablaDirectoresConFiltro();
+            }
+
+            private void actualizarTablaDirectoresConFiltro(){
+                String texto = txtBuscarDirector.getText();
+                if(texto.trim().isEmpty()){
+                    actualizarTablaDirectores();
+                }else{
+                    filtrarTablaDirectores(texto);
+                }
             }
         });
         pDirectores.add(txtBuscarDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 240, -1));
-
-        btnBuscarDirector.setText("Buscar");
-        btnBuscarDirector.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarDirectorActionPerformed(evt);
-            }
-        });
-        pDirectores.add(btnBuscarDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, -1, -1));
-
-        jLabel15.setText("Buscar:");
-        pDirectores.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
 
         tabbedPane.addTab("tab4", pDirectores);
 
@@ -986,9 +1038,6 @@ public class panelMenu extends javax.swing.JPanel {
         jLabel16.setText("Nombre:");
         pActores.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, -1, -1));
 
-        jLabel17.setText("Buscar:");
-        pActores.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
-
         txtNombreActor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNombreActorKeyTyped(evt);
@@ -996,12 +1045,32 @@ public class panelMenu extends javax.swing.JPanel {
         });
         pActores.add(txtNombreActor, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 280, -1));
 
-        txtBuscarActor.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtBuscarActorKeyTyped(evt);
+        txtBuscarActor.getDocument().addDocumentListener(new DocumentListener(){
+            @Override
+            public void insertUpdate(DocumentEvent e){
+                actualizarTablaActoresConFiltro();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e){
+                actualizarTablaActoresConFiltro();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e){
+                actualizarTablaActoresConFiltro();
+            }
+
+            private void actualizarTablaActoresConFiltro(){
+                String texto = txtBuscarActor.getText();
+                if(texto.trim().isEmpty()){
+                    actualizarTablaActores();
+                }else{
+                    filtrarTablaActores(texto);
+                }
             }
         });
-        pActores.add(txtBuscarActor, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 280, -1));
+        pActores.add(txtBuscarActor, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 280, -1));
 
         tableActores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1037,14 +1106,6 @@ public class panelMenu extends javax.swing.JPanel {
             }
         });
         pActores.add(btnAgregarActor, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, -1, -1));
-
-        btnBuscarActor.setText("Buscar");
-        btnBuscarActor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActorActionPerformed(evt);
-            }
-        });
-        pActores.add(btnBuscarActor, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 100, -1, -1));
 
         btnEditarActor.setText("Editar");
         btnEditarActor.addActionListener(new java.awt.event.ActionListener() {
@@ -1349,19 +1410,6 @@ public class panelMenu extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnAgregarDirectorActionPerformed
 
-    private void btnBuscarDirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarDirectorActionPerformed
-        String nombre = txtBuscarDirector.getText();
-        List<Director> directores = directorService.obtenerTodosLosDirectores();
-        DefaultTableModel model = (DefaultTableModel) tableDirectores.getModel();
-        model.setRowCount(0);
-        
-        for(Director director : directores){
-            if(director.getNombre().toLowerCase().contains(nombre.toLowerCase())){
-                model.addRow(new Object[]{director.getDirectorId(), director.getNombre()});
-            }
-        }
-    }//GEN-LAST:event_btnBuscarDirectorActionPerformed
-
     private void btnEditarDirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarDirectorActionPerformed
         int row = tableDirectores.getSelectedRow();
         if(row != -1){
@@ -1405,19 +1453,6 @@ public class panelMenu extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "El nombre del actor no puede estar vacio.");
         }
     }//GEN-LAST:event_btnAgregarActorActionPerformed
-
-    private void btnBuscarActorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActorActionPerformed
-        String nombre = txtBuscarActor.getText();
-        List<Actor> actores = actorService.obtenerTodosLosActores();
-        DefaultTableModel model = (DefaultTableModel) tableActores.getModel();
-        model.setRowCount(0);
-        
-        for(Actor actor : actores){
-            if(actor.getNombre().toLowerCase().contains(nombre.toLowerCase())){
-                model.addRow(new Object[]{actor.getActorId(), actor.getNombre()});
-            }
-        }
-    }//GEN-LAST:event_btnBuscarActorActionPerformed
 
     private void btnEditarActorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActorActionPerformed
         int row = tableActores.getSelectedRow();
@@ -1544,19 +1579,9 @@ validacionNumerica(evt); // TODO add your handling code here:
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActorKeyTyped
 
-    private void txtBuscarActorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarActorKeyTyped
-        validacionTexto(evt);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscarActorKeyTyped
-
     private void txtNombreDirectorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreDirectorKeyTyped
 validacionTexto(evt);        // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreDirectorKeyTyped
-
-    private void txtBuscarDirectorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarDirectorKeyTyped
-validacionTexto(evt);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscarDirectorKeyTyped
 
     private void txtCodSocioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodSocioKeyTyped
 validacionNumerica(evt);        // TODO add your handling code here:
@@ -1604,9 +1629,9 @@ validacionNumerica(evt);        // TODO add your handling code here:
     private void btnAgregarPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPeliculaActionPerformed
         String titulo = txtTituloPelicula.getText();
         Director director = (Director) cboDirectoresPelicula.getSelectedItem();
-        List<Genero> generosSeleccionados = this.generosSeleccionados;
+//        List<Genero> generosSeleccionados = this.generosSeleccionados;
         
-        if(titulo.isEmpty() || director == null || generosSeleccionados.isEmpty()){
+        if(titulo.isEmpty() || director == null || generosSeleccionados == null || generosSeleccionados.isEmpty()){
             JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos requeridos.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -1618,6 +1643,7 @@ validacionNumerica(evt);        // TODO add your handling code here:
        int peliculaId = peliculaService.agregarPeliculaConGeneros(nuevaPelicula, generosSeleccionados);
        if(peliculaId > 0){
            actualizarTablaPeliculas();
+           limpiarCamposPelicula();
        }else{
            JOptionPane.showMessageDialog(this, "Error al agregar la pelicula.", "Error", JOptionPane.ERROR_MESSAGE);
        }
@@ -1663,6 +1689,7 @@ validacionNumerica(evt);        // TODO add your handling code here:
         
         if(exito){
             actualizarTablaPeliculas();
+            limpiarCamposPelicula();
         }else{
             JOptionPane.showMessageDialog(panelMenu.this , "Hubo un error al editar la pelicula.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -1759,8 +1786,6 @@ private boolean validarFecha(String fechaTexto, String formato) {
     private javax.swing.JButton btnAgregarActor;
     private javax.swing.JButton btnAgregarDirector;
     private javax.swing.JButton btnAgregarPelicula;
-    private javax.swing.JButton btnBuscarActor;
-    private javax.swing.JButton btnBuscarDirector;
     private javax.swing.JButton btnDirectores;
     private javax.swing.JButton btnEditarActor;
     private javax.swing.JButton btnEditarDirector;
@@ -1789,9 +1814,7 @@ private boolean validarFecha(String fechaTexto, String formato) {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;

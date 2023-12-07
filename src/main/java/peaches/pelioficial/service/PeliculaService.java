@@ -94,7 +94,7 @@ public class PeliculaService {
     }
     
     public List<Pelicula> buscarPeliculasPorTitulo(String titulo){
-        List<Pelicula> peliculas = buscarPeliculasPorTitulo(titulo);
+        List<Pelicula> peliculas = realizarBusquedaDePeliculas(titulo);
         
         if(peliculas.isEmpty()){
             return peliculas;
@@ -111,5 +111,13 @@ public class PeliculaService {
             pelicula.setGeneros(generos);
         }
         return peliculas;
+    }
+    
+    private List<Pelicula> realizarBusquedaDePeliculas(String titulo){
+        return peliculaDAO.buscarPorTitulo(titulo);
+    }
+    
+    private Map<Integer, List<Genero>> obtenerGenerosDePeliculas(List<Integer> peliculaIds){
+        return peliculaDAO.obtenerGenerosDePeliculas(peliculaIds);
     }
 }

@@ -211,7 +211,7 @@ public class PeliculaDAO implements Dao<Pelicula>{
                 pelicula.setTitulo(resultSet.getString("titulo"));
                 
                 Director director = new Director();
-                director.setNombre(resultSet.getString("nombre"));
+                director.setNombre(resultSet.getString("director_nombre"));
                 pelicula.setDirector(director);
                 
                 peliculas.add(pelicula);
