@@ -88,9 +88,13 @@ public class PeliculaService {
         return true;
     }
     
-    public Pelicula obtenerPeliculaPorId(int peliculaId){
+    public Pelicula obtenerPeliculaPorId(int peliculaId) {
+        if (peliculaId == 0) {
+            // ID no válido o no seleccionado aún, devuelve null o maneja de acuerdo a tu lógica de negocio
+            return null;
+        }
         Optional<Pelicula> pelicula = peliculaDAO.get(peliculaId);
-        return pelicula.orElseThrow(() -> new IllegalArgumentException("Pelicula no encontrada con ID: " + peliculaId));
+        return pelicula.orElse(null); // Devuelve null si no se encuentra la película
     }
     
     public List<Pelicula> buscarPeliculasPorTitulo(String titulo){
@@ -120,4 +124,5 @@ public class PeliculaService {
     private Map<Integer, List<Genero>> obtenerGenerosDePeliculas(List<Integer> peliculaIds){
         return peliculaDAO.obtenerGenerosDePeliculas(peliculaIds);
     }
+    
 }
