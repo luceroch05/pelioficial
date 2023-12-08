@@ -1091,9 +1091,9 @@ public class panelMenu extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tableActores.getColumnModel().getColumn(0).setMinWidth(0);
-        tableActores.getColumnModel().getColumn(0).setMaxWidth(0);
-        tableActores.getColumnModel().getColumn(0).setWidth(0);
+        tableActores.getColumnModel().getColumn(0).setMinWidth(20);
+        tableActores.getColumnModel().getColumn(0).setMaxWidth(20);
+        tableActores.getColumnModel().getColumn(0).setWidth(20);
         jScrollPane3.setViewportView(tableActores);
         actualizarTablaActores();
 

@@ -1389,7 +1389,7 @@
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="actualizarTablaActores();"/>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="tableActores.getColumnModel().getColumn(0).setMinWidth(0);&#xa;tableActores.getColumnModel().getColumn(0).setMaxWidth(0);&#xa;tableActores.getColumnModel().getColumn(0).setWidth(0);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="tableActores.getColumnModel().getColumn(0).setMinWidth(20);&#xa;tableActores.getColumnModel().getColumn(0).setMaxWidth(20);&#xa;tableActores.getColumnModel().getColumn(0).setWidth(20);"/>
                   </AuxValues>
                 </Component>
               </SubComponents>
