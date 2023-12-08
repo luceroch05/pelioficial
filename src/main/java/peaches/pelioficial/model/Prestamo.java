@@ -12,18 +12,23 @@ import java.time.LocalDate;
  */
 public class Prestamo {
     private int prestamoId;
-    private int socioId;
-    private int cintaId;
+    private Socio socio;
+    private Cinta cinta;
     private LocalDate fechaPrestamo;
     private LocalDate fechaDevolucion;
+    private String nombreSocio;
+    private String tituloPelicula;
+    private String estadoCinta;
 
     public Prestamo() {
+        this.socio = new Socio();
+        this.cinta = new Cinta();
     }
 
-    public Prestamo(int prestamoId, int socioId, int cintaId, LocalDate fechaPrestamo, LocalDate fechaDevolucion) {
+    public Prestamo(int prestamoId, Socio socio, Cinta cinta, LocalDate fechaPrestamo, LocalDate fechaDevolucion) {
         this.prestamoId = prestamoId;
-        this.socioId = socioId;
-        this.cintaId = cintaId;
+        this.socio = socio;
+        this.cinta = cinta;
         this.fechaPrestamo = fechaPrestamo;
         this.fechaDevolucion = fechaDevolucion;
     }
@@ -36,20 +41,20 @@ public class Prestamo {
         this.prestamoId = prestamoId;
     }
 
-    public int getSocioId() {
-        return socioId;
+    public Socio getSocio() {
+        return socio;
     }
 
-    public void setSocioId(int socioId) {
-        this.socioId = socioId;
+    public void setSocio(Socio socio) {
+        this.socio = socio;
     }
 
-    public int getCintaId() {
-        return cintaId;
+    public Cinta getCinta() {
+        return cinta;
     }
 
-    public void setCintaId(int cintaId) {
-        this.cintaId = cintaId;
+    public void setCinta(Cinta cinta) {
+        this.cinta = cinta;
     }
 
     public LocalDate getFechaPrestamo() {
@@ -66,5 +71,29 @@ public class Prestamo {
 
     public void setFechaDevolucion(LocalDate fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
+    }
+    
+    public String getNombreSocio() {
+        return socio.getNombre();
+    }
+
+    public String getTituloPelicula() {
+        return cinta.getTituloPelicula();
+    }
+
+    public String getEstadoCinta() {
+        return cinta.getEstado();
+    }
+    
+    public void setNombreSocio(String nombreSocio) {
+        this.nombreSocio = nombreSocio;
+    }
+
+    public void setTituloPelicula(String tituloPelicula) {
+        this.tituloPelicula = tituloPelicula;
+    }
+
+    public void setEstadoCinta(String estadoCinta) {
+        this.estadoCinta = estadoCinta;
     }
 }

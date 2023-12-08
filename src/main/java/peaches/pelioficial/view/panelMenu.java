@@ -3,25 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package peaches.pelioficial.view;
-import java.util.Date;
-import java.text.ParseException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Frame;
-import java.awt.Point;
 import java.awt.Window;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 //import java.sql.Date;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
@@ -33,11 +33,13 @@ import peaches.pelioficial.model.Cinta;
 import peaches.pelioficial.model.Director;
 import peaches.pelioficial.model.Genero;
 import peaches.pelioficial.model.Pelicula;
+import peaches.pelioficial.model.Prestamo;
 import peaches.pelioficial.model.Socio;
 import peaches.pelioficial.service.ActorService;
 import peaches.pelioficial.service.CintaService;
 import peaches.pelioficial.service.DirectorService;
 import peaches.pelioficial.service.PeliculaService;
+import peaches.pelioficial.service.PrestamoService;
 import peaches.pelioficial.service.SocioService;
 import peaches.pelioficial.util.DatabaseConnector;
 import peaches.pelioficial.util.Placeholders;
@@ -55,6 +57,7 @@ public class panelMenu extends javax.swing.JPanel {
         DirectorService directorService = new DirectorService(DatabaseConnector.conectar());
         ActorService actorService = new ActorService(DatabaseConnector.conectar());
         CintaService cintaService = new CintaService();
+        PrestamoService prestamoService = new PrestamoService(DatabaseConnector.conectar());
         private framePrincipal framePrincipal;
         
         private Set<Director> directoresSeleccionados = new HashSet<>();
@@ -69,45 +72,10 @@ public class panelMenu extends javax.swing.JPanel {
      */
     public panelMenu(framePrincipal framePrincipal) {
         initComponents();
-//        initTable();
         rellenarComboBoxes();
         this.framePrincipal = framePrincipal;
-     
-
-        // Formatear la fecha como una cadena
-     
-
-        tableSocios.addMouseListener(new MouseAdapter(){
-        @Override
-        public void mousePressed(MouseEvent Mouse_evt)
-        {
-            JTable table = (JTable) Mouse_evt.getSource();
-            Point point = Mouse_evt.getPoint();
-            int row = table.rowAtPoint(point);
-            if(Mouse_evt.getClickCount()==1)
-            {
-                txtCodSocio.setText(tableSocios.getValueAt(tableSocios.getSelectedRow(),0).toString());
-                actualizarFecha();
-            }
-            
-        }
-        
-        });
     }
-        
-    
-        private void actualizarFecha() {
-        // Obtener la fecha actual
-           Date fechaActual = new Date(System.currentTimeMillis());
-
-        // Formatear la fecha como una cadena
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String fechaFormateada = formatoFecha.format(fechaActual);
-
-        // Establecer la fecha en el JTextField
-        txtFechaPrestamo.setText(fechaFormateada);
-    }
-    
+     
     public JTabbedPane getTabbedPane(){
         return tabbedPane;
     }
@@ -415,6 +383,50 @@ public class panelMenu extends javax.swing.JPanel {
         return peliculaService.obtenerTodasLasPeliculas();
     }
     
+    public void actualizarTablaConResultados(List<Cinta> resultados) {
+        DefaultTableModel modelo = (DefaultTableModel) tableCintas.getModel();
+        modelo.setRowCount(0);
+        for (Cinta cinta : resultados) {
+            modelo.addRow(new Object[] {
+                cinta.getCintaId(),
+                cinta.getTituloPelicula(),
+                cinta.getEstado()
+            });
+        }
+    }
+    
+    private void actualizarTablaPrestamosConBusqueda(String textoBusqueda) {
+        List<Prestamo> prestamos = prestamoService.buscarPrestamosPorNombreSocio(textoBusqueda);
+        DefaultTableModel modelo = (DefaultTableModel) tablePrestamos.getModel();
+        modelo.setRowCount(0);
+        for (Prestamo prestamo : prestamos) {
+            modelo.addRow(new Object[]{
+                prestamo.getPrestamoId(),
+                prestamo.getNombreSocio(),
+                prestamo.getTituloPelicula(),
+                prestamo.getFechaPrestamo(),
+                prestamo.getFechaDevolucion() != null ? prestamo.getFechaDevolucion().toString() : "N/A",
+                prestamo.getEstadoCinta()
+            });
+        }
+    }
+    
+    private void actualizarTablaPrestamos() {
+        List<Prestamo> prestamos = prestamoService.obtenerTodosLosPrestamos();
+        DefaultTableModel modelo = (DefaultTableModel) tablePrestamos.getModel();
+        modelo.setRowCount(0); // Limpiar la tabla primero
+
+        for (Prestamo prestamo : prestamos) {
+            modelo.addRow(new Object[]{
+                prestamo.getPrestamoId(),
+                prestamo.getNombreSocio(), // Este método obtiene el nombre del socio, asumiendo que tienes un objeto Socio asociado
+                prestamo.getTituloPelicula(), // Este método obtiene el título de la película, asumiendo que tienes un objeto Pelicula asociado
+                prestamo.getFechaPrestamo().toString(), // Asumiendo que es un objeto LocalDate o similar
+                prestamo.getFechaDevolucion() != null ? prestamo.getFechaDevolucion().toString() : "N/A", // Comprueba si hay fecha de devolución antes de llamar a toString()
+                prestamo.getEstadoCinta() // Este método obtiene el estado de la cinta
+            });
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -429,7 +441,7 @@ public class panelMenu extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         btnDirectores = new javax.swing.JButton();
         btnregistrarsocio = new javax.swing.JButton();
-        btnprestaciones = new javax.swing.JButton();
+        btnPrestamos = new javax.swing.JButton();
         btndevoluciones = new javax.swing.JButton();
         btnActores = new javax.swing.JButton();
         btnPeliculas = new javax.swing.JButton();
@@ -470,18 +482,23 @@ public class panelMenu extends javax.swing.JPanel {
         lblDirectoresSeleccionados = new javax.swing.JLabel();
         lblActoresSeleccionados = new javax.swing.JLabel();
         lblGenerosSeleccionados = new javax.swing.JLabel();
-        pPrestaciones = new javax.swing.JPanel();
+        pPrestamos = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        txtPrestamoId = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        btnBuscarSocio = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        txtCodSocio = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
-        txtFechaPrestamo = new javax.swing.JTextField();
-        jSeparator2 = new javax.swing.JSeparator();
-        txtFechaDevolucion = new javax.swing.JTextField();
-        jSeparator3 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnBuscarCinta = new javax.swing.JButton();
+        jLabel26 = new javax.swing.JLabel();
+        pickerFechaPrestamo = new com.toedter.calendar.JDateChooser();
+        jLabel27 = new javax.swing.JLabel();
+        pickerFechaDevolucion = new com.toedter.calendar.JDateChooser();
+        btnAgregarPrestamo = new javax.swing.JButton();
+        btnEditarPrestamo = new javax.swing.JButton();
+        btnEliminarPrestamo = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tablePrestamos = new javax.swing.JTable();
+        txtBuscarPrestamo = new javax.swing.JTextField();
         pDevoluciones = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -523,7 +540,7 @@ public class panelMenu extends javax.swing.JPanel {
         btnEditarPelicula = new javax.swing.JButton();
         btnEliminarPelicula = new javax.swing.JButton();
         txtBuscarPelicula = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
+        pCintas = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         txtIdCinta = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
@@ -572,17 +589,22 @@ public class panelMenu extends javax.swing.JPanel {
         });
         jPanel1.add(btnregistrarsocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 250, 40));
 
-        btnprestaciones.setBackground(new java.awt.Color(0, 0, 0));
-        btnprestaciones.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        btnprestaciones.setForeground(new java.awt.Color(255, 255, 255));
-        btnprestaciones.setText("PRESTACIONES");
-        btnprestaciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        btnprestaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnPrestamos.setBackground(new java.awt.Color(0, 0, 0));
+        btnPrestamos.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        btnPrestamos.setForeground(new java.awt.Color(255, 255, 255));
+        btnPrestamos.setText("PRESTAMOS");
+        btnPrestamos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btnPrestamos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnprestacionesMouseClicked(evt);
+                btnPrestamosMouseClicked(evt);
             }
         });
-        jPanel1.add(btnprestaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 250, 40));
+        btnPrestamos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrestamosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnPrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 250, 40));
 
         btndevoluciones.setBackground(new java.awt.Color(0, 0, 0));
         btndevoluciones.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
@@ -913,119 +935,114 @@ public class panelMenu extends javax.swing.JPanel {
 
         tabbedPane.addTab("tab1", pSocios);
 
-        pPrestaciones.setBackground(new java.awt.Color(255, 255, 255));
-        pPrestaciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pPrestamos.setBackground(new java.awt.Color(255, 255, 255));
+        pPrestamos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jLabel8.setText("Código Socio:");
-        pPrestaciones.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 110, 20));
+        jLabel8.setText("ID Prestamo");
+        pPrestamos.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jLabel9.setText("Fecha de Préstamo");
-        pPrestaciones.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 150, 20));
+        txtPrestamoId.setEditable(false);
+        pPrestamos.add(txtPrestamoId, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 140, -1));
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jLabel10.setText("Fecha de Devolución");
-        pPrestaciones.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 160, 20));
+        jLabel9.setText("Socio");
+        pPrestamos.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
-        txtCodSocio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtCodSocio.setForeground(new java.awt.Color(204, 204, 204));
-        txtCodSocio.setText("Codigo");
-        txtCodSocio.setBorder(null);
-        txtCodSocio.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarSocio.setText("Buscar Socio");
+        btnBuscarSocio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodSocioActionPerformed(evt);
+                btnBuscarSocioActionPerformed(evt);
             }
         });
-        txtCodSocio.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCodSocioKeyTyped(evt);
-            }
-        });
-        pPrestaciones.add(txtCodSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, 160, 30));
-        txtCodSocio.setForeground(Color.GRAY);
-        txtCodSocio.addFocusListener(new Placeholders("Codigo", new Color(204, 204, 204), Color.BLACK));
+        pPrestamos.add(btnBuscarSocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, -1, -1));
 
-        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-        pPrestaciones.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 210, 20));
+        jLabel10.setText("Cinta");
+        pPrestamos.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
 
-        txtFechaPrestamo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtFechaPrestamo.setForeground(new java.awt.Color(204, 204, 204));
-        txtFechaPrestamo.setText("dd/mm/yy");
-        txtFechaPrestamo.setBorder(null);
-        txtFechaPrestamo.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFechaPrestamoFocusLost(evt);
-            }
-        });
-        txtFechaPrestamo.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarCinta.setText("Buscar Cinta");
+        btnBuscarCinta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaPrestamoActionPerformed(evt);
+                btnBuscarCintaActionPerformed(evt);
             }
         });
-        txtFechaPrestamo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtFechaPrestamoKeyTyped(evt);
-            }
-        });
-        pPrestaciones.add(txtFechaPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 160, 30));
-        txtFechaPrestamo.setForeground(Color.GRAY);
-        txtFechaPrestamo.addFocusListener(new Placeholders("dd/mm/yy", new Color(204, 204, 204), Color.BLACK));
+        pPrestamos.add(btnBuscarCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, -1, -1));
 
-        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-        pPrestaciones.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, 210, 20));
+        jLabel26.setText("Fecha Prestamo");
+        pPrestamos.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
+        pPrestamos.add(pickerFechaPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 140, -1));
 
-        txtFechaDevolucion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtFechaDevolucion.setForeground(new java.awt.Color(204, 204, 204));
-        txtFechaDevolucion.setText("dd/mm/yy");
-        txtFechaDevolucion.setBorder(null);
-        txtFechaDevolucion.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFechaDevolucionFocusLost(evt);
-            }
-        });
-        txtFechaDevolucion.addActionListener(new java.awt.event.ActionListener() {
+        jLabel27.setText("Fecha Devolucion");
+        pPrestamos.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
+        pPrestamos.add(pickerFechaDevolucion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 140, -1));
+
+        btnAgregarPrestamo.setText("Agregar");
+        btnAgregarPrestamo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaDevolucionActionPerformed(evt);
+                btnAgregarPrestamoActionPerformed(evt);
             }
         });
-        txtFechaDevolucion.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtFechaDevolucionKeyTyped(evt);
+        pPrestamos.add(btnAgregarPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
+
+        btnEditarPrestamo.setText("Editar");
+        pPrestamos.add(btnEditarPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 80, -1, -1));
+
+        btnEliminarPrestamo.setText("Eliminar");
+        pPrestamos.add(btnEliminarPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, -1, -1));
+
+        tablePrestamos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID Prestamo", "Socio", "Pelicula", "Fecha Prestamo", "Fecha Devolucion", "Estado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        pPrestaciones.add(txtFechaDevolucion, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 230, 160, 30));
-        txtFechaDevolucion.setForeground(Color.GRAY);
-        txtFechaDevolucion.addFocusListener(new Placeholders("dd/mm/yy", new Color(204, 204, 204), Color.BLACK));
+        jScrollPane6.setViewportView(tablePrestamos);
 
-        jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
-        pPrestaciones.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, 210, 20));
+        pPrestamos.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 630, 220));
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("VER CARTELERA");
-        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        txtBuscarPrestamo.getDocument().addDocumentListener(new DocumentListener() {
+            public void buscarPrestamo() {
+                String textoBusqueda = txtBuscarPrestamo.getText().trim();
+                if (textoBusqueda.length() > 0) {
+                    // Este método debe ser implementado para buscar en la base de datos
+                    // y actualizar el modelo de la tabla con los resultados.
+                    actualizarTablaPrestamosConBusqueda(textoBusqueda);
+                } else {
+                    // Este método debe ser implementado para restablecer la vista
+                    // y mostrar todos los préstamos.
+                    actualizarTablaPrestamos();
+                }
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                buscarPrestamo();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                buscarPrestamo();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                buscarPrestamo();
             }
         });
-        pPrestaciones.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 220, 30));
+        pPrestamos.add(txtBuscarPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 220, -1));
 
-        jButton3.setBackground(new java.awt.Color(0, 0, 0));
-        jButton3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("SOLICITAR");
-        jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        pPrestaciones.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 320, 220, 30));
-
-        tabbedPane.addTab("tab2", pPrestaciones);
+        tabbedPane.addTab("tab2", pPrestamos);
 
         pDevoluciones.setBackground(new java.awt.Color(255, 255, 255));
         pDevoluciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1390,20 +1407,20 @@ public class panelMenu extends javax.swing.JPanel {
 
         tabbedPane.addTab("tab6", pPeliculas);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pCintas.setBackground(new java.awt.Color(255, 255, 255));
+        pCintas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel15.setText("ID Cinta");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
+        pCintas.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
 
         txtIdCinta.setEditable(false);
-        jPanel2.add(txtIdCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 70, -1));
+        pCintas.add(txtIdCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 70, -1));
 
         jLabel17.setText("Pelicula");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, -1, -1));
+        pCintas.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, -1, -1));
 
         txtPeliculaCinta.setEditable(false);
-        jPanel2.add(txtPeliculaCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 150, -1));
+        pCintas.add(txtPeliculaCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 150, -1));
 
         btnBuscarPeliculaCinta.setText("Buscar Pelicula");
         btnBuscarPeliculaCinta.addActionListener(new java.awt.event.ActionListener() {
@@ -1411,13 +1428,13 @@ public class panelMenu extends javax.swing.JPanel {
                 btnBuscarPeliculaCintaActionPerformed(evt);
             }
         });
-        jPanel2.add(btnBuscarPeliculaCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, -1, -1));
+        pCintas.add(btnBuscarPeliculaCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, -1, -1));
 
         jLabel24.setText("Estado");
-        jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
+        pCintas.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
 
         cboEstadoCinta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "Prestado", "Dañada", "Perdida" }));
-        jPanel2.add(cboEstadoCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 150, -1));
+        pCintas.add(cboEstadoCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 150, -1));
 
         btnAgregarCinta.setText("Agregar");
         btnAgregarCinta.addActionListener(new java.awt.event.ActionListener() {
@@ -1425,7 +1442,7 @@ public class panelMenu extends javax.swing.JPanel {
                 btnAgregarCintaActionPerformed(evt);
             }
         });
-        jPanel2.add(btnAgregarCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, -1, -1));
+        pCintas.add(btnAgregarCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, -1, -1));
 
         btnEditarCinta.setText("Editar");
         btnEditarCinta.addActionListener(new java.awt.event.ActionListener() {
@@ -1433,7 +1450,7 @@ public class panelMenu extends javax.swing.JPanel {
                 btnEditarCintaActionPerformed(evt);
             }
         });
-        jPanel2.add(btnEditarCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, -1, -1));
+        pCintas.add(btnEditarCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, -1, -1));
 
         btnEliminarCinta.setText("Eliminar");
         btnEliminarCinta.addActionListener(new java.awt.event.ActionListener() {
@@ -1441,11 +1458,33 @@ public class panelMenu extends javax.swing.JPanel {
                 btnEliminarCintaActionPerformed(evt);
             }
         });
-        jPanel2.add(btnEliminarCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, -1, -1));
+        pCintas.add(btnEliminarCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, -1, -1));
 
         jLabel25.setText("Buscar");
-        jPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
-        jPanel2.add(txtBuscarCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 150, -1));
+        pCintas.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
+
+        txtBuscarCinta.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                buscar();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                buscar();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                buscar();
+            }
+
+            private void buscar() {
+                String texto = txtBuscarCinta.getText();
+                if (texto.trim().length() > 0) {
+                    List<Cinta> resultados = cintaService.buscarCintasPorNombrePelicula(texto);
+                    actualizarTablaConResultados(resultados);
+                } else {
+                    actualizarTablaCintas();
+                }
+            }
+        });
+        pCintas.add(txtBuscarCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 150, -1));
 
         tableCintas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1468,9 +1507,9 @@ public class panelMenu extends javax.swing.JPanel {
         });
         jScrollPane5.setViewportView(tableCintas);
 
-        jPanel2.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 440, 170));
+        pCintas.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 440, 170));
 
-        tabbedPane.addTab("tab7", jPanel2);
+        tabbedPane.addTab("tab7", pCintas);
 
         add(tabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, -20, 890, 550));
     }// </editor-fold>//GEN-END:initComponents
@@ -1480,9 +1519,10 @@ public class panelMenu extends javax.swing.JPanel {
         actualizarTablaSocios();
     }//GEN-LAST:event_btnregistrarsocioMouseClicked
 
-    private void btnprestacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnprestacionesMouseClicked
-        tabbedPane.setSelectedIndex(1);        // TODO add your handling code here:
-    }//GEN-LAST:event_btnprestacionesMouseClicked
+    private void btnPrestamosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrestamosMouseClicked
+        tabbedPane.setSelectedIndex(1);      
+        actualizarTablaPrestamos();
+    }//GEN-LAST:event_btnPrestamosMouseClicked
 
     private void btndevolucionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btndevolucionesMouseClicked
          tabbedPane.setSelectedIndex(2);
@@ -1519,29 +1559,6 @@ public class panelMenu extends javax.swing.JPanel {
     private void txtIdPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdPrestamoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdPrestamoActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.setLayout(new BorderLayout());
-        framePrincipal.mostrarPanelCartelera();
-        this.revalidate();
-        this.repaint();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void txtFechaDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaDevolucionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaDevolucionActionPerformed
-
-    private void txtFechaPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaPrestamoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaPrestamoActionPerformed
-
-    private void txtCodSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodSocioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodSocioActionPerformed
 
     private void txtNombreSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreSocioActionPerformed
         // TODO add your handling code here:
@@ -1780,31 +1797,7 @@ validacionNumerica(evt); // TODO add your handling code here:
 validacionTexto(evt);        // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreDirectorKeyTyped
 
-    private void txtCodSocioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodSocioKeyTyped
-validacionNumerica(evt);        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodSocioKeyTyped
-
-    private void txtFechaPrestamoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFechaPrestamoKeyTyped
-// TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaPrestamoKeyTyped
-
-    private void txtFechaDevolucionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFechaDevolucionKeyTyped
-  
-// TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaDevolucionKeyTyped
-
-    private void txtFechaPrestamoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFechaPrestamoFocusLost
-        validacionFecha(evt);
-  
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaPrestamoFocusLost
-
-    private void txtFechaDevolucionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFechaDevolucionFocusLost
-    validacionFecha(evt);     // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaDevolucionFocusLost
-
     private void txtFechaEntregaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFechaEntregaFocusLost
- validacionFecha(evt);        // TODO add your handling code here:
     }//GEN-LAST:event_txtFechaEntregaFocusLost
 
     private void btnPeliculasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPeliculasMouseClicked
@@ -2046,66 +2039,127 @@ validacionNumerica(evt);        // TODO add your handling code here:
         }
     }//GEN-LAST:event_btnBuscarPeliculaCintaActionPerformed
 
-private boolean validarFecha(String fechaTexto, String formato) {
-        SimpleDateFormat formatoFecha = new SimpleDateFormat(formato);
-        formatoFecha.setLenient(false);
+    private void btnPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestamosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPrestamosActionPerformed
 
-        try {
-            Date fecha = formatoFecha.parse(fechaTexto);
+    private void btnAgregarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPrestamoActionPerformed
+        // Suponiendo que ya tienes los métodos para obtener Socio y Cinta por ID
+        Socio socio = socioService.obtenerSocioId(Integer.parseInt(txtIdSocio.getText()));
+        Cinta cinta = cintaService.obtenerCintaPorId(Integer.parseInt(txtIdCinta.getText()));
+        LocalDate fechaPrestamo = pickerFechaPrestamo.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate fechaDevolucion = pickerFechaDevolucion.getDate() != null ?
+            pickerFechaDevolucion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null;
 
-            // Validar día en función del mes
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(fecha);
+        Prestamo nuevoPrestamo = new Prestamo();
+        nuevoPrestamo.setSocio(socio);
+        nuevoPrestamo.setCinta(cinta);
+        nuevoPrestamo.setFechaPrestamo(fechaPrestamo);
+        nuevoPrestamo.setFechaDevolucion(fechaDevolucion);
 
-            int dia = cal.get(Calendar.DAY_OF_MONTH);
-            int mes = cal.get(Calendar.MONTH) + 1; // Los meses en Calendar son 0-indexados
+        boolean exito = prestamoService.agregarPrestamo(nuevoPrestamo);
 
-            // Validar días según el mes
-            if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia > 30) {
-                return false; // Meses con 30 días
-            } else if (mes == 2) {
-                int anio = cal.get(Calendar.YEAR);
-
-                if ((anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0)) {
-                    // Año bisiesto
-                    if (dia > 29) {
-                        return false;
-                    }
-                } else {
-                    // No es un año bisiesto
-                    if (dia > 28) {
-                        return false;
-                    }
-                }
-            } else if (dia > 31) {
-                return false; // Meses con 31 días
-            }
-
-            // La fecha es válida
-            return true;
-        } catch (ParseException e) {
-            // La fecha no es válida
-            System.out.println("Error de validación: " + e.getMessage());
-            return false;
+        if (exito) {
+            JOptionPane.showMessageDialog(this, "Préstamo agregado exitosamente.");
+            actualizarTablaPrestamos();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al agregar el préstamo.");
         }
-    }
-    
-    void validacionFecha(java.awt.event.FocusEvent evt)
-    {
-         javax.swing.JTextField textField = (javax.swing.JTextField) evt.getSource();
-        String fechaTexto = textField.getText().trim();
+    }//GEN-LAST:event_btnAgregarPrestamoActionPerformed
 
-        if (!fechaTexto.isEmpty()) {
-            if (!validarFecha(fechaTexto, "dd/MM/yyyy")) {
-                JOptionPane.showMessageDialog(null, "Fecha no válida. Utilice el formato dd/MM/yyyy");
-                textField.requestFocus();
-            } else {
-                System.out.println("Fecha válida: " + fechaTexto);
-            }
+    private void btnBuscarCintaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCintaActionPerformed
+        // Crear un JDialog para buscar cintas
+        JDialog buscarCintaDialog = new JDialog(this.framePrincipal, "Buscar Cinta", true); // 'this.frame' debería ser tu JFrame principal
+        buscarCintaDialog.setLayout(new BorderLayout());
+
+        // Crear modelo de tabla y tabla
+        DefaultTableModel modeloTablaCintas = new DefaultTableModel(new Object[]{"ID", "Título", "Estado"}, 0);
+        JTable tablaCintas = new JTable(modeloTablaCintas);
+
+        // Llenar la tabla con datos
+        List<Cinta> cintasDisponibles = cintaService.obtenerCintasDisponibles();
+        for (Cinta cinta : cintasDisponibles) {
+            modeloTablaCintas.addRow(new Object[]{cinta.getCintaId(), cinta.getTituloPelicula(), cinta.getEstado()});
         }
-    }
-    
-    
+
+        // Agregar un JScrollPane a la tabla
+        JScrollPane scrollPane = new JScrollPane(tablaCintas);
+        buscarCintaDialog.add(scrollPane, BorderLayout.CENTER);
+
+        // Panel para los botones
+        JPanel botonPanel = new JPanel();
+        JButton btnSeleccionar = new JButton("Seleccionar");
+        btnSeleccionar.addActionListener(e -> {
+            // Lógica para obtener la cinta seleccionada y cerrar el diálogo
+            int filaSeleccionada = tablaCintas.getSelectedRow();
+            if (filaSeleccionada >= 0) {
+                int cintaId = (int) modeloTablaCintas.getValueAt(filaSeleccionada, 0);
+                // Aquí podrías establecer el ID de la cinta en un campo de texto en tu panel de préstamos
+                txtIdCinta.setText(String.valueOf(cintaId));
+                buscarCintaDialog.dispose();
+            }
+        });
+        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.addActionListener(e -> buscarCintaDialog.dispose());
+
+        botonPanel.add(btnSeleccionar);
+        botonPanel.add(btnCancelar);
+        buscarCintaDialog.add(botonPanel, BorderLayout.SOUTH);
+
+        // Configurar tamaño y visibilidad
+        buscarCintaDialog.pack();
+        buscarCintaDialog.setLocationRelativeTo(null); // Centrar en pantalla
+        buscarCintaDialog.setVisible(true);
+    }//GEN-LAST:event_btnBuscarCintaActionPerformed
+
+    private void btnBuscarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarSocioActionPerformed
+        // Obtener el JFrame contenedor
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+
+
+        // Crear un JDialog para buscar socios
+        JDialog buscarSocioDialog = new JDialog(frame, "Buscar Socio", true);
+        buscarSocioDialog.setLayout(new BorderLayout());
+
+        // Crear modelo de tabla y tabla
+        DefaultTableModel modeloTablaSocios = new DefaultTableModel(new Object[]{"ID", "Nombre", "Dirección", "Teléfono"}, 0);
+        JTable tablaSocios = new JTable(modeloTablaSocios);
+
+        // Llenar la tabla con datos
+        List<Socio> socios = socioService.obtenerTodosLosSocios();
+        for (Socio socio : socios) {
+            modeloTablaSocios.addRow(new Object[]{socio.getSocioId(), socio.getNombre(), socio.getDireccion(), socio.getTelefono()});
+        }
+
+        // Agregar un JScrollPane a la tabla
+        JScrollPane scrollPane = new JScrollPane(tablaSocios);
+        buscarSocioDialog.add(scrollPane, BorderLayout.CENTER);
+
+        // Panel para los botones
+        JPanel botonPanel = new JPanel();
+        JButton btnSeleccionar = new JButton("Seleccionar");
+        btnSeleccionar.addActionListener(e -> {
+            // Lógica para obtener el socio seleccionado y cerrar el diálogo
+            int filaSeleccionada = tablaSocios.getSelectedRow();
+            if (filaSeleccionada >= 0) {
+                int socioId = (int) modeloTablaSocios.getValueAt(filaSeleccionada, 0);
+                // Aquí podrías establecer el ID del socio en un campo de texto en tu panel de préstamos
+                txtIdSocio.setText(String.valueOf(socioId));
+                buscarSocioDialog.dispose();
+            }
+        });
+        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.addActionListener(e -> buscarSocioDialog.dispose());
+
+        botonPanel.add(btnSeleccionar);
+        botonPanel.add(btnCancelar);
+        buscarSocioDialog.add(botonPanel, BorderLayout.SOUTH);
+
+        // Configurar tamaño y visibilidad
+        buscarSocioDialog.pack();
+        buscarSocioDialog.setLocationRelativeTo(null);
+        buscarSocioDialog.setVisible(true);
+    }//GEN-LAST:event_btnBuscarSocioActionPerformed
     void validacionTexto(java.awt.event.KeyEvent evt){
         char c = evt.getKeyChar();
 
@@ -2139,7 +2193,10 @@ private boolean validarFecha(String fechaTexto, String formato) {
     private javax.swing.JButton btnAgregarCinta;
     private javax.swing.JButton btnAgregarDirector;
     private javax.swing.JButton btnAgregarPelicula;
+    private javax.swing.JButton btnAgregarPrestamo;
+    private javax.swing.JButton btnBuscarCinta;
     private javax.swing.JButton btnBuscarPeliculaCinta;
+    private javax.swing.JButton btnBuscarSocio;
     private javax.swing.JButton btnCintas;
     private javax.swing.JButton btnDirectores;
     private javax.swing.JButton btnDirectoresSocios;
@@ -2147,23 +2204,23 @@ private boolean validarFecha(String fechaTexto, String formato) {
     private javax.swing.JButton btnEditarCinta;
     private javax.swing.JButton btnEditarDirector;
     private javax.swing.JButton btnEditarPelicula;
+    private javax.swing.JButton btnEditarPrestamo;
     private javax.swing.JButton btnEditarSocio;
     private javax.swing.JButton btnEliminarActor;
     private javax.swing.JButton btnEliminarCinta;
     private javax.swing.JButton btnEliminarDirector;
     private javax.swing.JButton btnEliminarPelicula;
+    private javax.swing.JButton btnEliminarPrestamo;
     private javax.swing.JButton btnEliminarSocio;
     private javax.swing.JButton btnGenerosSocios;
     private javax.swing.JButton btnPeliculas;
+    private javax.swing.JButton btnPrestamos;
     private javax.swing.JButton btnRegistrarSocio;
     private javax.swing.JButton btndevoluciones;
-    private javax.swing.JButton btnprestaciones;
     private javax.swing.JButton btnregistrarsocio;
     private javax.swing.JComboBox<Director> cboDirectoresPelicula;
     private javax.swing.JComboBox<String> cboEstadoCinta;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2183,6 +2240,8 @@ private boolean validarFecha(String fechaTexto, String formato) {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2191,19 +2250,16 @@ private boolean validarFecha(String fechaTexto, String formato) {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator13;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
@@ -2214,28 +2270,30 @@ private boolean validarFecha(String fechaTexto, String formato) {
     private javax.swing.JLabel lblDirectoresSeleccionados;
     private javax.swing.JLabel lblGenerosSeleccionados;
     private javax.swing.JPanel pActores;
+    private javax.swing.JPanel pCintas;
     private javax.swing.JPanel pDevoluciones;
     private javax.swing.JPanel pDirectores;
     private javax.swing.JPanel pPeliculas;
-    private javax.swing.JPanel pPrestaciones;
+    private javax.swing.JPanel pPrestamos;
     private javax.swing.JPanel pSocios;
     private javax.swing.JPanel panelBarra;
+    private com.toedter.calendar.JDateChooser pickerFechaDevolucion;
+    private com.toedter.calendar.JDateChooser pickerFechaPrestamo;
     public javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTable tableActores;
     private javax.swing.JTable tableCintas;
     private javax.swing.JTable tableDirectores;
     private javax.swing.JTable tablePeliculas;
+    private javax.swing.JTable tablePrestamos;
     private javax.swing.JTable tableSocios;
     private javax.swing.JTextField txtBuscarActor;
     private javax.swing.JTextField txtBuscarCinta;
     private javax.swing.JTextField txtBuscarDirector;
     private javax.swing.JTextField txtBuscarPelicula;
+    private javax.swing.JTextField txtBuscarPrestamo;
     private javax.swing.JTextField txtBuscarSocio;
-    private javax.swing.JTextField txtCodSocio;
     private javax.swing.JTextField txtDireccionSocio;
-    private javax.swing.JTextField txtFechaDevolucion;
     private javax.swing.JTextField txtFechaEntrega;
-    private javax.swing.JTextField txtFechaPrestamo;
     private javax.swing.JTextField txtIdCinta;
     private javax.swing.JTextField txtIdPelicula;
     private javax.swing.JTextField txtIdPrestamo;
@@ -2244,6 +2302,7 @@ private boolean validarFecha(String fechaTexto, String formato) {
     private javax.swing.JTextField txtNombreDirector;
     private javax.swing.JTextField txtNombreSocio;
     private javax.swing.JTextField txtPeliculaCinta;
+    private javax.swing.JTextField txtPrestamoId;
     private javax.swing.JTextField txtTelefonoSocio;
     private javax.swing.JTextField txtTituloPelicula;
     // End of variables declaration//GEN-END:variables

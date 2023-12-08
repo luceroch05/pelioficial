@@ -45,7 +45,7 @@ public class SocioService {
         socioDAO.delete(socio);
     }
     
-    public Socio obtenerSocioId(long id){
+    public Socio obtenerSocioId(int id){
         Optional<Socio> socioOpt = socioDAO.get(id);
         return socioOpt.orElse(null);
     }

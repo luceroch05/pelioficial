@@ -127,7 +127,6 @@ public class CintaDAO implements Dao<Cinta>{
             // Handle the exception, possibly return a boolean to indicate success/failure
         }
     }
-
     
     public int obtenerPeliculaIdPorNombre(String nombre) {
         // Consulta a la base de datos para obtener el ID de la película por nombre
@@ -147,12 +146,16 @@ public class CintaDAO implements Dao<Cinta>{
     
     public List<Cinta> obtenerTodasLasCintas() {
         List<Cinta> cintas = new ArrayList<>();
-        String sql = "SELECT * FROM cintas";
+        String sql = "SELECT cintas.*, peliculas.titulo FROM cintas " +
+                     "JOIN peliculas ON cintas.pelicula_id = peliculas.pelicula_id";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Cinta cinta = new Cinta();
-                // Asigna los valores de la fila a la nueva instancia de Cinta
+                cinta.setCintaId(resultSet.getInt("cinta_id"));
+                cinta.setPeliculaId(resultSet.getInt("pelicula_id"));
+                cinta.setEstado(resultSet.getString("estado"));
+                cinta.setTituloPelicula(resultSet.getString("titulo"));
                 cintas.add(cinta);
             }
         } catch (SQLException e) {
@@ -160,6 +163,7 @@ public class CintaDAO implements Dao<Cinta>{
         }
         return cintas;
     }
+
     
     public void actualizarCinta(Cinta cinta) {
         String sql = "UPDATE cintas SET pelicula_id = ?, estado = ? WHERE cinta_id = ?";
@@ -201,5 +205,27 @@ public class CintaDAO implements Dao<Cinta>{
             e.printStackTrace();
         }
         return false; // Retorna false si ocurre una excepción o no se eliminó ninguna fila
+    }
+    
+    public List<Cinta> buscarCintasPorNombrePelicula(String nombrePelicula) {
+        List<Cinta> cintas = new ArrayList<>();
+        String sql = "SELECT cintas.*, peliculas.titulo FROM cintas " +
+                     "JOIN peliculas ON cintas.pelicula_id = peliculas.pelicula_id " +
+                     "WHERE peliculas.titulo LIKE ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, "%" + nombrePelicula + "%");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Cinta cinta = new Cinta();
+                cinta.setCintaId(resultSet.getInt("cinta_id"));
+                cinta.setPeliculaId(resultSet.getInt("pelicula_id"));
+                cinta.setTituloPelicula(resultSet.getString("titulo"));
+                cinta.setEstado(resultSet.getString("estado"));
+                cintas.add(cinta);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cintas;
     }
 }
