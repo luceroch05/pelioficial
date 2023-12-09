@@ -12,6 +12,7 @@ public class Cinta {
     private int cintaId;
     private int peliculaId;
     private String estado; //Disponible, Prestado, Daniada, Perdida
+    private String tituloPelicula; // Nuevo atributo para almacenar el título
 
     public Cinta() {
     }
@@ -44,5 +45,13 @@ public class Cinta {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+    
+    public String getTituloPelicula() {
+        return tituloPelicula;
+    }
+    
+    public void setTituloPelicula(String tituloPelicula) {
+        this.tituloPelicula = tituloPelicula;
     }
 }

@@ -4,8 +4,8 @@
  */
 package peaches.pelioficial.service;
 
+import java.util.ArrayList;
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
 import peaches.pelioficial.dao.CintaDAO;
 import peaches.pelioficial.model.Cinta;
 import peaches.pelioficial.util.DatabaseConnector;
@@ -26,8 +26,6 @@ public class CintaService {
     }
     
     public int obtenerPeliculaIdPorNombre(String nombrePelicula) {
-        // Implementación para obtener el ID de la película por nombre
-        // Esto es solo un esbozo, necesitas el código real que consulte tu base de datos
         return cintaDAO.obtenerPeliculaIdPorNombre(nombrePelicula);
     }
     
@@ -46,4 +44,29 @@ public class CintaService {
     public List<Cinta> obtenerTodasLasCintas() {
         return cintaDAO.obtenerTodasLasCintas();
     }
+    
+    public List<Cinta> buscarCintasPorNombrePelicula(String nombrePelicula) {
+        return cintaDAO.buscarCintasPorNombrePelicula(nombrePelicula);
+    }
+    
+    public List<Cinta> obtenerCintasDisponibles() {
+        List<Cinta> cintasDisponibles = new ArrayList<>();
+        String estadoDisponible = "Disponible"; // Asegúrate de usar el estado correcto que usas en tu base de datos
+
+        // Suponiendo que tienes un método en tu DAO que obtiene todas las cintas
+        List<Cinta> todasLasCintas = cintaDAO.obtenerTodasLasCintas();
+
+        for (Cinta cinta : todasLasCintas) {
+            if (cinta.getEstado().equalsIgnoreCase(estadoDisponible)) {
+                cintasDisponibles.add(cinta);
+            }
+        }
+
+        return cintasDisponibles;
+    }
+    
+    public Cinta buscarPorTitulo(String titulo) {
+        return cintaDAO.buscarPorTitulo(titulo).orElse(null);
+    }
+
 }

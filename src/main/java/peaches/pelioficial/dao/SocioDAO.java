@@ -419,4 +419,26 @@ public class SocioDAO implements Dao<Socio>{
         }
         return generos;
     }
+    
+    public Socio buscarPorNombre(String nombre) {
+        // Este método debe buscar en la base de datos y devolver el objeto Socio correspondiente.
+        // El código exacto dependerá de cómo esté implementada tu base de datos y la lógica de acceso a datos.
+        // A continuación, un ejemplo genérico:
+
+        String sql = "SELECT * FROM socios WHERE nombre = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, nombre);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Socio socio = new Socio();
+                socio.setSocioId(resultSet.getInt("socio_id"));
+                socio.setNombre(resultSet.getString("nombre"));
+                // Añadir otros campos si son necesarios.
+                return socio;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

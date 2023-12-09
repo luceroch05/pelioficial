@@ -12,20 +12,27 @@ import java.time.LocalDate;
  */
 public class Prestamo {
     private int prestamoId;
-    private int socioId;
-    private int cintaId;
+    private int socioId; // ID del socio
+    private int cintaId; // ID de la cinta
     private LocalDate fechaPrestamo;
     private LocalDate fechaDevolucion;
+    private String nombreSocio; // Nombre del socio
+    private String tituloPelicula; // Título de la película
+    private String estadoCinta; // Estado de la cinta
+
 
     public Prestamo() {
     }
-
-    public Prestamo(int prestamoId, int socioId, int cintaId, LocalDate fechaPrestamo, LocalDate fechaDevolucion) {
+    
+    public Prestamo(int prestamoId, int socioId, int cintaId, LocalDate fechaPrestamo, LocalDate fechaDevolucion, String nombreSocio, String tituloPelicula, String estadoCinta) {
         this.prestamoId = prestamoId;
         this.socioId = socioId;
         this.cintaId = cintaId;
         this.fechaPrestamo = fechaPrestamo;
         this.fechaDevolucion = fechaDevolucion;
+        this.nombreSocio = nombreSocio;
+        this.tituloPelicula = tituloPelicula;
+        this.estadoCinta = estadoCinta;
     }
     
     public int getPrestamoId() {
@@ -66,5 +73,29 @@ public class Prestamo {
 
     public void setFechaDevolucion(LocalDate fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
+    }
+
+    public String getNombreSocio() {
+        return nombreSocio;
+    }
+
+    public void setNombreSocio(String nombreSocio) {
+        this.nombreSocio = nombreSocio;
+    }
+
+    public String getTituloPelicula() {
+        return tituloPelicula;
+    }
+
+    public void setTituloPelicula(String tituloPelicula) {
+        this.tituloPelicula = tituloPelicula;
+    }
+
+    public String getEstadoCinta() {
+        return estadoCinta;
+    }
+
+    public void setEstadoCinta(String estadoCinta) {
+        this.estadoCinta = estadoCinta;
     }
 }
