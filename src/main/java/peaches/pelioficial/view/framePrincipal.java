@@ -50,7 +50,6 @@ public class framePrincipal extends javax.swing.JFrame {
         panelBarra = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         Fondo = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
@@ -58,6 +57,7 @@ public class framePrincipal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         txtPassword = new javax.swing.JPasswordField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -90,7 +90,7 @@ public class framePrincipal extends javax.swing.JFrame {
         panelBarraLayout.setHorizontalGroup(
             panelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBarraLayout.createSequentialGroup()
-                .addGap(0, 900, Short.MAX_VALUE)
+                .addGap(0, 1180, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelBarraLayout.setVerticalGroup(
@@ -98,20 +98,18 @@ public class framePrincipal extends javax.swing.JFrame {
             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
         );
 
-        getContentPane().add(panelBarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 20));
+        getContentPane().add(panelBarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 20));
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setForeground(new java.awt.Color(255, 153, 153));
+        Fondo.setPreferredSize(new java.awt.Dimension(1200, 640));
         Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Login/Banner1.jpg"))); // NOI18N
-        Fondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 0, 440, 550));
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 60)); // NOI18N
         jLabel2.setText("¡Bienvenido!");
-        Fondo.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 250, 40));
+        Fondo.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 470, 100));
 
-        txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtUsuario.setForeground(new java.awt.Color(204, 204, 204));
         txtUsuario.setText("Usuario");
         txtUsuario.setBorder(null);
@@ -129,22 +127,22 @@ public class framePrincipal extends javax.swing.JFrame {
                 txtUsuarioActionPerformed(evt);
             }
         });
-        Fondo.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, 250, 30));
+        Fondo.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 250, 30));
         txtUsuario.setForeground(Color.GRAY);
         txtUsuario.addFocusListener(new Placeholders("Usuario", new Color(204, 204, 204), Color.BLACK));
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-        Fondo.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 250, 20));
+        Fondo.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 330, 250, 20));
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-        Fondo.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 323, 250, 20));
+        Fondo.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 430, 250, 20));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
         jLabel3.setText("Iniciar Sesión");
-        Fondo.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 170, 30));
+        Fondo.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 170, 30));
 
         jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Ingresar");
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -155,8 +153,9 @@ public class framePrincipal extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        Fondo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, 250, 30));
+        Fondo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 480, 250, 40));
 
+        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtPassword.setForeground(new java.awt.Color(204, 204, 204));
         txtPassword.setText("jPasswordField1");
         txtPassword.setBorder(null);
@@ -168,11 +167,15 @@ public class framePrincipal extends javax.swing.JFrame {
                 txtPasswordMousePressed(evt);
             }
         });
-        Fondo.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 240, -1));
+        Fondo.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, 240, 30));
         txtPassword.setForeground(Color.GRAY);
         txtPassword.addFocusListener(new Placeholders("jPasswordField1", new Color(204, 204, 204), Color.BLACK));
 
-        getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, 520));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Login/Banner1.jpg"))); // NOI18N
+        jLabel1.setPreferredSize(new java.awt.Dimension(564, 600));
+        Fondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 540, 710));
+
+        getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 1200, 700));
 
         pack();
         setLocationRelativeTo(null);
