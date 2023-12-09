@@ -504,22 +504,6 @@ public class panelMenu extends javax.swing.JPanel {
         btnEliminarActor = new javax.swing.JButton();
         jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        txtIdCinta = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
-        txtPeliculaCinta = new javax.swing.JTextField();
-        btnBuscarPeliculaCinta = new javax.swing.JButton();
-        jLabel24 = new javax.swing.JLabel();
-        cboEstadoCinta = new javax.swing.JComboBox<>();
-        btnAgregarCinta = new javax.swing.JButton();
-        btnEditarCinta = new javax.swing.JButton();
-        btnEliminarCinta = new javax.swing.JButton();
-        txtBuscarCinta = new javax.swing.JTextField();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        tableCintas = new javax.swing.JTable();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
         pPeliculas = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         txtIdPelicula = new javax.swing.JTextField();
@@ -537,6 +521,22 @@ public class panelMenu extends javax.swing.JPanel {
         txtBuscarPelicula = new javax.swing.JTextField();
         jLabel34 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        txtIdCinta = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        txtPeliculaCinta = new javax.swing.JTextField();
+        btnBuscarPeliculaCinta = new javax.swing.JButton();
+        jLabel24 = new javax.swing.JLabel();
+        cboEstadoCinta = new javax.swing.JComboBox<>();
+        btnAgregarCinta = new javax.swing.JButton();
+        btnEditarCinta = new javax.swing.JButton();
+        btnEliminarCinta = new javax.swing.JButton();
+        txtBuscarCinta = new javax.swing.JTextField();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tableCintas = new javax.swing.JTable();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -909,9 +909,9 @@ public class panelMenu extends javax.swing.JPanel {
             }
         });
         pSocios.add(btnGenerosSocios, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 320, 180, 30));
-        pSocios.add(lblDirectoresSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, -1, -1));
-        pSocios.add(lblActoresSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, -1, -1));
-        pSocios.add(lblGenerosSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, -1, -1));
+        pSocios.add(lblDirectoresSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 170, 180, 20));
+        pSocios.add(lblActoresSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 240, 150, 20));
+        pSocios.add(lblGenerosSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 350, 160, 30));
 
         jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel7.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -1351,114 +1351,6 @@ public class panelMenu extends javax.swing.JPanel {
 
         tabbedPane.addTab("tab5", pActores);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel15.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
-        jLabel15.setText("ID CINTA");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, -1, -1));
-
-        txtIdCinta.setEditable(false);
-        txtIdCinta.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
-        jPanel2.add(txtIdCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 140, 70, -1));
-
-        jLabel17.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
-        jLabel17.setText("PELÍCULA");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, -1, -1));
-
-        txtPeliculaCinta.setEditable(false);
-        txtPeliculaCinta.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
-        jPanel2.add(txtPeliculaCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, 150, -1));
-
-        btnBuscarPeliculaCinta.setBackground(new java.awt.Color(163, 142, 121));
-        btnBuscarPeliculaCinta.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
-        btnBuscarPeliculaCinta.setForeground(new java.awt.Color(255, 255, 255));
-        btnBuscarPeliculaCinta.setText("Buscar Pelicula");
-        btnBuscarPeliculaCinta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarPeliculaCintaActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnBuscarPeliculaCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 320, -1, -1));
-
-        jLabel24.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
-        jLabel24.setText("ESTADO");
-        jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, -1, -1));
-
-        cboEstadoCinta.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
-        cboEstadoCinta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "Prestado", "Dañada", "Perdida" }));
-        jPanel2.add(cboEstadoCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 240, 150, -1));
-
-        btnAgregarCinta.setBackground(new java.awt.Color(109, 128, 70));
-        btnAgregarCinta.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
-        btnAgregarCinta.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregarCinta.setText("Agregar");
-        btnAgregarCinta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarCintaActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnAgregarCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 620, 120, -1));
-
-        btnEditarCinta.setBackground(new java.awt.Color(135, 56, 56));
-        btnEditarCinta.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
-        btnEditarCinta.setForeground(new java.awt.Color(255, 255, 255));
-        btnEditarCinta.setText("Editar");
-        btnEditarCinta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarCintaActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnEditarCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 620, 130, -1));
-
-        btnEliminarCinta.setBackground(new java.awt.Color(105, 125, 183));
-        btnEliminarCinta.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
-        btnEliminarCinta.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminarCinta.setText("Eliminar");
-        btnEliminarCinta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarCintaActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnEliminarCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 620, 140, -1));
-
-        txtBuscarCinta.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
-        jPanel2.add(txtBuscarCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, 110, -1));
-
-        tableCintas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "ID Cinta", "Pelicula", "Estado"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane5.setViewportView(tableCintas);
-
-        jPanel2.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 380, 440, 210));
-
-        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Login/lupa (2).png"))); // NOI18N
-        jPanel2.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 30, 30));
-
-        jLabel36.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel36.setFont(new java.awt.Font("Poppins Black", 0, 48)); // NOI18N
-        jLabel36.setForeground(new java.awt.Color(50, 50, 50));
-        jLabel36.setText("CINTAS");
-        jPanel2.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 50, 230, 40));
-
-        tabbedPane.addTab("tab7", jPanel2);
-
         pPeliculas.setBackground(new java.awt.Color(255, 255, 255));
         pPeliculas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1603,6 +1495,114 @@ public class panelMenu extends javax.swing.JPanel {
         pPeliculas.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 470, 30, 30));
 
         tabbedPane.addTab("tab6", pPeliculas);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel15.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
+        jLabel15.setText("ID CINTA");
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, -1, -1));
+
+        txtIdCinta.setEditable(false);
+        txtIdCinta.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
+        jPanel2.add(txtIdCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 140, 70, -1));
+
+        jLabel17.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
+        jLabel17.setText("PELÍCULA");
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, -1, -1));
+
+        txtPeliculaCinta.setEditable(false);
+        txtPeliculaCinta.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
+        jPanel2.add(txtPeliculaCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, 150, -1));
+
+        btnBuscarPeliculaCinta.setBackground(new java.awt.Color(163, 142, 121));
+        btnBuscarPeliculaCinta.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
+        btnBuscarPeliculaCinta.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscarPeliculaCinta.setText("Buscar Pelicula");
+        btnBuscarPeliculaCinta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarPeliculaCintaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnBuscarPeliculaCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 320, -1, -1));
+
+        jLabel24.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
+        jLabel24.setText("ESTADO");
+        jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, -1, -1));
+
+        cboEstadoCinta.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
+        cboEstadoCinta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "Prestado", "Dañada", "Perdida" }));
+        jPanel2.add(cboEstadoCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 240, 150, -1));
+
+        btnAgregarCinta.setBackground(new java.awt.Color(109, 128, 70));
+        btnAgregarCinta.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
+        btnAgregarCinta.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregarCinta.setText("Agregar");
+        btnAgregarCinta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarCintaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnAgregarCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 620, 120, -1));
+
+        btnEditarCinta.setBackground(new java.awt.Color(135, 56, 56));
+        btnEditarCinta.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
+        btnEditarCinta.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditarCinta.setText("Editar");
+        btnEditarCinta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarCintaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnEditarCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 620, 130, -1));
+
+        btnEliminarCinta.setBackground(new java.awt.Color(105, 125, 183));
+        btnEliminarCinta.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
+        btnEliminarCinta.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminarCinta.setText("Eliminar");
+        btnEliminarCinta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarCintaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnEliminarCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 620, 140, -1));
+
+        txtBuscarCinta.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
+        jPanel2.add(txtBuscarCinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, 110, -1));
+
+        tableCintas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID Cinta", "Pelicula", "Estado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(tableCintas);
+
+        jPanel2.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 380, 440, 210));
+
+        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgs/Imgs Login/lupa (2).png"))); // NOI18N
+        jPanel2.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 30, 30));
+
+        jLabel36.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel36.setFont(new java.awt.Font("Poppins Black", 0, 48)); // NOI18N
+        jLabel36.setForeground(new java.awt.Color(50, 50, 50));
+        jLabel36.setText("CINTAS");
+        jPanel2.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 50, 230, 40));
+
+        tabbedPane.addTab("tab7", jPanel2);
 
         add(tabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, -20, 1040, 860));
     }// </editor-fold>//GEN-END:initComponents
@@ -1945,7 +1945,24 @@ validacionNumerica(evt);        // TODO add your handling code here:
     }//GEN-LAST:event_btnPeliculasMouseClicked
 
     private void btnAbrirListaGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirListaGenerosActionPerformed
-        
+       
+        Window windowAncestor = SwingUtilities.getWindowAncestor(this);
+        if(windowAncestor instanceof Frame){
+            Frame owner = (Frame) windowAncestor;
+            SeleccionElementosDialog<Genero> dialogo = new SeleccionElementosDialog<>(
+                    owner,
+                    true,
+                    listaGeneros,
+                    generosSeleccionados,
+                    Genero::getNombre,
+                    this::actualizarSeleccionGeneros
+            );
+            
+            dialogo.setTitle("Seleccionar Generos");
+            dialogo.setVisible(true);
+        }else{
+            
+        }
     }//GEN-LAST:event_btnAbrirListaGenerosActionPerformed
 
     private void btnAgregarPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPeliculaActionPerformed
