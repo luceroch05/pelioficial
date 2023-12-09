@@ -68,4 +68,8 @@ public class SocioService {
     public List<Genero> obtenerTodosLosGeneros(){
         return socioDAO.obtenerTodosLosGeneros();
     }
+    
+    public Socio buscarPorNombre(String nombre){
+        return socioDAO.buscarPorNombre(nombre);
+    }
 }

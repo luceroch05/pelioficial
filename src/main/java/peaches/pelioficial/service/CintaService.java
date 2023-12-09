@@ -64,4 +64,9 @@ public class CintaService {
 
         return cintasDisponibles;
     }
+    
+    public Cinta buscarPorTitulo(String titulo) {
+        return cintaDAO.buscarPorTitulo(titulo).orElse(null);
+    }
+
 }

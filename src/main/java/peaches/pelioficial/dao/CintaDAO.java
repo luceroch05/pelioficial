@@ -228,4 +228,24 @@ public class CintaDAO implements Dao<Cinta>{
         }
         return cintas;
     }
+    
+    public Optional<Cinta> buscarPorTitulo(String titulo) {
+        Optional<Cinta> cinta = Optional.empty();
+        String sql = "SELECT * FROM cintas WHERE titulo = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, titulo);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                cinta = Optional.of(new Cinta(
+                    resultSet.getInt("cinta_id"),
+                    resultSet.getInt("pelicula_id"),
+                    resultSet.getString("estado")
+                )); // Asegúrate de que los parámetros coincidan con el constructor de tu clase Cinta
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cinta;
+    }
+
 }

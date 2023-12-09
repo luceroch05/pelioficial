@@ -28,7 +28,19 @@ public class PrestamoService {
         return prestamoDAO.obtenerTodosLosPrestamos();
     }
     
-    public boolean agregarPrestamo(Prestamo prestamo) {
+    public boolean insertarPrestamo(Prestamo prestamo) {
         return prestamoDAO.insertarPrestamo(prestamo);
+    }
+    
+    public boolean actualizarPrestamo(Prestamo prestamo) {
+        return prestamoDAO.actualizarPrestamo(prestamo);
+    }
+    
+    public Prestamo obtenerPorId(int id){
+        return prestamoDAO.obtenerPorId(id);
+    }
+    
+    public boolean eliminarPrestamo(int prestamoId){
+        return prestamoDAO.eliminarPrestamo(prestamoId);
     }
 }

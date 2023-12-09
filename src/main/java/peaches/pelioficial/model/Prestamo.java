@@ -12,25 +12,27 @@ import java.time.LocalDate;
  */
 public class Prestamo {
     private int prestamoId;
-    private Socio socio;
-    private Cinta cinta;
+    private int socioId; // ID del socio
+    private int cintaId; // ID de la cinta
     private LocalDate fechaPrestamo;
     private LocalDate fechaDevolucion;
-    private String nombreSocio;
-    private String tituloPelicula;
-    private String estadoCinta;
+    private String nombreSocio; // Nombre del socio
+    private String tituloPelicula; // Título de la película
+    private String estadoCinta; // Estado de la cinta
+
 
     public Prestamo() {
-        this.socio = new Socio();
-        this.cinta = new Cinta();
     }
-
-    public Prestamo(int prestamoId, Socio socio, Cinta cinta, LocalDate fechaPrestamo, LocalDate fechaDevolucion) {
+    
+    public Prestamo(int prestamoId, int socioId, int cintaId, LocalDate fechaPrestamo, LocalDate fechaDevolucion, String nombreSocio, String tituloPelicula, String estadoCinta) {
         this.prestamoId = prestamoId;
-        this.socio = socio;
-        this.cinta = cinta;
+        this.socioId = socioId;
+        this.cintaId = cintaId;
         this.fechaPrestamo = fechaPrestamo;
         this.fechaDevolucion = fechaDevolucion;
+        this.nombreSocio = nombreSocio;
+        this.tituloPelicula = tituloPelicula;
+        this.estadoCinta = estadoCinta;
     }
     
     public int getPrestamoId() {
@@ -41,20 +43,20 @@ public class Prestamo {
         this.prestamoId = prestamoId;
     }
 
-    public Socio getSocio() {
-        return socio;
+    public int getSocioId() {
+        return socioId;
     }
 
-    public void setSocio(Socio socio) {
-        this.socio = socio;
+    public void setSocioId(int socioId) {
+        this.socioId = socioId;
     }
 
-    public Cinta getCinta() {
-        return cinta;
+    public int getCintaId() {
+        return cintaId;
     }
 
-    public void setCinta(Cinta cinta) {
-        this.cinta = cinta;
+    public void setCintaId(int cintaId) {
+        this.cintaId = cintaId;
     }
 
     public LocalDate getFechaPrestamo() {
@@ -72,25 +74,25 @@ public class Prestamo {
     public void setFechaDevolucion(LocalDate fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
     }
-    
+
     public String getNombreSocio() {
-        return socio.getNombre();
+        return nombreSocio;
     }
 
-    public String getTituloPelicula() {
-        return cinta.getTituloPelicula();
-    }
-
-    public String getEstadoCinta() {
-        return cinta.getEstado();
-    }
-    
     public void setNombreSocio(String nombreSocio) {
         this.nombreSocio = nombreSocio;
     }
 
+    public String getTituloPelicula() {
+        return tituloPelicula;
+    }
+
     public void setTituloPelicula(String tituloPelicula) {
         this.tituloPelicula = tituloPelicula;
+    }
+
+    public String getEstadoCinta() {
+        return estadoCinta;
     }
 
     public void setEstadoCinta(String estadoCinta) {

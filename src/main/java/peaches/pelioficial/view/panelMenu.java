@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 //import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -66,6 +67,7 @@ public class panelMenu extends javax.swing.JPanel {
         private List<Director> listaDirectores = directorService.obtenerTodosLosDirectores();
         private List<Actor> listaActores = actorService.obtenerTodosLosActores();
         private List<Genero> listaGeneros = peliculaService.obtenerTodosLosGeneros();
+        private Prestamo prestamoSeleccionado;
         
     /**
      * Creates new form panelMenu
@@ -419,14 +421,20 @@ public class panelMenu extends javax.swing.JPanel {
         for (Prestamo prestamo : prestamos) {
             modelo.addRow(new Object[]{
                 prestamo.getPrestamoId(),
-                prestamo.getNombreSocio(), // Este método obtiene el nombre del socio, asumiendo que tienes un objeto Socio asociado
-                prestamo.getTituloPelicula(), // Este método obtiene el título de la película, asumiendo que tienes un objeto Pelicula asociado
-                prestamo.getFechaPrestamo().toString(), // Asumiendo que es un objeto LocalDate o similar
-                prestamo.getFechaDevolucion() != null ? prestamo.getFechaDevolucion().toString() : "N/A", // Comprueba si hay fecha de devolución antes de llamar a toString()
-                prestamo.getEstadoCinta() // Este método obtiene el estado de la cinta
+                prestamo.getNombreSocio(),
+                prestamo.getTituloPelicula(),
+                prestamo.getFechaPrestamo().toString(),
+                prestamo.getFechaDevolucion() != null ? prestamo.getFechaDevolucion().toString() : "N/A",
+                prestamo.getEstadoCinta()
             });
         }
     }
+    
+    public void limpiarSeleccionPrestamo() {
+        lblSocioSeleccionadoPrestamo.setText("");
+        lblCintaSeleccionadaPrestamo.setText("");
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -494,11 +502,12 @@ public class panelMenu extends javax.swing.JPanel {
         jLabel27 = new javax.swing.JLabel();
         pickerFechaDevolucion = new com.toedter.calendar.JDateChooser();
         btnAgregarPrestamo = new javax.swing.JButton();
-        btnEditarPrestamo = new javax.swing.JButton();
         btnEliminarPrestamo = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         tablePrestamos = new javax.swing.JTable();
         txtBuscarPrestamo = new javax.swing.JTextField();
+        lblSocioSeleccionadoPrestamo = new javax.swing.JLabel();
+        lblCintaSeleccionadaPrestamo = new javax.swing.JLabel();
         pDevoluciones = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -982,10 +991,12 @@ public class panelMenu extends javax.swing.JPanel {
         });
         pPrestamos.add(btnAgregarPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
 
-        btnEditarPrestamo.setText("Editar");
-        pPrestamos.add(btnEditarPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 80, -1, -1));
-
         btnEliminarPrestamo.setText("Eliminar");
+        btnEliminarPrestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarPrestamoActionPerformed(evt);
+            }
+        });
         pPrestamos.add(btnEliminarPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, -1, -1));
 
         tablePrestamos.setModel(new javax.swing.table.DefaultTableModel(
@@ -1012,18 +1023,6 @@ public class panelMenu extends javax.swing.JPanel {
         pPrestamos.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 630, 220));
 
         txtBuscarPrestamo.getDocument().addDocumentListener(new DocumentListener() {
-            public void buscarPrestamo() {
-                String textoBusqueda = txtBuscarPrestamo.getText().trim();
-                if (textoBusqueda.length() > 0) {
-                    // Este método debe ser implementado para buscar en la base de datos
-                    // y actualizar el modelo de la tabla con los resultados.
-                    actualizarTablaPrestamosConBusqueda(textoBusqueda);
-                } else {
-                    // Este método debe ser implementado para restablecer la vista
-                    // y mostrar todos los préstamos.
-                    actualizarTablaPrestamos();
-                }
-            }
 
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -1039,8 +1038,23 @@ public class panelMenu extends javax.swing.JPanel {
             public void changedUpdate(DocumentEvent e) {
                 buscarPrestamo();
             }
+
+            public void buscarPrestamo() {
+                String textoBusqueda = txtBuscarPrestamo.getText().trim();
+                if (textoBusqueda.length() > 0) {
+                    // Este método debe ser implementado para buscar en la base de datos
+                    // y actualizar el modelo de la tabla con los resultados.
+                    actualizarTablaPrestamosConBusqueda(textoBusqueda);
+                } else {
+                    // Este método debe ser implementado para restablecer la vista
+                    // y mostrar todos los préstamos.
+                    actualizarTablaPrestamos();
+                }
+            }
         });
         pPrestamos.add(txtBuscarPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 220, -1));
+        pPrestamos.add(lblSocioSeleccionadoPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 130, 20));
+        pPrestamos.add(lblCintaSeleccionadaPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 130, 20));
 
         tabbedPane.addTab("tab2", pPrestamos);
 
@@ -2044,24 +2058,24 @@ validacionTexto(evt);        // TODO add your handling code here:
     }//GEN-LAST:event_btnPrestamosActionPerformed
 
     private void btnAgregarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPrestamoActionPerformed
-        // Suponiendo que ya tienes los métodos para obtener Socio y Cinta por ID
-        Socio socio = socioService.obtenerSocioId(Integer.parseInt(txtIdSocio.getText()));
-        Cinta cinta = cintaService.obtenerCintaPorId(Integer.parseInt(txtIdCinta.getText()));
+        int socioId = Integer.parseInt(txtIdSocio.getText());
+        int cintaId = Integer.parseInt(txtIdCinta.getText());
         LocalDate fechaPrestamo = pickerFechaPrestamo.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate fechaDevolucion = pickerFechaDevolucion.getDate() != null ?
             pickerFechaDevolucion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null;
 
         Prestamo nuevoPrestamo = new Prestamo();
-        nuevoPrestamo.setSocio(socio);
-        nuevoPrestamo.setCinta(cinta);
+        nuevoPrestamo.setSocioId(socioId);
+        nuevoPrestamo.setCintaId(cintaId);
         nuevoPrestamo.setFechaPrestamo(fechaPrestamo);
         nuevoPrestamo.setFechaDevolucion(fechaDevolucion);
 
-        boolean exito = prestamoService.agregarPrestamo(nuevoPrestamo);
+        boolean exito = prestamoService.insertarPrestamo(nuevoPrestamo);
 
         if (exito) {
             JOptionPane.showMessageDialog(this, "Préstamo agregado exitosamente.");
-            actualizarTablaPrestamos();
+            actualizarTablaPrestamos(); // Asumiendo que este método actualiza la tabla en la interfaz de usuario
+            limpiarSeleccionPrestamo();
         } else {
             JOptionPane.showMessageDialog(this, "Error al agregar el préstamo.");
         }
@@ -2094,13 +2108,20 @@ validacionTexto(evt);        // TODO add your handling code here:
             int filaSeleccionada = tablaCintas.getSelectedRow();
             if (filaSeleccionada >= 0) {
                 int cintaId = (int) modeloTablaCintas.getValueAt(filaSeleccionada, 0);
-                // Aquí podrías establecer el ID de la cinta en un campo de texto en tu panel de préstamos
+                String tituloCinta = (String) modeloTablaCintas.getValueAt(filaSeleccionada, 1);
+                // Establecer el ID de la cinta en el campo de texto en tu panel de préstamos
                 txtIdCinta.setText(String.valueOf(cintaId));
+                // Actualizar el label con el título de la cinta seleccionada
+                lblCintaSeleccionadaPrestamo.setText(tituloCinta);
+                lblCintaSeleccionadaPrestamo.setVisible(true); // Asegúrate de que el label sea visible si estaba oculto
                 buscarCintaDialog.dispose();
             }
         });
         JButton btnCancelar = new JButton("Cancelar");
-        btnCancelar.addActionListener(e -> buscarCintaDialog.dispose());
+        btnCancelar.addActionListener(e -> {
+            buscarCintaDialog.dispose();
+            lblCintaSeleccionadaPrestamo.setText("");
+        });
 
         botonPanel.add(btnSeleccionar);
         botonPanel.add(btnCancelar);
@@ -2143,13 +2164,19 @@ validacionTexto(evt);        // TODO add your handling code here:
             int filaSeleccionada = tablaSocios.getSelectedRow();
             if (filaSeleccionada >= 0) {
                 int socioId = (int) modeloTablaSocios.getValueAt(filaSeleccionada, 0);
-                // Aquí podrías establecer el ID del socio en un campo de texto en tu panel de préstamos
+                String nombreSocio = (String) modeloTablaSocios.getValueAt(filaSeleccionada, 1);
+                // Establecer el ID del socio en el campo de texto en tu panel de préstamos
                 txtIdSocio.setText(String.valueOf(socioId));
+                // Actualizar el label con el nombre del socio seleccionado
+                lblSocioSeleccionadoPrestamo.setText(nombreSocio);
                 buscarSocioDialog.dispose();
             }
         });
         JButton btnCancelar = new JButton("Cancelar");
-        btnCancelar.addActionListener(e -> buscarSocioDialog.dispose());
+        btnCancelar.addActionListener(e -> {
+            buscarSocioDialog.dispose();
+            lblSocioSeleccionadoPrestamo.setText("");
+        });
 
         botonPanel.add(btnSeleccionar);
         botonPanel.add(btnCancelar);
@@ -2160,6 +2187,40 @@ validacionTexto(evt);        // TODO add your handling code here:
         buscarSocioDialog.setLocationRelativeTo(null);
         buscarSocioDialog.setVisible(true);
     }//GEN-LAST:event_btnBuscarSocioActionPerformed
+
+    private void btnEliminarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPrestamoActionPerformed
+        int selectedRow = tablePrestamos.getSelectedRow();
+        if (selectedRow >= 0) {
+            // Confirmar la eliminación
+            int confirm = JOptionPane.showConfirmDialog(
+                    null,
+                    "¿Está seguro que desea eliminar el préstamo seleccionado?",
+                    "Eliminar Préstamo",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                try {
+                    int prestamoId = Integer.parseInt(tablePrestamos.getValueAt(selectedRow, 0).toString());
+                    // Llamada al método del servicio que realiza la eliminación
+                    boolean exito = prestamoService.eliminarPrestamo(prestamoId);
+
+                    if (exito) {
+                        // Eliminar la fila de la tabla de la interfaz gráfica
+                        ((DefaultTableModel) tablePrestamos.getModel()).removeRow(selectedRow);
+
+                        JOptionPane.showMessageDialog(null, "Préstamo eliminado correctamente.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al eliminar el préstamo.");
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Error al eliminar el préstamo: " + ex.getMessage());
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un préstamo para eliminar.");
+        }
+    }//GEN-LAST:event_btnEliminarPrestamoActionPerformed
     void validacionTexto(java.awt.event.KeyEvent evt){
         char c = evt.getKeyChar();
 
@@ -2204,7 +2265,6 @@ validacionTexto(evt);        // TODO add your handling code here:
     private javax.swing.JButton btnEditarCinta;
     private javax.swing.JButton btnEditarDirector;
     private javax.swing.JButton btnEditarPelicula;
-    private javax.swing.JButton btnEditarPrestamo;
     private javax.swing.JButton btnEditarSocio;
     private javax.swing.JButton btnEliminarActor;
     private javax.swing.JButton btnEliminarCinta;
@@ -2267,8 +2327,10 @@ validacionTexto(evt);        // TODO add your handling code here:
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblActoresSeleccionados;
+    private javax.swing.JLabel lblCintaSeleccionadaPrestamo;
     private javax.swing.JLabel lblDirectoresSeleccionados;
     private javax.swing.JLabel lblGenerosSeleccionados;
+    private javax.swing.JLabel lblSocioSeleccionadoPrestamo;
     private javax.swing.JPanel pActores;
     private javax.swing.JPanel pCintas;
     private javax.swing.JPanel pDevoluciones;
