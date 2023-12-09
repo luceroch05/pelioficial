@@ -68,6 +68,7 @@ public class panelMenu extends javax.swing.JPanel {
         private List<Actor> listaActores = actorService.obtenerTodosLosActores();
         private List<Genero> listaGeneros = peliculaService.obtenerTodosLosGeneros();
         private Prestamo prestamoSeleccionado;
+        private List<Genero> generosSeleccionadosPeliculas = new ArrayList<>();
         
     /**
      * Creates new form panelMenu
@@ -434,7 +435,18 @@ public class panelMenu extends javax.swing.JPanel {
         lblSocioSeleccionadoPrestamo.setText("");
         lblCintaSeleccionadaPrestamo.setText("");
     }
-
+    
+    private void actualizarUIConGenerosSeleccionadosPeliculas() {
+        lblGenerosSeleccionadosPeliculas.setText(generosSeleccionadosPeliculas.size() + " Géneros seleccionados");
+    }
+    
+    private void limpiarFormularioPelicula() {
+        txtTituloPelicula.setText("");
+        cboDirectoresPelicula.setSelectedIndex(0);
+        generosSeleccionadosPeliculas.clear();
+        actualizarUIConGenerosSeleccionadosPeliculas();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -549,6 +561,7 @@ public class panelMenu extends javax.swing.JPanel {
         btnEditarPelicula = new javax.swing.JButton();
         btnEliminarPelicula = new javax.swing.JButton();
         txtBuscarPelicula = new javax.swing.JTextField();
+        lblGenerosSeleccionadosPeliculas = new javax.swing.JLabel();
         pCintas = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         txtIdCinta = new javax.swing.JTextField();
@@ -1418,6 +1431,7 @@ public class panelMenu extends javax.swing.JPanel {
             }
         });
         pPeliculas.add(txtBuscarPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 260, -1));
+        pPeliculas.add(lblGenerosSeleccionadosPeliculas, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, -1, -1));
 
         tabbedPane.addTab("tab6", pPeliculas);
 
@@ -1820,31 +1834,51 @@ validacionTexto(evt);        // TODO add your handling code here:
     }//GEN-LAST:event_btnPeliculasMouseClicked
 
     private void btnAbrirListaGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirListaGenerosActionPerformed
-        
+    List<Genero> todosLosGeneros = peliculaService.obtenerTodosLosGeneros(); // Asumiendo que tienes un servicio que hace esto
+    SeleccionElementosDialog<Genero> seleccionGenerosDialog = new SeleccionElementosDialog<>(
+            this.framePrincipal, // El JFrame padre, 'this' si tu clase extiende de JFrame
+            true, // Si el diálogo es modal
+            todosLosGeneros, // La lista completa de géneros disponibles
+            new HashSet<>(generosSeleccionadosPeliculas), // Los géneros actualmente seleccionados para películas
+            Genero::getNombre, // La función que define cómo convertir un Género en un String
+            seleccion -> { // Lo que sucede cuando confirmas la selección en el diálogo
+                generosSeleccionadosPeliculas.clear();
+                generosSeleccionadosPeliculas.addAll(seleccion);
+                actualizarUIConGenerosSeleccionadosPeliculas(); // Método para actualizar tu UI con los géneros seleccionados para películas
+            }
+    );
+    seleccionGenerosDialog.setVisible(true);
     }//GEN-LAST:event_btnAbrirListaGenerosActionPerformed
 
     private void btnAgregarPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPeliculaActionPerformed
-//        String titulo = txtTituloPelicula.getText();
-//        Director director = (Director) cboDirectoresPelicula.getSelectedItem();
-////        List<Genero> generosSeleccionados = this.generosSeleccionados;
-//        
-//        if(titulo.isEmpty() || director == null || generosSeleccionados == null || generosSeleccionados.isEmpty()){
-//            JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos requeridos.", "Error", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
-//                
-//        Pelicula nuevaPelicula = new Pelicula();
-//        nuevaPelicula.setTitulo(titulo);
-//        nuevaPelicula.setDirector(director);
-//        
-//       int peliculaId = peliculaService.agregarPeliculaConGeneros(nuevaPelicula, generosSeleccionados);
-//       if(peliculaId > 0){
-//           actualizarTablaPeliculas();
-//           limpiarCamposPelicula();
-//       }else{
-//           JOptionPane.showMessageDialog(this, "Error al agregar la pelicula.", "Error", JOptionPane.ERROR_MESSAGE);
-//       }
-//           
+        String titulo = txtTituloPelicula.getText().trim();
+        Director director = (Director) cboDirectoresPelicula.getSelectedItem();
+
+        if(titulo.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El título de la película no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if(director == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un director.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if(generosSeleccionadosPeliculas.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione al menos un género.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Pelicula nuevaPelicula = new Pelicula();
+        nuevaPelicula.setTitulo(titulo);
+        nuevaPelicula.setDirector(director);
+        int peliculaId = peliculaService.agregarPeliculaConGeneros(nuevaPelicula, generosSeleccionadosPeliculas);
+
+        if(peliculaId > 0) {
+            JOptionPane.showMessageDialog(this, "Película agregada correctamente.");
+            actualizarTablaPeliculas(); // Debes implementar este método para actualizar la tabla de películas
+            limpiarFormularioPelicula(); // Debes implementar este método para limpiar el formulario después de agregar
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al agregar la película.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnAgregarPeliculaActionPerformed
 
     private void btnEliminarPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPeliculaActionPerformed
@@ -1869,27 +1903,35 @@ validacionTexto(evt);        // TODO add your handling code here:
     }//GEN-LAST:event_tablePeliculasMouseClicked
 
     private void btnEditarPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPeliculaActionPerformed
-//        if(txtIdPelicula.getText().isEmpty()){
-//            JOptionPane.showMessageDialog(panelMenu.this, "Por favor, selecciona una pelicula para editar.", "Error", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
-//        
-//        int peliculaId = Integer.parseInt(txtIdPelicula.getText());
-//        Pelicula peliculaEditada = new Pelicula();
-//        peliculaEditada.setPeliculaId(peliculaId);
-//        peliculaEditada.setTitulo(txtTituloPelicula.getText());
-//        peliculaEditada.setDirector((Director) cboDirectoresPelicula.getSelectedItem());
-//        
-//        List<Genero> generosSeleccionados = this.generosSeleccionados;
-//        
-//        boolean exito = peliculaService.editarPeliculaConGeneros(peliculaEditada, generosSeleccionados);
-//        
-//        if(exito){
-//            actualizarTablaPeliculas();
-//            limpiarCamposPelicula();
-//        }else{
-//            JOptionPane.showMessageDialog(panelMenu.this , "Hubo un error al editar la pelicula.", "Error", JOptionPane.ERROR_MESSAGE);
-//        }
+        // Validar que se haya seleccionado una película
+        if(txtIdPelicula.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona una película para editar.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Obtener la información de la película del formulario
+        int peliculaId = Integer.parseInt(txtIdPelicula.getText());
+        String titulo = txtTituloPelicula.getText();
+        Director director = (Director) cboDirectoresPelicula.getSelectedItem();
+        List<Genero> generosSeleccionadosParaEditar = new ArrayList<>(generosSeleccionadosPeliculas);
+
+        // Crear una instancia de Pelicula con los datos actuales
+        Pelicula peliculaEditada = new Pelicula();
+        peliculaEditada.setPeliculaId(peliculaId);
+        peliculaEditada.setTitulo(titulo);
+        peliculaEditada.setDirector(director);
+
+        // Llamar al servicio para actualizar la película con los nuevos géneros
+        boolean exito = peliculaService.editarPeliculaConGeneros(peliculaEditada, generosSeleccionadosParaEditar);
+
+        // Verificar el resultado de la operación y actualizar la UI en consecuencia
+        if(exito){
+            actualizarTablaPeliculas(); // Actualizar la tabla de películas con la información actualizada
+            limpiarFormularioPelicula(); // Limpiar el formulario para edición
+            JOptionPane.showMessageDialog(this, "Película actualizada correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(this, "Hubo un error al editar la película.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnEditarPeliculaActionPerformed
 
     private void btnDirectoresSociosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDirectoresSociosActionPerformed
@@ -2330,6 +2372,7 @@ validacionTexto(evt);        // TODO add your handling code here:
     private javax.swing.JLabel lblCintaSeleccionadaPrestamo;
     private javax.swing.JLabel lblDirectoresSeleccionados;
     private javax.swing.JLabel lblGenerosSeleccionados;
+    private javax.swing.JLabel lblGenerosSeleccionadosPeliculas;
     private javax.swing.JLabel lblSocioSeleccionadoPrestamo;
     private javax.swing.JPanel pActores;
     private javax.swing.JPanel pCintas;
